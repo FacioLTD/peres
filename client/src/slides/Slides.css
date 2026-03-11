@@ -602,6 +602,33 @@
   font-size: 12px;
 }
 
+.predictor-chart-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 170px;
+  gap: 10px;
+  align-items: start;
+}
+
+.predictor-chart-canvas {
+  min-width: 0;
+}
+
+.predictor-label-list {
+  height: 260px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding-top: 10px;
+  padding-bottom: 22px;
+}
+
+.predictor-label-item {
+  color: #d0d0d0;
+  font-size: 14px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
 .ml-cycle-wrap {
   position: relative;
   width: 700px;
@@ -1175,6 +1202,8 @@
   .ai-pipeline-node { min-width: 0; }
   .ai-pipeline-arrow { transform: rotate(90deg); }
   .clustering-bottom-row { grid-template-columns: 1fr; }
+  .predictor-chart-layout { grid-template-columns: 1fr; }
+  .predictor-label-list { height: auto; padding: 0; gap: 6px; margin-top: 8px; }
   .ml-cycle-wrap { height: 320px; }
   .ml-cycle-node.n1 { top: 8px; right: 32%; }
   .ml-cycle-node.n2 { top: 88px; right: 8%; }

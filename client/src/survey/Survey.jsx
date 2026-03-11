@@ -2,30 +2,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Survey.css';
 
-const STRENGTH = [
-  { label: 'ממוצע עבר',    dots: 5 },
-  { label: 'שינה',          dots: 4 },
-  { label: 'נוכחות',        dots: 4 },
-  { label: 'מין',           dots: 3 },
-  { label: 'גיל',           dots: 3 },
-  { label: 'ביטחון עצמי',   dots: 3 },
-  { label: 'שעות לימוד',    dots: 2 },
-  { label: 'שימוש ב-AI',    dots: -1 }, // -1 = unknown
-];
-
-function Dots({ n }) {
-  if (n === -1) return (
-    <div className="dots">
-      {[0,1,2,3,4].map(i => <span key={i} className="dot unknown" />)}
-    </div>
-  );
-  return (
-    <div className="dots">
-      {[0,1,2,3,4].map(i => <span key={i} className={`dot ${i < n ? 'filled' : ''}`} />)}
-    </div>
-  );
-}
-
 function Options({ options, value, onChange }) {
   return (
     <div className="options">
@@ -245,26 +221,6 @@ export default function Survey() {
             {submitting ? 'שולח...' : 'שלח ✓'}
           </button>
         </div>
-
-        {/* Sidebar */}
-        <aside className="survey-right">
-          <div className="sidebar-card">
-            <div className="sidebar-title mono">עוצמת מנבאים</div>
-            {STRENGTH.map(({ label, dots }) => (
-              <div key={label} className="strength-row">
-                <span>{label}</span>
-                <Dots n={dots} />
-              </div>
-            ))}
-          </div>
-
-          <div className="sidebar-card" style={{ marginTop: 16 }}>
-            <div className="sidebar-title mono">מה זה features?</div>
-            <p className="sidebar-text">
-              כל שאלה בסקר היא <strong>feature</strong> — משתנה שמתאר אותך. הציון הצפוי הוא ה-<strong style={{ color: 'var(--accent)' }}>target</strong>.
-            </p>
-          </div>
-        </aside>
       </div>
     </div>
   );

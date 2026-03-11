@@ -47,18 +47,13 @@
 
 /* Body layout */
 .survey-body {
-  display: flex;
-  gap: 64px;
+  display: block;
   padding: 48px 60px;
-  align-items: flex-start;
 }
 
-.survey-left { flex: 1; max-width: 580px; }
-
-.survey-right {
-  width: 260px;
-  position: sticky;
-  top: 40px;
+.survey-left {
+  width: 100%;
+  max-width: 980px;
 }
 
 /* Intro */
@@ -189,53 +184,8 @@
 
 .submit-btn:disabled { opacity: 0.35; cursor: not-allowed; }
 
-/* Sidebar */
-.sidebar-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 22px;
-}
-
-.sidebar-title {
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  color: var(--dim);
-  margin-bottom: 16px;
-}
-
-.strength-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 7px 0;
-  border-bottom: 1px solid var(--border);
-  font-size: 12px;
-}
-
-.strength-row:last-child { border-bottom: none; }
-
-.dots { display: flex; gap: 4px; }
-
-.dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--border);
-}
-
-.dot.filled  { background: var(--accent); }
-.dot.unknown { background: var(--orange); }
-
-.sidebar-text {
-  font-size: 13px;
-  color: var(--dim);
-  line-height: 1.7;
-}
-
 @media (max-width: 860px) {
-  .survey-body { flex-direction: column; padding: 24px; }
-  .survey-right { width: 100%; position: static; }
+  .survey-body { padding: 24px; }
+  .survey-left { max-width: none; }
   .s-header { padding: 24px; flex-wrap: wrap; }
 }

@@ -960,11 +960,6 @@ function Slide7({ slideNum }) {
     { name: 'שעות לימוד',    value: 35 },
     { name: 'שימוש ב-AI',    value: 0 },
   ];
-  const PredictorTick = ({ x, y, payload }) => (
-    <text x={x - 10} y={y + 4} textAnchor="end" fill="#d0d0d0" fontSize="14">
-      {payload.value}
-    </text>
-  );
 
   return (
     <div className="slide fade-up">
@@ -974,35 +969,35 @@ function Slide7({ slideNum }) {
 
       <div className="chart-wrap">
         <div className="chart-title mono">עוצמת מנבאים — לפי מחקר אקדמי</div>
-        <ResponsiveContainer width="100%" height={260}>
-          <BarChart data={predictors} layout="vertical" margin={{ top:8, right:36, bottom:8, left:190 }}>
-            <CartesianGrid stroke={GRID_COLOR} horizontal={false} />
-            <XAxis type="number" domain={[0,100]}
-              tick={{ fill: AXIS_COLOR, fontSize:10, fontFamily:'Space Mono' }} />
-            <YAxis
-              type="category"
-              dataKey="name"
-              orientation="left"
-              width={170}
-              tickMargin={10}
-              tickSize={0}
-              interval={0}
-              tick={<PredictorTick />}
-            />
-            <Tooltip
-              contentStyle={{ background:'var(--card)', border:'1px solid var(--border)', borderRadius:4 }}
-              itemStyle={{ color: ACCENT }}
-              formatter={v => [v === 0 ? '❓ לא ידוע' : `${v}/100`, 'עוצמה']}
-            />
-            <Bar dataKey="value" radius={[0,4,4,0]}>
-              {predictors.map((p, i) => (
-                <Cell key={i}
-                  fill={p.value === 0 ? ORANGE : p.value >= 70 ? ACCENT : DIM_BAR}
+        <div className="predictor-chart-layout">
+          <div className="predictor-chart-canvas">
+            <ResponsiveContainer width="100%" height={260}>
+              <BarChart data={predictors} layout="vertical" margin={{ top:8, right:10, bottom:8, left:8 }}>
+                <CartesianGrid stroke={GRID_COLOR} horizontal={false} />
+                <XAxis type="number" domain={[0,100]}
+                  tick={{ fill: AXIS_COLOR, fontSize:10, fontFamily:'Space Mono' }} />
+                <YAxis type="category" dataKey="name" hide />
+                <Tooltip
+                  contentStyle={{ background:'var(--card)', border:'1px solid var(--border)', borderRadius:4 }}
+                  itemStyle={{ color: ACCENT }}
+                  formatter={v => [v === 0 ? '❓ לא ידוע' : `${v}/100`, 'עוצמה']}
                 />
-              ))}
-            </Bar>
-          </BarChart>
-        </ResponsiveContainer>
+                <Bar dataKey="value" radius={[0,4,4,0]}>
+                  {predictors.map((p, i) => (
+                    <Cell key={i}
+                      fill={p.value === 0 ? ORANGE : p.value >= 70 ? ACCENT : DIM_BAR}
+                    />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+          <div className="predictor-label-list">
+            {predictors.map((p) => (
+              <div key={p.name} className="predictor-label-item">{p.name}</div>
+            ))}
+          </div>
+        </div>
       </div>
 
       <Highlight color={ORANGE}>
