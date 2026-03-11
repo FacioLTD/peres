@@ -254,5 +254,6 @@ if (fs.existsSync(clientDistPath)) {
   });
 }
 
-const PORT = process.env.PORT || 3001;
-server.listen(PORT, () => console.log(`✓ Server running on http://localhost:${PORT}`));
+const PORT = Number(process.env.PORT) || 3001;
+const HOST = process.env.HOST || '0.0.0.0';
+server.listen(PORT, HOST, () => console.log(`✓ Server running on http://${HOST}:${PORT}`));
