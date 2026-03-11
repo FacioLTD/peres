@@ -1,0 +1,28 @@
+.global-nav {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 6px 14px;
+  z-index: 999;
+}
+
+.gnav-btn {
+  padding: 6px 16px;
+  border-radius: 100px;
+  border: none;
+  background: transparent;
+  color: var(--dim);
+  font-size: 13px;
+  text-decoration: none;
+  transition: all 0.14s;
+  display: inline-block;
+}
+
+.gnav-btn:hover  { color: var(--white); }
+.gnav-btn.active { background: var(--accent); color: var(--black); font-weight: 700; }
