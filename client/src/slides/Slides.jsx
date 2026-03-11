@@ -1253,6 +1253,27 @@ function ClassificationSlide({ stats, slideNum }) {
   const low = aggregatePoints(pointsWithBenchmark.filter(p => !p.engaged));
   const decisionBoundary = 7;
   const decisionBoundaryY = 85;
+  const renderCountBubble = (fill) => (props) => {
+    const count = props.payload?.count ?? 1;
+    const r = 4 + Math.min(count - 1, 6);
+    return (
+      <g>
+        <circle cx={props.cx} cy={props.cy} r={r} fill={fill} opacity={0.92} />
+        {count > 1 && (
+          <text
+            x={props.cx}
+            y={props.cy + 1}
+            textAnchor="middle"
+            fontSize="10"
+            fontWeight="700"
+            fill="#0a0a0a"
+          >
+            {count}
+          </text>
+        )}
+      </g>
+    );
+  };
 
   return (
     <div className="slide fade-up">
@@ -1333,19 +1354,13 @@ function ClassificationSlide({ stats, slideNum }) {
               data={engaged}
               fill="#4ade80"
               name="מעורב"
-              shape={(props) => {
-                const r = 4 + Math.min((props.payload?.count ?? 1) - 1, 6);
-                return <circle cx={props.cx} cy={props.cy} r={r} fill="#4ade80" opacity={0.92} />;
-              }}
+              shape={renderCountBubble('#4ade80')}
             />
             <Scatter
               data={low}
               fill="#ff5252"
               name="לא מעורב"
-              shape={(props) => {
-                const r = 4 + Math.min((props.payload?.count ?? 1) - 1, 6);
-                return <circle cx={props.cx} cy={props.cy} r={r} fill="#ff5252" opacity={0.92} />;
-              }}
+              shape={renderCountBubble('#ff5252')}
             />
           </ComposedChart>
         </ResponsiveContainer>
