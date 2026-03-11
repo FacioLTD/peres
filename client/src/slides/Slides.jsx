@@ -1237,8 +1237,20 @@ function ClassificationSlide({ stats, slideNum }) {
     ...p,
     attendancePct: p.attendance,
   }));
-  const engaged = pointsWithBenchmark.filter(p => p.engaged);
-  const low = pointsWithBenchmark.filter(p => !p.engaged);
+  const aggregatePoints = (arr) => {
+    const map = new Map();
+    arr.forEach((p) => {
+      const key = `${p.interest}|${p.attendancePct}`;
+      if (!map.has(key)) {
+        map.set(key, { ...p, count: 1 });
+      } else {
+        map.get(key).count += 1;
+      }
+    });
+    return [...map.values()];
+  };
+  const engaged = aggregatePoints(pointsWithBenchmark.filter(p => p.engaged));
+  const low = aggregatePoints(pointsWithBenchmark.filter(p => !p.engaged));
   const decisionBoundary = 7;
   const decisionBoundaryY = 85;
 
@@ -1276,11 +1288,17 @@ function ClassificationSlide({ stats, slideNum }) {
             />
             <Tooltip
               contentStyle={{ background:'var(--card)', border:'1px solid var(--border)', borderRadius:6 }}
-              formatter={(v, name) => {
-                if (name === 'attendancePct') return [`${v}%`, 'נוכחות'];
-                if (name === 'interest') return [v, 'עניין'];
-                if (name === 'aiUsage') return [v, 'שימוש ב-AI (פעמים בשבוע)'];
-                return [v, name];
+              content={({ active, payload }) => {
+                if (!active || !payload || !payload.length) return null;
+                const p = payload[0]?.payload;
+                if (!p) return null;
+                return (
+                  <div style={{ background:'var(--card)', border:'1px solid var(--border)', borderRadius:6, padding:'10px 14px', fontSize:12, fontFamily:'Space Mono', lineHeight:1.8 }}>
+                    <div style={{ color:'var(--dim)' }}>עניין: <span style={{ color:'var(--white)' }}>{p.interest}</span></div>
+                    <div style={{ color:'var(--dim)' }}>נוכחות מתוכננת: <span style={{ color:'var(--white)' }}>{p.attendancePct}%</span></div>
+                    <div style={{ color:'var(--dim)' }}>סטודנטים בנקודה: <span style={{ color:ACCENT }}>{p.count ?? 1}</span></div>
+                  </div>
+                );
               }}
             />
             <ReferenceLine
@@ -1311,8 +1329,24 @@ function ClassificationSlide({ stats, slideNum }) {
               stroke="#ff5252"
               strokeWidth={3}
             />
-            <Scatter data={engaged} fill="#4ade80" name="מעורב" />
-            <Scatter data={low} fill="#ff5252" name="לא מעורב" />
+            <Scatter
+              data={engaged}
+              fill="#4ade80"
+              name="מעורב"
+              shape={(props) => {
+                const r = 4 + Math.min((props.payload?.count ?? 1) - 1, 6);
+                return <circle cx={props.cx} cy={props.cy} r={r} fill="#4ade80" opacity={0.92} />;
+              }}
+            />
+            <Scatter
+              data={low}
+              fill="#ff5252"
+              name="לא מעורב"
+              shape={(props) => {
+                const r = 4 + Math.min((props.payload?.count ?? 1) - 1, 6);
+                return <circle cx={props.cx} cy={props.cy} r={r} fill="#ff5252" opacity={0.92} />;
+              }}
+            />
           </ComposedChart>
         </ResponsiveContainer>
         <div className="classification-boundary-caption mono">
@@ -1343,14 +1377,20 @@ function ClusteringSlide({ stats, slideNum }) {
   const { clusters, centroids } = kmeans(points, 3, 12);
   const colors = ['#4ade80', '#60a5fa', '#ff6b35'];
   const areaFills = ['rgba(74, 222, 128, 0.12)', 'rgba(96, 165, 250, 0.12)', 'rgba(255, 107, 53, 0.12)'];
-
-  const labelFromCentroid = (c) => {
-    if (!c) return 'Cluster';
-    if (c.x >= 4.5) return 'משתמשי AI כבדים';
-    if (c.x <= 2.5 && c.y >= 3.5) return 'לומדים מסורתיים';
-    return 'מעורבות נמוכה';
+  const labels = centroids.map((_, i) => `אשכול ${i + 1}`);
+  const aggregateClusterPoints = (cluster) => {
+    const map = new Map();
+    cluster.forEach((p) => {
+      const key = `${p.aiUsage}|${p.studyHours}`;
+      if (!map.has(key)) {
+        map.set(key, { ...p, count: 1 });
+      } else {
+        map.get(key).count += 1;
+      }
+    });
+    return [...map.values()];
   };
-  const labels = centroids.map(labelFromCentroid);
+  const clustersWithCount = clusters.map(aggregateClusterPoints);
   const clusterAreas = clusters.map((cluster, i) => {
     if (!cluster.length) return null;
     const xs = cluster.map((p) => p.aiUsage);
@@ -1403,10 +1443,30 @@ function ClusteringSlide({ stats, slideNum }) {
               contentStyle={{ background:'var(--card)', border:'1px solid var(--border)', borderRadius:6 }}
               labelStyle={{ color:'var(--white)', fontFamily:'Space Mono', fontSize:11 }}
               itemStyle={{ color: ACCENT, fontFamily:'Space Mono', fontSize:11 }}
-              formatter={(v, name) => [v, name === 'aiUsage' ? 'AI usage' : 'Study hours']}
+              content={({ active, payload }) => {
+                if (!active || !payload || !payload.length) return null;
+                const p = payload[0]?.payload;
+                if (!p) return null;
+                return (
+                  <div style={{ background:'var(--card)', border:'1px solid var(--border)', borderRadius:6, padding:'10px 14px', fontSize:12, fontFamily:'Space Mono', lineHeight:1.8 }}>
+                    <div style={{ color:'var(--dim)' }}>שימוש ב-AI: <span style={{ color:'var(--white)' }}>{p.aiUsage}</span></div>
+                    <div style={{ color:'var(--dim)' }}>שעות לימוד: <span style={{ color:'var(--white)' }}>{p.studyHours}</span></div>
+                    <div style={{ color:'var(--dim)' }}>סטודנטים בנקודה: <span style={{ color:ACCENT }}>{p.count ?? 1}</span></div>
+                  </div>
+                );
+              }}
             />
-            {clusters.map((cluster, i) => (
-              <Scatter key={`c-${i}`} data={cluster} fill={colors[i]} name={labels[i]} />
+            {clustersWithCount.map((cluster, i) => (
+              <Scatter
+                key={`c-${i}`}
+                data={cluster}
+                fill={colors[i]}
+                name={labels[i]}
+                shape={(props) => {
+                  const r = 4 + Math.min((props.payload?.count ?? 1) - 1, 6);
+                  return <circle cx={props.cx} cy={props.cy} r={r} fill={colors[i]} opacity={0.9} />;
+                }}
+              />
             ))}
             <Scatter
               data={centroids.map((c, i) => ({ aiUsage: c.x, studyHours: c.y, label: labels[i] }))}
@@ -1426,7 +1486,7 @@ function ClusteringSlide({ stats, slideNum }) {
       <div className="cluster-legend">
         {labels.map((label, i) => (
           <div key={label} className="cluster-pill" style={{ borderColor: colors[i], color: colors[i] }}>
-            קבוצה {i + 1} → {label}
+            {label}
           </div>
         ))}
       </div>

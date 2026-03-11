@@ -964,7 +964,7 @@
 }
 
 .ctl-start { right: -4px; }
-.ctl-end   { left: 10%; }
+.ctl-end   { left: 13%; top: -8px; }
 
 .ctl-endpoint-dot {
   width: 14px;
@@ -989,6 +989,7 @@
   font-size: 11px;
   color: #ff6b35;
   white-space: nowrap;
+  transform: translateX(-10px);
 }
 
 .ctl-track {
