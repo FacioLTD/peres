@@ -1462,11 +1462,13 @@ function ClusteringSlide({ stats, slideNum }) {
                 if (!active || !payload || !payload.length) return null;
                 const p = payload[0]?.payload;
                 if (!p) return null;
+                const isCenter = p.label && String(p.label).startsWith('אשכול');
                 return (
                   <div style={{ background:'var(--card)', border:'1px solid var(--border)', borderRadius:6, padding:'10px 14px', fontSize:12, fontFamily:'Space Mono', lineHeight:1.8 }}>
+                    {isCenter && <div style={{ color:ACCENT }}>Cluster center (mean)</div>}
                     <div style={{ color:'var(--dim)' }}>שימוש ב-AI: <span style={{ color:'var(--white)' }}>{p.aiUsage}</span></div>
                     <div style={{ color:'var(--dim)' }}>שעות לימוד: <span style={{ color:'var(--white)' }}>{p.studyHours}</span></div>
-                    <div style={{ color:'var(--dim)' }}>סטודנטים בנקודה: <span style={{ color:ACCENT }}>{p.count ?? 1}</span></div>
+                    {!isCenter && <div style={{ color:'var(--dim)' }}>סטודנטים בנקודה: <span style={{ color:ACCENT }}>{p.count ?? 1}</span></div>}
                   </div>
                 );
               }}
@@ -1490,7 +1492,7 @@ function ClusteringSlide({ stats, slideNum }) {
                 <g>
                   <circle cx={props.cx} cy={props.cy} r={8} fill="#0a0a0a" stroke={ACCENT} strokeWidth={2} />
                   <text x={props.cx} y={props.cy + 3} textAnchor="middle" fontSize="11" fill={ACCENT}>μ</text>
-                  <text x={props.cx + 12} y={props.cy - 10} fontSize="10" fill="#d4d4d4">מרכז הקבוצה</text>
+                  <text x={props.cx + 12} y={props.cy - 10} fontSize="10" fill="#d4d4d4">Cluster center (mean)</text>
                 </g>
               )}
             />
