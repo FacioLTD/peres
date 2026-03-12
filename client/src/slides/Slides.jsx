@@ -46,29 +46,33 @@ const SLIDE_LIST = [
   { id: 3,  title: 'עם מה תצאו' },
   { id: 4,  title: 'למה AI?' },
   { id: 5,  title: 'מבנה הקורס' },
-  { id: 6,  title: 'הרכב הציון' },
-  { id: 7,  title: 'הפרויקט' },
-  { id: 8,  title: 'מפת AI' },
-  { id: 9,  title: 'מהי אינטליגנציה?' },
-  { id: 10, title: 'מרכיבי אינטליגנציה' },
-  { id: 11, title: 'אז מה זה AI?' },
-  { id: 12, title: 'פתיחה — ניסוי' },
-  { id: 13, title: 'Dataset' },
-  { id: 14, title: 'Feature / Label' },
-  { id: 15, title: 'Target Variable' },
-  { id: 16, title: 'Mean & Variance' },
-  { id: 17, title: 'Scatter & Correlation' },
-  { id: 18, title: 'מנבאים' },
-  { id: 19, title: 'סטטיסטיקה vs ML' },
-  { id: 20, title: 'מהו מודל ML?' },
-  { id: 21, title: 'שלושה סוגי בעיות' },
-  { id: 22, title: 'Regression — גיל וציון' },
-  { id: 23, title: 'Classification — מעורבות' },
-  { id: 24, title: 'Clustering — סוגי סטודנטים' },
-  { id: 25, title: 'Machine Learning' },
-  { id: 26, title: 'מונחית מול בלתי מונחית' },
-  { id: 27, title: 'AI = Prediction' },
-  { id: 28, title: 'מעבר להרצאה 2' },
+  { id: 6,  title: 'עבודה סופית — מטרות' },
+  { id: 7,  title: 'שלבי עבודה ולו״ז' },
+  { id: 8,  title: 'דרישות הגשה' },
+  { id: 9,  title: 'מבנה העבודה (1–3)' },
+  { id: 10, title: 'מבנה העבודה (4–5)' },
+  { id: 11, title: 'בונוס ותמיכה' },
+  { id: 12, title: 'מפת AI' },
+  { id: 13, title: 'מהי אינטליגנציה?' },
+  { id: 14, title: 'מרכיבי אינטליגנציה' },
+  { id: 15, title: 'אז מה זה AI?' },
+  { id: 16, title: 'פתיחה — ניסוי' },
+  { id: 17, title: 'Dataset' },
+  { id: 18, title: 'Feature / Label' },
+  { id: 19, title: 'Target Variable' },
+  { id: 20, title: 'Mean & Variance' },
+  { id: 21, title: 'Scatter & Correlation' },
+  { id: 22, title: 'מנבאים' },
+  { id: 23, title: 'סטטיסטיקה vs ML' },
+  { id: 24, title: 'מהו מודל ML?' },
+  { id: 25, title: 'שלושה סוגי בעיות' },
+  { id: 26, title: 'Regression — גיל וציון' },
+  { id: 27, title: 'Classification — מעורבות' },
+  { id: 28, title: 'Clustering — סוגי סטודנטים' },
+  { id: 29, title: 'Machine Learning' },
+  { id: 30, title: 'מונחית מול בלתי מונחית' },
+  { id: 31, title: 'AI = Prediction' },
+  { id: 32, title: 'מעבר להרצאה 2' },
 ];
 
 // ── Small reusable components ─────────────────────────────────
@@ -410,34 +414,51 @@ function IntroSlide5({ slideNum }) {
 function IntroSlide6({ slideNum }) {
   return (
     <div className="slide fade-up">
-      <div className="slide-eyebrow mono">שקף {slideNum} — ציונים</div>
-      <h2>איך מורכב <em>הציון</em>.</h2>
-      <p className="slide-sub">שני רכיבים — עבודה אישית ופרויקט קבוצתי.</p>
-      <div className="grade-row">
-        <div className="grade-card">
-          <div className="grade-pct mono">40%</div>
-          <div className="grade-pct-label">עבודה אישית</div>
-          <div className="grade-detail">
-            עבודה אישית בנושא הפרויקט הקבוצתי
-            <ul>
-              <li>כל סטודנט מגיש פרק אישי</li>
-              <li>הפרק יהיה תיאורטי / מחקרי</li>
-              <li>הגשה באמצע הסמסטר</li>
+      <div className="slide-eyebrow mono">שקף {slideNum} — עבודה סופית</div>
+      <h2><em>AI in Business</em> — Final Project</h2>
+      <p className="slide-sub">מטרת העבודה היא לנתח כיצד טכנולוגיות AI יכולות להתמודד עם בעיה עסקית או ארגונית אמיתית בארגון קיים.</p>
+      <div className="card-grid cols3">
+        <ConceptCard en="Theory" he="הבנה תיאורטית"
+          def="הבנה של מושגים מרכזיים ב-AI מתוך הקורס." />
+        <ConceptCard en="Business" he="ניתוח עסקי"
+          def="ניתוח ארגון אמיתי, אתגרים ותהליכים משמעותיים." accent />
+        <ConceptCard en="Critical Thinking" he="בחינה ביקורתית"
+          def="הערכת התאמת טכנולוגיות AI לארגון, כולל מגבלות וסיכונים." />
+      </div>
+      <Highlight>העבודה משלבת בין <em>AI</em>, חשיבה עסקית, ויישום מעשי בארגון אמיתי.</Highlight>
+    </div>
+  );
+}
+
+function IntroSlide7({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">שקף {slideNum} — שלבים ולו״ז</div>
+      <h2>שלבי העבודה <em>ולוחות זמנים</em>.</h2>
+      <div className="project-steps">
+        <div className="project-step">
+          <div className="step-marker"><div className="step-num mono">01</div></div>
+          <div className="step-body">
+            <div className="step-title">שלב 1 – אישור הארגון</div>
+            <div className="step-desc">יש לבחור ארגון אמיתי לניתוח (חברה עסקית, סטארט-אפ, גוף ציבורי, עמותה או ארגון בינלאומי) מכל מדינה.</div>
+            <ul className="project-bullets">
+              <li>שם הארגון</li>
+              <li>תיאור קצר (2–3 משפטים)</li>
+              <li>הבעיה הארגונית שברצונכם לבחון</li>
             </ul>
-            <div className="grade-goal">מטרה: להבין לעומק נושא ב-AI</div>
+            <div className="step-date mono">📅 מועד אחרון: 29 באפריל 2026</div>
           </div>
         </div>
-        <div className="grade-card primary">
-          <div className="grade-pct mono">60%</div>
-          <div className="grade-pct-label">מצגת בקבוצה</div>
-          <div className="grade-detail">
-            עבודה קבוצתית הכוללת הצגה בכיתה
-            <ul>
-              <li>קבוצות של 4–5 סטודנטים</li>
-              <li>הצגת הנושא + הדגמה של כלי AI</li>
-              <li>יוצג בשני מפגשי הסיום</li>
+        <div className="project-step">
+          <div className="step-marker"><div className="step-num mono">02</div></div>
+          <div className="step-body">
+            <div className="step-title">שלב 2 – הגשת העבודה הסופית</div>
+            <div className="step-desc">העבודה תוגש כקובץ כתוב.</div>
+            <ul className="project-bullets">
+              <li>היקף מומלץ: 3,000–4,000 מילים</li>
+              <li>לפחות 5 מקורות אקדמיים או מקצועיים</li>
             </ul>
-            <div className="grade-goal">מטרה: ליישם AI בפועל</div>
+            <div className="step-date mono">📅 מועד הגשה: 1 ביולי 2026</div>
           </div>
         </div>
       </div>
@@ -445,31 +466,115 @@ function IntroSlide6({ slideNum }) {
   );
 }
 
-function IntroSlide7({ slideNum }) {
-  const steps = [
-    { num: '01', title: 'גיבוש פרויקט קבוצתי', desc: 'גיבוש קבוצה ובחירת ארגון אמיתי לניתוח.', date: 'עד 15 באפריל 2026' },
-    { num: '02', title: 'עבודה אישית', desc: 'כל סטודנט מגיש פרק אישי. הפרק יבחן היבט מסוים של AI בארגון שנבחר.', date: 'עד 29 באפריל 2026' },
-    { num: '03', title: 'פרויקט קבוצתי', desc: 'כיצד AI עשוי לשנות את הארגון שנבחר.', date: 'עד 27 במאי' },
-    { num: '04', title: 'מצגת בכיתה', desc: 'הצגת הפרויקט הקבוצתי בשני המפגשים האחרונים.', date: 'יוני 2026' },
-  ];
+function FinalProjectSlide8({ slideNum }) {
   return (
     <div className="slide fade-up">
-      <div className="slide-eyebrow mono">שקף {slideNum} — פרויקט</div>
-      <h2>איך ייראה <em>הפרויקט</em>.</h2>
-      <p className="slide-sub">ארבעה שלבים — מבחירת ארגון ועד הצגה בכיתה.</p>
-      <div className="project-steps">
-        {steps.map(s => (
-          <div key={s.num} className="project-step">
-            <div className="step-marker">
-              <div className="step-num mono">{s.num}</div>
-            </div>
-            <div className="step-body">
-              <div className="step-title">{s.title}</div>
-              <div className="step-desc">{s.desc}</div>
-              <div className="step-date mono">{s.date}</div>
-            </div>
+      <div className="slide-eyebrow mono">שקף {slideNum} — מבנה העבודה</div>
+      <h2>מבנה <em>העבודה</em>.</h2>
+      <p className="slide-sub">העבודה צריכה לכלול 5 חלקים. לכל חלק משקל נקודות מוגדר.</p>
+      <div className="stat-row">
+        <StatCard num="15" label="1. הצגת הארגון והבעיה העסקית" />
+        <StatCard num="25" label="2. סקירה תיאורטית של מודלים ב-AI" />
+        <StatCard num="25" label="3. סקירת כלים יישומיים והשפעתם" />
+        <StatCard num="20" label="4. סיכונים ומגבלות" />
+        <StatCard num="15" label="5. המלצות ליישום" />
+      </div>
+      <Highlight color={ORANGE}>סה״כ: <em>100 נקודות</em> (+ עד 10 נקודות בונוס אופציונלי לדמו).</Highlight>
+    </div>
+  );
+}
+
+function FinalProjectSlide9({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">שקף {slideNum} — סעיפים 1–3</div>
+      <h2>החלקים המרכזיים <em>(1–3)</em>.</h2>
+      <div className="card-grid cols3">
+        <ConceptCard en="1. Organization & Problem (15)" he="הצגת הארגון והבעיה העסקית"
+          def="תחום פעילות, מודל עסקי, והגדרת בעיה ברורה שניתן להתמודד איתה באמצעות AI." />
+        <ConceptCard en="2. AI Theory (25)" he="סקירה תיאורטית"
+          def="להציג ולהסביר 2–3 מושגים מהקורס וכיצד הם רלוונטיים לבעיה בארגון." accent />
+        <ConceptCard en="3. Practical Tools (25)" he="כלים יישומיים והשפעה"
+          def="לבחון כלים/מערכות AI בפועל וההשפעה שלהם על תהליכים עסקיים." />
+      </div>
+      <div className="chart-wrap">
+        <div className="chart-title mono">רובריקה מקוצרת — חלקים 1–3</div>
+        <table className="demo-table">
+          <thead><tr><th>חלק</th><th>מצוין</th><th>טוב</th><th>בסיסי</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>13–15 בעיה חדה ורלוונטית</td><td>10–12 תיאור טוב</td><td>0–9 בעיה כללית/לא ברורה</td></tr>
+            <tr><td>2</td><td>22–25 הסבר מדויק ומקושר</td><td>18–21 נכון אך פחות מעמיק</td><td>0–17 סקירה חלקית/לא ברורה</td></tr>
+            <tr><td>3</td><td>22–25 ניתוח מעשי ברור</td><td>18–21 סקירה טובה אך כללית</td><td>0–17 תיאור בסיסי/ללא ניתוח</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+function FinalProjectSlide10({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">שקף {slideNum} — סעיפים 4–5</div>
+      <h2>סיכונים, מגבלות ו<em>המלצות ליישום</em>.</h2>
+      <div className="card-grid cols2">
+        <ConceptCard en="4. Risks & Limits (20)" he="סיכונים ומגבלות"
+          def="לנתח עלויות, נתונים, מגבלות טכנולוגיות, רגולציה, הטיות, שינוי ארגוני והשפעה על עובדים." />
+        <ConceptCard en="5. Implementation Plan (15)" he="המלצות ליישום"
+          def="להציע שלבי יישום, תהליכים להתחלה, והערכת ערך עסקי צפוי לארגון." accent />
+      </div>
+      <div className="chart-wrap">
+        <div className="chart-title mono">רובריקה מקוצרת — חלקים 4–5</div>
+        <table className="demo-table">
+          <thead><tr><th>חלק</th><th>מצוין</th><th>טוב</th><th>בסיסי</th></tr></thead>
+          <tbody>
+            <tr><td>4</td><td>18–20 ניתוח ביקורתי ומעמיק</td><td>15–17 זיהוי סיכונים מרכזיים</td><td>0–14 ניתוח חלקי</td></tr>
+            <tr><td>5</td><td>13–15 המלצות ברורות ומעשיות</td><td>10–12 המלצות כלליות</td><td>0–9 המלצות לא מגובשות/חסרות</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+function FinalProjectSlide11({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">שקף {slideNum} — בונוס ותמיכה</div>
+      <h2>בונוס אופציונלי — <em>דמו חי</em>.</h2>
+      <p className="slide-sub">בשיעור ההשלמה (1 ביולי 2026) ניתן להציג דמו קצר (~3 דקות) הקשור לפרויקט.</p>
+      <div className="card-grid cols2">
+        <div className="concept-card accent">
+          <div className="concept-en mono">Bonus Demo (up to 10)</div>
+          <div className="concept-he">עד 10 נקודות בונוס</div>
+          <ul className="pillar-bullets" style={{ marginTop: 8 }}>
+            <li>צ׳אטבוט מבוסס LLM</li>
+            <li>כלי אוטומציה לתהליך עסקי</li>
+            <li>prototype קטן לפתרון הבעיה</li>
+          </ul>
+          <div className="grade-goal">הבונוס רק מעלה ציון — לא מוריד</div>
+        </div>
+        <div className="concept-card">
+          <div className="concept-en mono">Demo Support</div>
+          <div className="concept-he">תמיכה בפיתוח דמואים</div>
+          <div className="concept-def">
+            סטודנטים המעוניינים לבנות דמו יוכלו לקבל גישה לטוקן OpenAI API בחסות Facio.
+            הגישה תינתן בכמות שימוש מוגבלת המספיקה לפיתוח דמו.
           </div>
-        ))}
+          <div className="grade-goal">לפניות: יש לפנות למרצה</div>
+        </div>
+      </div>
+      <div className="chart-wrap">
+        <div className="chart-title mono">רובריקה לבונוס</div>
+        <table className="demo-table">
+          <thead><tr><th>נקודות</th><th>קריטריון</th></tr></thead>
+          <tbody>
+            <tr><td>8–10</td><td>דמו ברור ומרשים עם יישום ממשי</td></tr>
+            <tr><td>5–7</td><td>דמו עובד אך בסיסי</td></tr>
+            <tr><td>1–4</td><td>הדגמה חלקית</td></tr>
+            <tr><td>0</td><td>ללא דמו</td></tr>
+          </tbody>
+        </table>
       </div>
     </div>
   );
@@ -1681,7 +1786,7 @@ function Slide12({ slideNum }) {
 // ── Main Slides page ──────────────────────────────────────────
 const SLIDE_COMPONENTS = [
   IntroSlide1, IntroSlide2, IntroSlide3, IntroSlide4, IntroSlide5,
-  IntroSlide6, IntroSlide7,
+  IntroSlide6, IntroSlide7, FinalProjectSlide8, FinalProjectSlide9, FinalProjectSlide10, FinalProjectSlide11,
   AIMapSlide, IntelligenceSlide, IntelComponentsSlide,
   WhatIsAISlide,
   Slide1, Slide2, Slide3, Slide4, Slide5,

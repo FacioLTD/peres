@@ -1066,6 +1066,10 @@
   margin: 28px 0;
 }
 
+.grade-row.single {
+  grid-template-columns: 1fr;
+}
+
 .grade-card {
   background: var(--card);
   border: 1px solid var(--border);
@@ -1177,6 +1181,29 @@
   font-size: 13px;
   color: var(--dim);
   line-height: 1.65;
+}
+
+.project-bullets {
+  list-style: none;
+  margin: 8px 0 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.project-bullets li {
+  position: relative;
+  padding-right: 14px;
+  color: var(--dim);
+  font-size: 13px;
+}
+
+.project-bullets li::before {
+  content: '•';
+  position: absolute;
+  right: 0;
+  color: var(--accent);
 }
 
 .step-date {
