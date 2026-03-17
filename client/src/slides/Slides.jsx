@@ -65,7 +65,7 @@ const SLIDE_LIST = [
   { id: 22, title: 'מנבאים' },
   { id: 23, title: 'סטטיסטיקה vs ML' },
   { id: 24, title: 'מהו מודל ML?' },
-  { id: 25, title: 'שלושה סוגי בעיות' },
+  { id: 25, title: 'סוגי בעיות' },
   { id: 26, title: 'Regression — גיל וציון' },
   { id: 27, title: 'Classification — מעורבות' },
   { id: 28, title: 'Clustering — סוגי סטודנטים' },
@@ -73,6 +73,31 @@ const SLIDE_LIST = [
   { id: 30, title: 'מונחית מול בלתי מונחית' },
   { id: 31, title: 'AI = Prediction' },
   { id: 32, title: 'מעבר להרצאה 2' },
+  { id: 57, title: 'מבנה ההרצאה', navNum: '2.00' },
+  { id: 33, title: 'מסגרת החשיבה', navNum: '2.01' },
+  { id: 34, title: 'דוגמה 1: זיהוי סטודנטים בסיכון', navNum: '2.02' },
+  { id: 35, title: 'דוגמה 2: תכנון מלאי', navNum: '2.03' },
+  { id: 36, title: 'דוגמה 3: סגמנטציית לקוחות', navNum: '2.04' },
+  { id: 37, title: 'דוגמה 4: זיהוי הונאה בתביעות', navNum: '2.05' },
+  { id: 38, title: 'דוגמה 5: חיזוי נטישת לקוחות', navNum: '2.06' },
+  { id: 39, title: 'דוגמה 6: עומס בחדר מיון', navNum: '2.07' },
+  { id: 40, title: 'Machine Learning', navNum: '2.08' },
+  { id: 41, title: 'ניסוי יירוט', navNum: '2.09' },
+  { id: 42, title: 'היונים של פיקאסו', navNum: '2.10' },
+  { id: 43, title: 'המבוך של טולמן', navNum: '2.11' },
+  { id: 44, title: 'נוירון אניסטון', navNum: '2.12' },
+  { id: 45, title: 'מה קורה בתוך מחשב?', navNum: '2.13' },
+  { id: 46, title: 'הלב הפועם של הלמידה', navNum: '2.14' },
+  { id: 47, title: 'סינפסות וקשרים', navNum: '2.15' },
+  { id: 48, title: 'איך המודל לומד?', navNum: '2.16' },
+  { id: 49, title: 'אתם המודל: דוגמה 1', navNum: '2.17' },
+  { id: 50, title: 'אתם המודל: דוגמה 2', navNum: '2.18' },
+  { id: 51, title: 'אתם המודל: דוגמה 3', navNum: '2.19' },
+  { id: 52, title: 'אתם המודל: דוגמה 4', navNum: '2.20' },
+  { id: 53, title: 'אתם המודל: דוגמה 5', navNum: '2.21' },
+  { id: 54, title: 'אתם המודל: דוגמה 6', navNum: '2.22' },
+  { id: 55, title: 'סיכום התרגיל', navNum: '2.23' },
+  { id: 56, title: 'בפרק הבא', navNum: '2.24' },
 ];
 
 // ── Small reusable components ─────────────────────────────────
@@ -137,6 +162,67 @@ function linearRegression(points) {
   const ssRes = points.reduce((a, p) => a + (p.y - (slope * p.x + intercept)) ** 2, 0);
   const r2 = ssTot === 0 ? 0 : +(1 - ssRes / ssTot).toFixed(3);
   return { slope, intercept, r2 };
+}
+
+function solveLinearSystem(matrix, vector) {
+  const n = matrix.length;
+  const a = matrix.map((row) => [...row]);
+  const b = [...vector];
+
+  for (let i = 0; i < n; i += 1) {
+    let maxRow = i;
+    for (let r = i + 1; r < n; r += 1) {
+      if (Math.abs(a[r][i]) > Math.abs(a[maxRow][i])) maxRow = r;
+    }
+    if (Math.abs(a[maxRow][i]) < 1e-10) return null;
+
+    if (maxRow !== i) {
+      [a[i], a[maxRow]] = [a[maxRow], a[i]];
+      [b[i], b[maxRow]] = [b[maxRow], b[i]];
+    }
+
+    const pivot = a[i][i];
+    for (let j = i; j < n; j += 1) a[i][j] /= pivot;
+    b[i] /= pivot;
+
+    for (let r = 0; r < n; r += 1) {
+      if (r === i) continue;
+      const factor = a[r][i];
+      for (let j = i; j < n; j += 1) a[r][j] -= factor * a[i][j];
+      b[r] -= factor * b[i];
+    }
+  }
+
+  return b;
+}
+
+function polynomialRegression(points, degree = 2) {
+  const n = points.length;
+  if (n < degree + 1) return null;
+
+  const size = degree + 1;
+  const sums = Array(2 * degree + 1).fill(0);
+  for (let p = 0; p <= 2 * degree; p += 1) {
+    sums[p] = points.reduce((acc, point) => acc + point.x ** p, 0);
+  }
+
+  const matrix = Array.from({ length: size }, (_, i) =>
+    Array.from({ length: size }, (_, j) => sums[i + j])
+  );
+  const vector = Array.from({ length: size }, (_, i) =>
+    points.reduce((acc, point) => acc + point.y * (point.x ** i), 0)
+  );
+
+  const coeffs = solveLinearSystem(matrix, vector);
+  if (!coeffs) return null;
+
+  const predict = (x) => coeffs.reduce((acc, c, i) => acc + c * (x ** i), 0);
+  const meanY = points.reduce((acc, point) => acc + point.y, 0) / n;
+  const ssTot = points.reduce((acc, point) => acc + (point.y - meanY) ** 2, 0);
+  const ssRes = points.reduce((acc, point) => acc + (point.y - predict(point.x)) ** 2, 0);
+  const r2 = ssTot === 0 ? 0 : +(1 - ssRes / ssTot).toFixed(3);
+
+  return { degree, coeffs, predict, r2 };
 }
 
 function kmeans(points, k = 3, iterations = 10) {
@@ -1210,7 +1296,7 @@ function ProblemTypesSlide({ slideNum }) {
   return (
     <div className="slide fade-up">
       <div className="slide-eyebrow mono">שקף {slideNum} — סוגי בעיות</div>
-      <h2>שלושה סוגי בעיות שמודלים <em>פותרים</em></h2>
+      <h2>סוגי בעיות שמודלים <em>פותרים</em></h2>
       <div className="card-grid cols3">
         {blocks.map((block) => (
           <div key={block.title} className="concept-card">
@@ -1232,19 +1318,31 @@ function RegressionAgeSlide({ stats, slideNum }) {
   const points = stats.ageGradePoints ?? [];
   const [excluded, setExcluded] = useState(new Set());
   const [selected, setSelected] = useState(null);
+  const [modelType, setModelType] = useState('linear');
+  const [polyDegree, setPolyDegree] = useState(2);
   const activePoints = points.filter((_, i) => !excluded.has(i));
   const excludedPoints = points.filter((_, i) => excluded.has(i));
-  const reg = linearRegression(activePoints.map((p) => ({ x: p.age, y: p.grade })));
+  const regressionPoints = activePoints.map((p) => ({ x: p.age, y: p.grade }));
+  const linearModel = linearRegression(regressionPoints);
+  const nonLinearModel = polynomialRegression(regressionPoints, polyDegree);
+  const currentModel = modelType === 'nonLinear' ? nonLinearModel : linearModel;
+  const predictGrade = (age) => {
+    if (modelType === 'nonLinear') return nonLinearModel ? nonLinearModel.predict(age) : null;
+    return linearModel ? (linearModel.slope * age + linearModel.intercept) : null;
+  };
 
   let trendLine = [];
-  if (reg && activePoints.length > 1) {
+  if (currentModel && activePoints.length > 1) {
     const xs = activePoints.map(p => p.age);
     const xMin = Math.min(...xs) - 1;
     const xMax = Math.max(...xs) + 1;
-    trendLine = [
-      { age: xMin, grade: +(reg.slope * xMin + reg.intercept).toFixed(1) },
-      { age: xMax, grade: +(reg.slope * xMax + reg.intercept).toFixed(1) },
-    ];
+    const pointsOnCurve = modelType === 'nonLinear' ? (polyDegree === 3 ? 52 : 42) : 2;
+    trendLine = Array.from({ length: pointsOnCurve }, (_, idx) => {
+      const t = pointsOnCurve === 1 ? 0 : idx / (pointsOnCurve - 1);
+      const age = xMin + (xMax - xMin) * t;
+      const predicted = predictGrade(age);
+      return { age, grade: +(predicted?.toFixed(1) ?? 0) };
+    });
   }
 
   const handleDotClick = (data) => {
@@ -1267,9 +1365,49 @@ function RegressionAgeSlide({ stats, slideNum }) {
 
       <div className="chart-wrap">
         <div className="chart-title mono" style={{ display:'flex', justifyContent:'space-between', alignItems:'center', flexWrap:'wrap', gap:8 }}>
-          <span>
-            Scatter Plot — גיל מול ציון צפוי
-            {reg && <span style={{ marginRight:16, color:ORANGE }}> R² = {reg.r2}</span>}
+          <span className="regression-chart-meta">
+            <span className="regression-chart-topline">
+              <span>Scatter Plot — גיל מול ציון צפוי</span>
+              <span className="model-toggle-wrap">
+                <span className="model-toggle-label">Linear</span>
+                <button
+                  type="button"
+                  className={`model-toggle-switch ${modelType === 'nonLinear' ? 'active' : ''}`}
+                  onClick={() => setModelType(prev => (prev === 'linear' ? 'nonLinear' : 'linear'))}
+                  aria-label="Toggle linear and non-linear regression"
+                  title="Toggle regression model"
+                >
+                  <span className="model-toggle-knob" />
+                </button>
+                <span className="model-toggle-label">Non-linear</span>
+              </span>
+              {modelType === 'nonLinear' && (
+                <span className="poly-degree-wrap">
+                  <span className="model-toggle-label">Degree</span>
+                  <button
+                    type="button"
+                    className={`poly-degree-btn ${polyDegree === 2 ? 'active' : ''}`}
+                    onClick={() => setPolyDegree(2)}
+                  >
+                    2
+                  </button>
+                  <button
+                    type="button"
+                    className={`poly-degree-btn ${polyDegree === 3 ? 'active' : ''}`}
+                    onClick={() => setPolyDegree(3)}
+                  >
+                    3
+                  </button>
+                </span>
+              )}
+            </span>
+            {currentModel && (
+              <span className="regression-fit-metrics">
+                <span style={{ color:ORANGE }}>R² = {currentModel.r2}</span>
+                <span>Interpretability: {modelType === 'nonLinear' ? 'Lower' : 'High'}</span>
+                <span>Complexity: {modelType === 'nonLinear' ? 'Higher' : 'Low'}</span>
+              </span>
+            )}
           </span>
           <span style={{ display:'flex', gap:8, alignItems:'center' }}>
             {selected !== null && (
@@ -1292,12 +1430,25 @@ function RegressionAgeSlide({ stats, slideNum }) {
             <Tooltip
               cursor={{ strokeDasharray:'3 3' }}
               contentStyle={{ background:'var(--card)', border:'1px solid var(--border)', borderRadius:6 }}
-              formatter={(v, name) => [v, name === 'age' ? 'גיל' : 'ציון צפוי']}
+              content={({ active, payload }) => {
+                if (!active || !payload || !payload.length) return null;
+                const d = payload[0]?.payload;
+                if (!d || d.age == null) return null;
+                const predictedRaw = predictGrade(d.age);
+                const predicted = predictedRaw != null ? +predictedRaw.toFixed(1) : null;
+                return (
+                  <div style={{ background:'var(--card)', border:'1px solid var(--border)', borderRadius:6, padding:'10px 14px', fontSize:12, fontFamily:'Space Mono', lineHeight:1.8 }}>
+                    <div style={{ color:'var(--dim)' }}>גיל: <span style={{ color:'var(--white)' }}>{d.age}</span></div>
+                    <div style={{ color:'var(--dim)' }}>ציון צפוי: <span style={{ color:ACCENT }}>{d.grade}</span></div>
+                    {predicted !== null && <div style={{ color:'var(--dim)' }}>ציון לפי המודל: <span style={{ color:ORANGE }}>{predicted}</span></div>}
+                  </div>
+                );
+              }}
             />
             {trendLine.length > 0 && (
               <Line
                 data={trendLine}
-                type="linear"
+                type={modelType === 'nonLinear' ? 'monotone' : 'linear'}
                 dataKey="grade"
                 stroke={ORANGE}
                 strokeWidth={3}
@@ -1327,9 +1478,9 @@ function RegressionAgeSlide({ stats, slideNum }) {
       </div>
 
       <div className="mini-math-box mono">
-        <span>מודל ליניארי: <span className="fvar">ŷ = w·age + b</span></span>
+        <span>{modelType === 'nonLinear' ? `מודל לא ליניארי (פולינומי דרגה ${polyDegree}): ` : 'מודל ליניארי: '}<span className="fvar">{modelType === 'nonLinear' ? (polyDegree === 3 ? 'ŷ = β₀ + β₁·age + β₂·age² + β₃·age³' : 'ŷ = β₀ + β₁·age + β₂·age²') : 'ŷ = w·age + b'}</span></span>
         <span className="fdivider">|</span>
-        <span>נוסחה: <span className="fvar">grade = β₀ + β₁·age + ε</span></span>
+        <span>נוסחה: <span className="fvar">{modelType === 'nonLinear' ? (polyDegree === 3 ? 'grade = β₀ + β₁·age + β₂·age² + β₃·age³ + ε' : 'grade = β₀ + β₁·age + β₂·age² + ε') : 'grade = β₀ + β₁·age + ε'}</span></span>
       </div>
     </div>
   );
@@ -1783,6 +1934,1223 @@ function Slide12({ slideNum }) {
   );
 }
 
+function Lecture2AgendaSlide({ slideNum }) {
+  const items = [
+    'עדכון לגבי עבודת הגמר',
+    'חזרה קצרה על מודלים',
+    'נתרגל אפיון מודל לעסקים',
+    'נבנה מודל ליירוט טילים בלייזר',
+    'נלמד מה הקשר בין נוירונים וסינפסות לבינה מלאכותית',
+    'נתנסה בלמידה עמוקה Deep Learning',
+  ];
+
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">הרצאה 2 — שקף פתיחה — מבנה ההרצאה</div>
+      <h2>מבנה <em>ההרצאה</em>.</h2>
+      <p className="slide-sub">מה נעשה היום — צעד אחר צעד.</p>
+      <div className="agenda-list">
+        {items.map((label, i) => (
+          <div key={label} className="agenda-item">
+            <span className="agenda-num mono">{String(i + 1).padStart(2, '0')}</span>
+            <span className="agenda-label">{label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ThinkingFrameworkSlide({ slideNum }) {
+  const questions = [
+    'מה הבעיה העסקית?',
+    'מה הערך שנרצה לייצר?',
+    'איזה מידע יש לנו?',
+    'מה הפלט שאנחנו צריכים מהמודל?',
+  ];
+
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">הרצאה 2 — שקף 01 — מסגרת החשיבה</div>
+      <h2><em>מסגרת החשיבה</em></h2>
+      <p className="slide-sub">כדי לחשוב נכון על AI, שואלים 4 שאלות:</p>
+
+      <div className="card-grid cols2">
+        {questions.map((q, i) => (
+          <div key={q} className="concept-card">
+            <div className="concept-en mono">Question {i + 1}</div>
+            <div className="concept-he">{q}</div>
+          </div>
+        ))}
+      </div>
+
+      <Highlight>רק אחרי שמבינים את הבעיה — בוחרים מודל.</Highlight>
+    </div>
+  );
+}
+
+function ModelChoiceExampleSlide({ slideNum }) {
+  const [revealed, setRevealed] = useState(new Set([0]));
+  const items = [
+    {
+      key: 'problem',
+      q: 'מה הבעיה העסקית?',
+      a: 'האוניברסיטה מגלה מאוחר מדי אילו סטודנטים עלולים להיכשל או לנשור.',
+    },
+    {
+      key: 'value',
+      q: 'מה הערך שנרצה לייצר?',
+      a: 'התערבות מוקדמת, שיפור הצלחה אקדמית, ירידה בנשירה.',
+    },
+    {
+      key: 'data',
+      q: 'איזה מידע יש לנו?',
+      a: 'נוכחות, ציונים קודמים, שעות לימוד, שימוש במערכות הקורס, הגשות, רקע אקדמי.',
+    },
+    {
+      key: 'output',
+      q: 'מה הפלט שאנחנו צריכים מהמודל?',
+      a: 'ציון סיכון לכל סטודנט, או תשובה כמו: בסיכון / לא בסיכון.',
+    },
+    {
+      key: 'model',
+      q: 'באיזה מודל מהמודלים שלמדנו נשתמש?',
+      a: 'Classification',
+    },
+  ];
+
+  const reveal = (idx) => {
+    setRevealed((prev) => new Set([...prev, idx]));
+  };
+
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">הרצאה 2 — שקף 02 — דוגמה 1: זיהוי סטודנטים בסיכון</div>
+      <h2><em>דוגמה 1:</em> זיהוי סטודנטים בסיכון</h2>
+      <p className="slide-sub">אוניברסיטה</p>
+
+      <div className="card-grid cols2">
+        {items.map((item, idx) => (
+          <div key={item.q} className={`concept-card ${idx === items.length - 1 ? 'model-choice-result-card accent' : ''}`}>
+            <div className="concept-en mono">{item.key}</div>
+            <div className="concept-he">{item.q}</div>
+            {!revealed.has(idx) ? (
+              <div className="reveal-btn-subtle-row" style={{ justifyContent: 'flex-start', marginTop: 10 }}>
+                <button className="reveal-btn subtle" onClick={() => reveal(idx)}>{idx === items.length - 1 ? 'בחר מודל' : 'תשובה'}</button>
+              </div>
+            ) : (
+              <div className={`concept-def model-choice-answer ${idx === items.length - 1 ? 'model-choice-result-answer' : ''}`} style={{ marginTop: 8 }}>{item.a}</div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ModelChoiceRetailSlide({ slideNum }) {
+  const [revealed, setRevealed] = useState(new Set([0]));
+  const items = [
+    {
+      key: 'problem',
+      q: 'מה הבעיה העסקית?',
+      a: 'יש או חוסר במלאי או עודף מלאי, מה שפוגע במכירות וברווחיות.',
+    },
+    {
+      key: 'value',
+      q: 'מה הערך שנרצה לייצר?',
+      a: 'להזמין את הכמות הנכונה, להקטין פחת, לשפר זמינות מוצרים.',
+    },
+    {
+      key: 'data',
+      q: 'איזה מידע יש לנו?',
+      a: 'מכירות עבר, עונתיות, מבצעים, חגים, מזג אוויר, מיקום סניף, מחירים.',
+    },
+    {
+      key: 'output',
+      q: 'מה הפלט שאנחנו צריכים מהמודל?',
+      a: 'כמות צפויה שתימכר לכל מוצר / סניף / שבוע.',
+    },
+    {
+      key: 'model',
+      q: 'באיזה מודל מהמודלים שלמדנו נבחר?',
+      a: 'Regression',
+    },
+  ];
+
+  const reveal = (idx) => {
+    setRevealed((prev) => new Set([...prev, idx]));
+  };
+
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">הרצאה 2 — שקף 03 — דוגמה 2: תכנון מלאי</div>
+      <h2><em>דוגמה 2:</em> תכנון מלאי</h2>
+      <p className="slide-sub">רשת קמעונאית</p>
+
+      <div className="card-grid cols2">
+        {items.map((item, idx) => (
+          <div key={item.q} className={`concept-card ${idx === items.length - 1 ? 'model-choice-result-card accent' : ''}`}>
+            <div className="concept-en mono">{item.key}</div>
+            <div className="concept-he">{item.q}</div>
+            {!revealed.has(idx) ? (
+              <div className="reveal-btn-subtle-row" style={{ justifyContent: 'flex-start', marginTop: 10 }}>
+                <button className="reveal-btn subtle" onClick={() => reveal(idx)}>{idx === items.length - 1 ? 'בחר מודל' : 'תשובה'}</button>
+              </div>
+            ) : (
+              <div className={`concept-def model-choice-answer ${idx === items.length - 1 ? 'model-choice-result-answer' : ''}`} style={{ marginTop: 8 }}>{item.a}</div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ModelChoiceBankSlide({ slideNum }) {
+  const [revealed, setRevealed] = useState(new Set([0]));
+  const items = [
+    {
+      key: 'problem',
+      q: 'מה הבעיה העסקית?',
+      a: 'הבנק מדבר עם כל הלקוחות כמעט באותה שפה ולא מתאים הצעות או שירותים.',
+    },
+    {
+      key: 'value',
+      q: 'מה הערך שנרצה לייצר?',
+      a: 'סגמנטציה טובה יותר, התאמה אישית, שיפור שיווק ושימור לקוחות.',
+    },
+    {
+      key: 'data',
+      q: 'איזה מידע יש לנו?',
+      a: 'הכנסות, גיל, סוגי עסקאות, מוצרים פיננסיים, תדירות שימוש, ערוצים דיגיטליים, חסכונות/הלוואות.',
+    },
+    {
+      key: 'output',
+      q: 'מה הפלט שאנחנו צריכים מהמודל?',
+      a: 'קבוצות לקוחות דומים או פרופילים התנהגותיים.',
+    },
+    {
+      key: 'model',
+      q: 'באיזה מודל מהמודלים שלמדנו נבחר?',
+      a: 'Clustering',
+    },
+  ];
+
+  const reveal = (idx) => {
+    setRevealed((prev) => new Set([...prev, idx]));
+  };
+
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">הרצאה 2 — שקף 04 — דוגמה 3: סגמנטציית לקוחות</div>
+      <h2><em>דוגמה 3:</em> סגמנטציית לקוחות</h2>
+      <p className="slide-sub">בנק</p>
+
+      <div className="card-grid cols2">
+        {items.map((item, idx) => (
+          <div key={item.q} className={`concept-card ${idx === items.length - 1 ? 'model-choice-result-card accent' : ''}`}>
+            <div className="concept-en mono">{item.key}</div>
+            <div className="concept-he">{item.q}</div>
+            {!revealed.has(idx) ? (
+              <div className="reveal-btn-subtle-row" style={{ justifyContent: 'flex-start', marginTop: 10 }}>
+                <button className="reveal-btn subtle" onClick={() => reveal(idx)}>{idx === items.length - 1 ? 'בחר מודל' : 'תשובה'}</button>
+              </div>
+            ) : (
+              <div className={`concept-def model-choice-answer ${idx === items.length - 1 ? 'model-choice-result-answer' : ''}`} style={{ marginTop: 8 }}>{item.a}</div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ModelChoiceInsuranceSlide({ slideNum }) {
+  const [revealed, setRevealed] = useState(new Set([0]));
+  const items = [
+    {
+      key: 'problem',
+      q: 'מה הבעיה העסקית?',
+      a: 'חלק מהתביעות fraudulent, והחברה מאבדת כסף וזמן חקירה.',
+    },
+    {
+      key: 'value',
+      q: 'מה הערך שנרצה לייצר?',
+      a: 'לזהות תביעות חשודות מוקדם, לצמצם הפסדים, לתעדף חקירות.',
+    },
+    {
+      key: 'data',
+      q: 'איזה מידע יש לנו?',
+      a: 'פרטי מבוטח, היסטוריית תביעות, סוג אירוע, סכום תביעה, זמן מהפוליסה לתביעה, דפוסי מסמכים, נתוני צד ג׳.',
+    },
+    {
+      key: 'output',
+      q: 'מה הפלט שאנחנו צריכים מהמודל?',
+      a: 'ציון סיכון להונאה או החלטה: חשוד / לא חשוד.',
+    },
+    {
+      key: 'model',
+      q: 'איזו בעיה המודל שלנו פותר?',
+      a: 'Classification',
+    },
+  ];
+
+  const reveal = (idx) => {
+    setRevealed((prev) => new Set([...prev, idx]));
+  };
+
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">הרצאה 2 — שקף 05 — דוגמה 4: זיהוי הונאה בתביעות</div>
+      <h2><em>דוגמה 4:</em> זיהוי הונאה בתביעות</h2>
+      <p className="slide-sub">חברת ביטוח</p>
+
+      <div className="card-grid cols2">
+        {items.map((item, idx) => (
+          <div key={item.q} className={`concept-card ${idx === items.length - 1 ? 'model-choice-result-card accent' : ''}`}>
+            <div className="concept-en mono">{item.key}</div>
+            <div className="concept-he">{item.q}</div>
+            {!revealed.has(idx) ? (
+              <div className="reveal-btn-subtle-row" style={{ justifyContent: 'flex-start', marginTop: 10 }}>
+                <button className="reveal-btn subtle" onClick={() => reveal(idx)}>{idx === items.length - 1 ? 'בחר מודל' : 'תשובה'}</button>
+              </div>
+            ) : (
+              <div className={`concept-def model-choice-answer ${idx === items.length - 1 ? 'model-choice-result-answer' : ''}`} style={{ marginTop: 8 }}>{item.a}</div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ModelChoiceChurnSlide({ slideNum }) {
+  const [revealed, setRevealed] = useState(new Set([0]));
+  const items = [
+    {
+      key: 'problem',
+      q: 'מה הבעיה העסקית?',
+      a: 'לקוחות עוזבים, אבל החברה מזהה את זה מאוחר מדי.',
+    },
+    {
+      key: 'value',
+      q: 'מה הערך שנרצה לייצר?',
+      a: 'להקטין churn, לשפר retention, לאפשר לצוות הצלחת לקוח להתערב בזמן.',
+    },
+    {
+      key: 'data',
+      q: 'איזה מידע יש לנו?',
+      a: 'שימוש במוצר, מספר כניסות, פיצ׳רים שנצרכים, פתיחת tickets, NPS, חוזה, היסטוריית תשלומים, אינטראקציות עם צוות CS.',
+    },
+    {
+      key: 'output',
+      q: 'מה הפלט שאנחנו צריכים מהמודל?',
+      a: 'הסתברות שלקוח ינטוש בחודש/רבעון הקרוב.',
+    },
+    {
+      key: 'model',
+      q: 'איזו בעיה המודל שלנו פותר?',
+      a: 'Classification',
+    },
+  ];
+
+  const reveal = (idx) => {
+    setRevealed((prev) => new Set([...prev, idx]));
+  };
+
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">הרצאה 2 — שקף 06 — דוגמה 5: חיזוי נטישת לקוחות</div>
+      <h2><em>דוגמה 5:</em> חיזוי נטישת לקוחות</h2>
+      <p className="slide-sub">חברת תוכנה</p>
+
+      <div className="card-grid cols2">
+        {items.map((item, idx) => (
+          <div key={item.q} className={`concept-card ${idx === items.length - 1 ? 'model-choice-result-card accent' : ''}`}>
+            <div className="concept-en mono">{item.key}</div>
+            <div className="concept-he">{item.q}</div>
+            {!revealed.has(idx) ? (
+              <div className="reveal-btn-subtle-row" style={{ justifyContent: 'flex-start', marginTop: 10 }}>
+                <button className="reveal-btn subtle" onClick={() => reveal(idx)}>{idx === items.length - 1 ? 'בחר מודל' : 'תשובה'}</button>
+              </div>
+            ) : (
+              <div className={`concept-def model-choice-answer ${idx === items.length - 1 ? 'model-choice-result-answer' : ''}`} style={{ marginTop: 8 }}>{item.a}</div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ModelChoiceERLoadSlide({ slideNum }) {
+  const [revealed, setRevealed] = useState(new Set([0]));
+  const items = [
+    {
+      key: 'problem',
+      q: 'מה הבעיה העסקית?',
+      a: 'קשה לתכנן עומסים, צוותים וזמני המתנה.',
+    },
+    {
+      key: 'value',
+      q: 'מה הערך שנרצה לייצר?',
+      a: 'הקצאת כוח אדם טובה יותר, קיצור זמני המתנה, שיפור שירות.',
+    },
+    {
+      key: 'data',
+      q: 'איזה מידע יש לנו?',
+      a: 'היסטוריית הגעות, יום בשבוע, שעה, עונתיות, מזג אוויר, חגים, אירועים מיוחדים, מאפייני אוכלוסייה.',
+    },
+    {
+      key: 'output',
+      q: 'מה הפלט שאנחנו צריכים מהמודל?',
+      a: 'מספר המטופלים הצפוי בפרק זמן מסוים.',
+    },
+    {
+      key: 'model',
+      q: 'מה הבעיה שהמודל שלנו פותר?',
+      a: 'Regression',
+    },
+  ];
+
+  const reveal = (idx) => {
+    setRevealed((prev) => new Set([...prev, idx]));
+  };
+
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">הרצאה 2 — שקף 07 — דוגמה 6: עומס בחדר מיון</div>
+      <h2><em>דוגמה 6:</em> עומס בחדר מיון</h2>
+      <p className="slide-sub">בית חולים / מרפאה</p>
+
+      <div className="card-grid cols2">
+        {items.map((item, idx) => (
+          <div key={item.q} className={`concept-card ${idx === items.length - 1 ? 'model-choice-result-card accent' : ''}`}>
+            <div className="concept-en mono">{item.key}</div>
+            <div className="concept-he">{item.q}</div>
+            {!revealed.has(idx) ? (
+              <div className="reveal-btn-subtle-row" style={{ justifyContent: 'flex-start', marginTop: 10 }}>
+                <button className="reveal-btn subtle" onClick={() => reveal(idx)}>{idx === items.length - 1 ? 'בחר מודל' : 'תשובה'}</button>
+              </div>
+            ) : (
+              <div className={`concept-def model-choice-answer ${idx === items.length - 1 ? 'model-choice-result-answer' : ''}`} style={{ marginTop: 8 }}>{item.a}</div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function Lecture2MachineLearningSlide({ slideNum }) {
+  const classicRules = [
+    'אם גיל > 25',
+    'ואם ממוצע > 80',
+    'ואם נוכחות > 85%',
+    'אז "ציון גבוה"',
+  ];
+  const mlInputs = [
+    'גיל',
+    'ממוצע קודם',
+    'שעות שינה',
+    'נוכחות',
+    'שעות לימוד',
+  ];
+
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">הרצאה 2 — שקף 08 — Machine Learning</div>
+      <h2><em>Machine Learning</em></h2>
+      <p className="slide-sub">במקום לכתוב למחשב את כל הכללים — נותנים לו ללמוד אותם מהדאטה.</p>
+
+      <div className="ml-compare-grid">
+        <div className="ml-compare-card">
+          <div className="ml-compare-title">תכנות קלאסי</div>
+          <div className="ml-compare-flow mono">Rules + Data → Output</div>
+          <div className="ml-compare-sub">חוקים:</div>
+          <ul className="ml-compare-list">
+            {classicRules.map((line) => <li key={line}>{line}</li>)}
+          </ul>
+          <div className="ml-compare-note">האדם כותב את החוקים.</div>
+        </div>
+
+        <div className="ml-compare-card accent">
+          <div className="ml-compare-title">Machine Learning</div>
+          <div className="ml-compare-flow mono">Data + Answers → Model → Prediction</div>
+          <div className="ml-compare-sub">דאטה:</div>
+          <div className="ml-input-chips">
+            {mlInputs.map((item) => <span key={item} className="ml-input-chip">{item}</span>)}
+            <span className="ml-input-chip target">ציון בקורס</span>
+          </div>
+          <div className="ml-arrow mono">↓</div>
+          <div className="ml-step">המודל לומד את הקשרים בעצמו</div>
+          <div className="ml-arrow mono">↓</div>
+          <div className="ml-step result">תחזית: ציון צפוי / סיכון / קבוצה</div>
+          <div className="ml-compare-note">המודל לומד את החוקים מהדאטה.</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function InterceptLearningGameSlide({ slideNum }) {
+  const [trueAngle, setTrueAngle] = useState(() => Math.floor(Math.random() * 91));
+  const [angleGuess, setAngleGuess] = useState(0);
+  const [history, setHistory] = useState([]);
+  const [lastResult, setLastResult] = useState(null);
+  const [lastRun, setLastRun] = useState(null);
+  const distance = 100;
+  const trueW = trueAngle / 90;
+  const guessedW = angleGuess / 90;
+
+  const runForwardPass = () => {
+    if (Number.isNaN(angleGuess)) return;
+    const predictedOutput = guessedW * distance;
+    const targetOutput = trueW * distance;
+    const error = predictedOutput - targetOutput;
+    const loss = error ** 2;
+    const runEntry = {
+      step: history.length + 1,
+      angleGuess,
+      guessedW,
+      predictedOutput,
+      loss,
+    };
+    setHistory((prev) => [...prev, runEntry]);
+    setLastRun(runEntry);
+
+    if (angleGuess > trueAngle) {
+      setLastResult({ type: 'high', text: `פספסת! הזווית ${angleGuess}° גבוהה מדי.` });
+    } else if (angleGuess < trueAngle) {
+      setLastResult({ type: 'low', text: `פספסת! הזווית ${angleGuess}° נמוכה מדי.` });
+    } else {
+      setLastResult({ type: 'hit', text: 'בול פגיעה! המודל למד את המשקולת והגיע ל-Loss 0!' });
+    }
+  };
+
+  const resetGame = () => {
+    const nextAngle = Math.floor(Math.random() * 91);
+    setTrueAngle(nextAngle);
+    setAngleGuess(0);
+    setHistory([]);
+    setLastResult(null);
+    setLastRun(null);
+  };
+
+  const currentLoss = history.length ? history[history.length - 1].loss : null;
+  const prevLoss = history.length > 1 ? history[history.length - 2].loss : null;
+  const lossDelta = currentLoss != null && prevLoss != null ? +(currentLoss - prevLoss).toFixed(2) : null;
+
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">הרצאה 2 — שקף 09 — ניסוי יירוט</div>
+      <h2>🚀 איך מחשב לומד <em>ליירט</em> טילים?</h2>
+      <p className="slide-sub">המטרה: לנחש את ה-<span className="mono">W</span> בנוסחה: <span className="mono">Output = W × Distance</span></p>
+
+      <div className="intercept-game-wrap">
+        <div className="intercept-game-head">
+          <div className="intercept-target-box">
+            <div className="intercept-map-mini">
+              <div className="country-node israel">
+                <span className="country-flag">🇮🇱</span>
+                <span>ישראל</span>
+              </div>
+              <div className="battle-lanes">
+                <div className="distance-label mono">{distance} ק״מ</div>
+                <div className="lane threat-lane">
+                  <div className="lane-line" />
+                  <span className="missile-dot" aria-hidden="true">🚀</span>
+                </div>
+                <div className="lane intercept-lane">
+                  <div className="lane-line" />
+                  <span className="laser-pulse" aria-hidden="true" />
+                </div>
+                <div className="meeting-point" aria-hidden="true" />
+              </div>
+              <div className="country-node iran">
+                <span className="country-flag">🇮🇷</span>
+                <span>איראן</span>
+              </div>
+            </div>
+          </div>
+          <div className="intercept-loss-box">
+            <div className="intercept-loss-title mono">כמה טעינו?</div>
+            <div className="intercept-loss-value">{currentLoss != null ? currentLoss.toFixed(2) : '—'}</div>
+            <div className={`intercept-loss-delta mono ${lossDelta == null ? '' : lossDelta <= 0 ? 'good' : 'bad'}`}>
+              {lossDelta == null ? 'ΔLoss: —' : `ΔLoss: ${lossDelta > 0 ? '+' : ''}${lossDelta.toFixed(2)}`}
+            </div>
+          </div>
+        </div>
+
+        <div className="intercept-controls">
+          <label className="intercept-label">ניחוש זווית יירוט בין 0-90 מעלות</label>
+          <input
+            type="number"
+            className="intercept-input mono"
+            value={angleGuess}
+            step="1"
+            min="0"
+            max="90"
+            onChange={(e) => setAngleGuess(Math.max(0, Math.min(90, Number(e.target.value))))}
+          />
+          <div className="intercept-btn-row">
+            <button className="ctrl-btn primary" onClick={runForwardPass}>יירוט!</button>
+            <button className="ctrl-btn" onClick={resetGame}>איפוס</button>
+          </div>
+        </div>
+
+        {lastResult && (
+          <div className={`intercept-result ${lastResult.type}`}>
+            {lastResult.text}
+            {lastResult.type === 'hit' && lastRun && (
+              <div className="intercept-hit-formula mono">
+                הפונקציה שנלמדה: Output = {lastRun.guessedW.toFixed(3)} × Distance
+                <span className="intercept-hit-subformula"> (W = Angle / 90)</span>
+              </div>
+            )}
+          </div>
+        )}
+
+        {history.length > 0 && (
+          <div className="intercept-history-wrap">
+            <div className="chart-title mono">היסטוריית עדכוני המודל</div>
+            <table className="demo-table intercept-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Angle (°)</th>
+                  <th>W</th>
+                  <th>Output (D=100)</th>
+                  <th>Loss</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[...history].reverse().map((row, i) => (
+                  <tr key={`${row.step}-${i}`}>
+                    <td>{row.step}</td>
+                    <td>{row.angleGuess}</td>
+                    <td>{row.guessedW.toFixed(3)}</td>
+                    <td>{row.predictedOutput.toFixed(2)}</td>
+                    <td>{row.loss.toFixed(2)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+
+      <Highlight>הלמידה היא על <em>W</em>, לא על התוצאה הסופית. ה-W הוא ה"תובנה" שנשארת לטווח ארוך.</Highlight>
+    </div>
+  );
+}
+
+function PigeonsPicassoSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">הרצאה 2 — שקף 10 — היונים של פיקאסו</div>
+      <h2>היונים של <em>פיקאסו</em></h2>
+      <p className="slide-sub">
+        בניסוי מפורסם ב-1995 חוקרים אימנו יונים להבדיל בין ציורים של פיקאסו לציורים של מונה.
+      </p>
+
+      <div className="pigeon-art-lab">
+        <div className="art-style-card picasso">
+          <div className="art-style-head mono">Picasso / Cubism</div>
+          <div className="art-canvas cubism">
+            <span className="shape a" />
+            <span className="shape b" />
+            <span className="shape c" />
+            <span className="shape d" />
+          </div>
+          <div className="art-style-foot">קוביזם · זוויות חדות</div>
+        </div>
+
+        <div className="pigeon-core">
+          <div className="pigeon-icon">🕊️</div>
+          <div className="pigeon-loop mono">PECK → FEEDBACK → UPDATE</div>
+          <div className="reward-track">
+            <div className="reward-dot food" />
+            <div className="reward-dot none" />
+          </div>
+          <div className="reward-caption">
+            פיקאסו = אוכל <span className="sep">|</span> מונה = ללא פרס
+          </div>
+        </div>
+
+        <div className="art-style-card monet">
+          <div className="art-style-head mono">Monet / Impressionism</div>
+          <div className="art-canvas impressionism">
+            <span className="stroke s1" />
+            <span className="stroke s2" />
+            <span className="stroke s3" />
+            <span className="stroke s4" />
+          </div>
+          <div className="art-style-foot">אימפרסיוניזם · משיחות רכות</div>
+        </div>
+      </div>
+
+      <div className="card-grid cols2" style={{ marginTop: 18 }}>
+        <div className="concept-card">
+          <div className="concept-en mono">How It Worked</div>
+          <div className="concept-def">
+            בכל פעם שהיונה ניקרה בלחצן כשראתה פיקאסו היא קיבלה אוכל. כשניקרה מול מונה, לא קיבלה כלום.
+          </div>
+        </div>
+        <div className="concept-card accent">
+          <div className="concept-en mono">Result</div>
+          <div className="concept-def">
+            היונים למדו לזהות "סגנון", ואפילו הצליחו לסווג ציירים חדשים (כמו סזאן) לקטגוריה הנכונה.
+          </div>
+        </div>
+      </div>
+
+      <Highlight>
+        מסקנה: היונה לא מבינה "אמנות" — היא פשוט מצאה את ה-<em>Weights</em> הוויזואליים שנותנים מקסימום
+        פרס (אוכל) ומינימום טעות (רעב).
+      </Highlight>
+    </div>
+  );
+}
+
+function TolmanMazeSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">הרצאה 2 — שקף 11 — המפה הקוגניטיבית</div>
+      <h2>המבוך של <em>טולמן</em> (המפה הקוגניטיבית)</h2>
+      <p className="slide-sub">
+        אדוארד טולמן הראה ב-1948 שעכברים לא רק "רצים ימינה ושמאלה" — הם בונים מפה פנימית של הסביבה.
+      </p>
+
+      <div className="tolman-maze-lab">
+        <div className="tolman-maze-panel">
+          <div className="tolman-maze-head mono">Exploration (ללא פרס)</div>
+          <div className="tolman-maze-board">
+            <div className="maze-grid" />
+            <svg className="maze-path wandering" viewBox="0 0 300 180" preserveAspectRatio="none">
+              <path d="M20,150 C30,120 65,122 72,95 C84,60 130,70 145,40 C170,12 198,30 210,64 C220,92 252,86 270,52" />
+            </svg>
+            <div className="maze-mouse">🐭</div>
+            <div className="maze-goal ghost">🥕</div>
+          </div>
+          <div className="tolman-maze-note">נראה שאין למידה גלויה</div>
+        </div>
+
+        <div className="tolman-divider mono">→</div>
+
+        <div className="tolman-maze-panel reward">
+          <div className="tolman-maze-head mono">Reward Added (יש פרס)</div>
+          <div className="tolman-maze-board">
+            <div className="maze-grid" />
+            <svg className="maze-path direct" viewBox="0 0 300 180" preserveAspectRatio="none">
+              <path d="M20,150 L270,52" />
+            </svg>
+            <div className="maze-mouse fast">🐭</div>
+            <div className="maze-goal">🥕</div>
+          </div>
+          <div className="tolman-maze-note">ריצה ישירה למטרה כאילו הכירו את הדרך</div>
+        </div>
+      </div>
+
+      <div className="card-grid cols2" style={{ marginTop: 18 }}>
+        <div className="concept-card">
+          <div className="concept-en mono">What Happened?</div>
+          <div className="concept-def">
+            עכברים ששוטטו במבוך בלי אוכל נראו כאילו לא למדו כלום. אבל ברגע שהופיע פרס בקצה, הם נעו אליו ביעילות.
+          </div>
+        </div>
+        <div className="concept-card accent">
+          <div className="concept-en mono">Latent Learning</div>
+          <div className="concept-def">
+            למידה חבויה: המערכת סופגת מידע גם בלי "ציון" (Loss) על כל צעד. בהמשך, כשמופיעה משימה, הידע מתגלה.
+          </div>
+        </div>
+      </div>
+
+      <Highlight>
+        זה הבסיס לרעיון שמודלים מודרניים (כמו GPT) קודם בונים "מפה" של העולם/השפה מתוך חשיפה רחבה,
+        ורק אחר כך מיישמים אותה למשימות ספציפיות.
+      </Highlight>
+    </div>
+  );
+}
+
+function JenniferAnistonNeuronSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">הרצאה 2 — שקף 12 — התא היחיד</div>
+      <h2>הנוירון של <em>"ג׳ניפר אניסטון"</em></h2>
+      <p className="slide-sub">
+        ב-2005 מצאו נוירונים במוח האנושי שמגיבים ספציפית לאדם מסוים - לפעמים אפילו רק לשם הכתוב שלו.
+      </p>
+
+      <div className="aniston-funny-lab">
+        <div className="aniston-inputs">
+          <div className="aniston-chip photo">📸 תמונה של ג׳ניפר</div>
+          <div className="aniston-chip text">🔤 "Jennifer Aniston"</div>
+          <div className="aniston-chip other">🧑 מישהו אחר</div>
+        </div>
+
+        <div className="aniston-neuron-core">
+          <div className="aniston-neuron">🧠⚡</div>
+          <div className="aniston-neuron-label mono">NEURON #A237</div>
+          <div className="aniston-meter">
+            <div className="aniston-meter-bar high" />
+            <div className="aniston-meter-bar high" />
+            <div className="aniston-meter-bar low" />
+          </div>
+          <div className="aniston-caption">"רק ג׳ניפר? אני נדלק!"</div>
+        </div>
+
+        <div className="aniston-output">
+          <div className="aniston-out-box on">🔥 Activation: HIGH</div>
+          <div className="aniston-out-box on">🔥 Activation: HIGH</div>
+          <div className="aniston-out-box off">😴 Activation: LOW</div>
+        </div>
+      </div>
+
+      <div className="card-grid cols2" style={{ marginTop: 18 }}>
+        <div className="concept-card">
+          <div className="concept-en mono">The Story</div>
+          <div className="concept-def">
+            בניתוחי מוח מצאו תא בודד שהגיב לתמונה של השחקנית, ואפילו כשכתבו את שמה בלי תמונה.
+          </div>
+        </div>
+        <div className="concept-card accent">
+          <div className="concept-en mono">Why It Matters For AI</div>
+          <div className="concept-def">
+            ברשת נוירונים מלאכותית מחפשים נוירונים עמוקים שלומדים תבניות מאוד ספציפיות: קו, עין, פנים או אובייקט.
+          </div>
+        </div>
+      </div>
+
+      <Highlight>
+        הנוירון לא "מבין רכילות הוליוודית" — הוא פשוט למד פיצ׳רים שעושים לו מקסימום אקטיבציה ומינימום בלבול.
+      </Highlight>
+    </div>
+  );
+}
+
+function ComputerBasicsSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">הרצאה 2 — שקף 13 — יסודות מחשב ל-AI</div>
+      <h2>מה קורה בתוך <em>המחשב</em>?</h2>
+      <p className="slide-sub">
+        מחשב מעבד מידע דרך חישוב, זיכרון, וקבלת החלטות מהירה מאוד.
+      </p>
+
+      <div className="computer-core-line">
+        מחשב לא "מבין" — הוא מחשב.
+        <span className="sep">|</span>
+        וב-AI, החישוב הזה קורה מיליוני פעמים.
+      </div>
+
+      <div className="computer-basics-layout">
+        <div className="computer-flow-main">
+          <div className="computer-flow-title mono">DATA → COMPUTE → OUTPUT</div>
+          <div className="computer-flow-he">קלט ← חישוב ← פלט</div>
+
+          <div className="computer-flow-grid">
+            <div className="computer-step-card input">
+              <div className="step-head mono">Input / קלט</div>
+              <div className="step-icons">🔢 📝 🖼️ 🔊</div>
+              <div className="step-text">מספרים, טקסט, תמונה, קול</div>
+            </div>
+            <div className="computer-step-card compute">
+              <div className="step-head mono">Compute / חישוב</div>
+              <div className="step-icons">➕ ✖️ ⚖️ ⚡</div>
+              <div className="step-text">חיבור, כפל, השוואה, החלטה</div>
+            </div>
+            <div className="computer-step-card output">
+              <div className="step-head mono">Output / פלט</div>
+              <div className="step-icons">📈 🧩 🎯 💬</div>
+              <div className="step-text">תחזית, סיווג, המלצה, טקסט</div>
+            </div>
+          </div>
+        </div>
+
+        <aside className="computer-side-panel">
+          <div className="computer-side-title mono">החלקים שחשוב להכיר</div>
+
+          <div className="computer-part">
+            <div className="computer-part-name">CPU</div>
+            <div className="computer-part-desc">
+              מעבד כללי. מצוין ללוגיקה, בקרה, ותפעול רצף הפעולות.
+            </div>
+          </div>
+
+          <div className="computer-part">
+            <div className="computer-part-name">GPU</div>
+            <div className="computer-part-desc">
+              מעבד מקבילי. מצוין להרבה מאוד פעולות חישוב דומות בו-זמנית. לכן הוא חשוב במיוחד באימון מודלים.
+            </div>
+          </div>
+
+          <div className="computer-part">
+            <div className="computer-part-name">Memory</div>
+            <div className="computer-part-desc">
+              היכן שהנתונים והמודל נמצאים בזמן הריצה. אם אין מספיק זיכרון — קשה לאמן או להריץ מודלים גדולים.
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  );
+}
+
+function NeuronHeartbeatSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">הרצאה 2 — שקף 14 — הנוירון</div>
+      <h2>הלב הפועם של הלמידה — <em>הנוירון</em></h2>
+      <p className="slide-sub">
+        גם במוח וגם במחשב, יחידת היסוד מקבלת קלטים — ופועלת רק אם הם חזקים מספיק.
+      </p>
+
+      <div className="neuron-two-sides">
+        <div className="neuron-side-card bio">
+          <div className="neuron-side-head mono">במוח</div>
+          <ul className="neuron-lines">
+            <li>מקבל אותות מנוירונים אחרים</li>
+            <li>מחבר את כל האותות יחד</li>
+            <li>אם עבר סף — יורה אות הלאה</li>
+          </ul>
+          <div className="neuron-side-note">לא כל קלט מפעיל תגובה. רק קלט חזק מספיק.</div>
+        </div>
+
+        <div className="neuron-mid-flow mono">קלט ← שקלול ← סף ← פלט</div>
+
+        <div className="neuron-side-card ai">
+          <div className="neuron-side-head mono">במחשב</div>
+          <ul className="neuron-lines">
+            <li>מקבל מספרים כקלט</li>
+            <li>נותן לכל קלט משקל שונה</li>
+            <li>אם הסכום עבר סף — מעביר אות הלאה</li>
+          </ul>
+          <div className="neuron-side-note">המשקלים קובעים מה חשוב יותר, וה-Activation קובע אם להפעיל תגובה.</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SynapsesSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">הרצאה 2 — שקף 15 — סינפסות</div>
+      <h2>סינפסות — המקום שבו <em>למידה</em> משנה את המערכת</h2>
+      <p className="slide-sub">
+        הידע לא נמצא רק בתוך הנוירון הבודד — אלא בעוצמת הקשרים בינו לבין אחרים.
+      </p>
+
+      <div className="synapse-side-by-side">
+        <div className="synapse-panel brain">
+          <div className="synapse-panel-head mono">במוח</div>
+          <div className="synapse-visual brain-viz">
+            <div className="brain-node send">נוירון שולח</div>
+            <div className="synaptic-gap">רווח סינפטי</div>
+            <div className="neuro-particles" aria-hidden="true">
+              <span />
+              <span />
+              <span />
+            </div>
+            <div className="brain-node recv">נוירון קולט</div>
+            <div className="brain-label mono">Neurotransmitters</div>
+          </div>
+          <ul className="synapse-lines">
+            <li>נוירונים מתקשרים דרך סינפסות</li>
+            <li>חזרות מחזקות או מחלישות קשרים</li>
+            <li>קשר חזק יותר = אות עובר בקלות רבה יותר</li>
+          </ul>
+        </div>
+
+        <div className="synapse-panel ai">
+          <div className="synapse-panel-head mono">ב-AI</div>
+          <div className="synapse-visual ai-viz">
+            <div className="ai-node left">Neuron A</div>
+            <div className="ai-link">
+              <div className="ai-link-line" />
+              <div className="ai-weight-tag mono">Weight: 0.22 → 0.82</div>
+              <div className="ai-weight-meter" aria-hidden="true">
+                <span className="ai-weight-fill" />
+              </div>
+            </div>
+            <div className="ai-node right">Neuron B</div>
+          </div>
+          <ul className="synapse-lines">
+            <li>כל חיבור בין נוירונים מקבל Weight</li>
+            <li>ה-Weight קובע כמה חזק האות יעבור</li>
+            <li>למידה משנה את ה-Weights האלה</li>
+          </ul>
+        </div>
+      </div>
+
+      <div className="synapse-big-message">
+        כשאומרים שמודל הוא "גדול", הכוונה היא שיש בו מספר עצום של פרמטרים — כלומר המון חיבורים שניתן לכוונן.
+      </div>
+
+      <Highlight>
+        למידה = חיזוק והחלשה של קשרים.
+        <br />
+        במוח — דרך סינפסות.
+        <br />
+        ב-AI — דרך משקלים (Weights).
+      </Highlight>
+    </div>
+  );
+}
+
+function HowModelLearnsSlide({ slideNum }) {
+  const steps = [
+    { title: '1. קלט', desc: 'המודל מקבל נתונים', en: 'Input' },
+    { title: '2. תחזית', desc: 'המודל מייצר תשובה', en: 'Prediction' },
+    { title: '3. טעות', desc: 'משווים למציאות ומודדים את הפער', en: 'Error' },
+    { title: '4. עדכון', desc: 'משנים את ה-Weights כדי לטעות פחות בפעם הבאה', en: 'Update' },
+  ];
+
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">הרצאה 2 — שקף 16 — איך המודל לומד?</div>
+      <h2>איך המודל <em>לומד</em>?</h2>
+      <p className="slide-sub">המודל מנחש, מודד את הטעות, ומעדכן את הקשרים שלו.</p>
+
+      <div className="learning-loop-strip">
+        {steps.map((s, i) => (
+          <div key={s.title} className="learning-step">
+            <div className="learning-step-en mono">{s.en}</div>
+            <div className="learning-step-title">{s.title}</div>
+            <div className="learning-step-desc">{s.desc}</div>
+            {i < steps.length - 1 && <div className="learning-step-arrow">←</div>}
+          </div>
+        ))}
+      </div>
+
+      <div className="learning-repeat-row">
+        <span className="repeat-loop mono">↺ Repeat</span>
+        <span className="repeat-note">Gradient Descent: כל צעד מזיז קצת את המשקלים לכיוון שמפחית Loss</span>
+      </div>
+
+      <Highlight>למידה = ניחוש → טעות → תיקון → שיפור</Highlight>
+    </div>
+  );
+}
+
+const FINAL_EXERCISE_CASES = [
+  {
+    number: 1,
+    student: 'סטודנט א׳',
+    fields: [
+      ['ממוצע קודם', '91'],
+      ['שעות שינה', '7'],
+      ['נוכחות', '90%–100%'],
+      ['שעות לימוד', '4–5'],
+      ['עניין בקורס', '9/10'],
+      ['ביטחון עצמי', '8/10'],
+      ['שימוש ב-AI', 'כל יום, כמה פעמים'],
+    ],
+    predictionPrompt: 'איזה ציון הייתם חוזים?',
+    reveal: 92,
+    insight: 'הישגים קודמים + השקעה + עניין מרגישים כמו חוק ראשוני.',
+    teacherLine: 'מעולה. כרגע נראה שיש כיוון. אבל מודל טוב לא נבנה מדוגמה אחת.',
+  },
+  {
+    number: 2,
+    student: 'סטודנט ב׳',
+    fields: [
+      ['ממוצע קודם', '93'],
+      ['שעות שינה', '5'],
+      ['נוכחות', '70%–85%'],
+      ['שעות לימוד', '0–1'],
+      ['עניין בקורס', '8/10'],
+      ['ביטחון עצמי', '10/10'],
+      ['שימוש ב-AI', 'כל יום, כמה פעמים'],
+    ],
+    predictionPrompt: 'מה הייתם חוזים עכשיו?',
+    reveal: 68,
+    insight: 'ממוצע קודם/ביטחון/שימוש ב-AI לא מספיקים לבדם; נוכחות והשקעה קיבלו יותר משקל.',
+  },
+  {
+    number: 3,
+    student: 'סטודנט ג׳',
+    fields: [
+      ['ממוצע קודם', '76'],
+      ['שעות שינה', '8+'],
+      ['נוכחות', '90%–100%'],
+      ['שעות לימוד', '6+'],
+      ['עניין בקורס', '10/10'],
+      ['ביטחון עצמי', '6/10'],
+      ['שימוש ב-AI', '1–3 פעמים בשבוע'],
+    ],
+    predictionPrompt: 'מה הייתם חוזים?',
+    reveal: 94,
+    insight: 'התמדה ונוכחות יכולים לגבור על ממוצע קודם נמוך יותר.',
+  },
+  {
+    number: 4,
+    student: 'סטודנט ד׳',
+    fields: [
+      ['ממוצע קודם', '88'],
+      ['שעות שינה', '8+'],
+      ['נוכחות', '85%–100%'],
+      ['שעות לימוד', '2–3'],
+      ['עניין בקורס', '4/10'],
+      ['ביטחון עצמי', '9/10'],
+      ['שימוש ב-AI', 'כל יום, כמה פעמים'],
+    ],
+    predictionPrompt: 'מה הייתם חוזים?',
+    reveal: 79,
+    insight: 'לא קטסטרופה ולא הברקה - העולם לא בינארי, ויש כנראה משתנים חסרים.',
+    extraQuestion: 'האם יש כאן משתנה שחסר לנו?',
+  },
+  {
+    number: 5,
+    student: 'סטודנט ה׳',
+    fields: [
+      ['ממוצע קודם', '81'],
+      ['שעות שינה', '7'],
+      ['נוכחות', '90%–100%'],
+      ['שעות לימוד', '4–5'],
+      ['עניין בקורס', '8/10'],
+      ['ביטחון עצמי', '7/10'],
+      ['שימוש ב-AI', 'כלל לא'],
+    ],
+    predictionPrompt: 'מה הייתם חוזים?',
+    reveal: 90,
+    insight: 'שימוש ב-AI הוא לא בהכרח המשתנה המרכזי; התנהלות כוללת לפעמים חשובה יותר.',
+  },
+  {
+    number: 6,
+    student: 'סטודנט ו׳',
+    fields: [
+      ['ממוצע קודם', '84'],
+      ['שעות שינה', '6'],
+      ['נוכחות', '85%–100%'],
+      ['שעות לימוד', '4–5'],
+      ['עניין בקורס', '8/10'],
+      ['ביטחון עצמי', '8/10'],
+      ['שימוש ב-AI', '4–7 פעמים בשבוע'],
+    ],
+    predictionPrompt: 'מה הייתם חוזים?',
+    reveal: 83,
+    insight: 'לא תמיד יש טוויסט: לפעמים המודל נותן הערכה סבירה, גם אם לא מושלמת.',
+    extraQuestion: 'אם עדיין לא חזינו מושלם - האם המודל בהכרח גרוע?',
+  },
+];
+
+function FinalExerciseCaseSlide({ slideNum, caseData, withIntro = false }) {
+  const [revealed, setRevealed] = useState(false);
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">הרצאה 2 — שקף {slideNum} — אתם המודל</div>
+      <h2>דוגמה {caseData.number}: <em>{caseData.student}</em></h2>
+
+      {withIntro && (
+        <div className="exercise-intro-box">
+          <div className="exercise-intro-title">אתם המודל</div>
+          <div className="exercise-intro-text">
+            עכשיו אתם לא סטודנטים — אתם מודל. המטרה היא לא רק לדייק, אלא לשים לב איך האינטואיציה משתנה אחרי כל דוגמה.
+          </div>
+        </div>
+      )}
+
+      <div className="chart-wrap">
+        <div className="chart-title mono">{caseData.student} — נתוני קלט קבועים</div>
+        <div className="exercise-fields-grid">
+          {caseData.fields.map(([label, value]) => (
+            <div key={label} className="exercise-field-card">
+              <div className="exercise-field-label">{label}</div>
+              <div className="exercise-field-value">{value}</div>
+            </div>
+          ))}
+        </div>
+
+        <div className="exercise-big-question">{caseData.predictionPrompt}</div>
+
+        {!revealed ? (
+          <div className="reveal-btn-subtle-row" style={{ justifyContent: 'center', marginTop: 10 }}>
+            <button className="reveal-btn" onClick={() => setRevealed(true)}>Reveal</button>
+          </div>
+        ) : (
+          <div className="exercise-reveal-box">
+            <div className="exercise-reveal-grade">ציון סופי בפועל: <span>{caseData.reveal}</span></div>
+            <div className="exercise-reveal-insight">{caseData.insight}</div>
+            {caseData.teacherLine && <div className="exercise-teacher-line">{caseData.teacherLine}</div>}
+            <div className="exercise-reflect-questions">
+              <div>1. מה גרם לכם לשנות את ההערכה?</div>
+              <div>2. איזה משתנה קיבל עכשיו יותר או פחות משקל אצלכם?</div>
+              {caseData.extraQuestion && <div>+ {caseData.extraQuestion}</div>}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function FinalExercise1Slide(props) { return <FinalExerciseCaseSlide {...props} caseData={FINAL_EXERCISE_CASES[0]} withIntro />; }
+function FinalExercise2Slide(props) { return <FinalExerciseCaseSlide {...props} caseData={FINAL_EXERCISE_CASES[1]} />; }
+function FinalExercise3Slide(props) { return <FinalExerciseCaseSlide {...props} caseData={FINAL_EXERCISE_CASES[2]} />; }
+function FinalExercise4Slide(props) { return <FinalExerciseCaseSlide {...props} caseData={FINAL_EXERCISE_CASES[3]} />; }
+function FinalExercise5Slide(props) { return <FinalExerciseCaseSlide {...props} caseData={FINAL_EXERCISE_CASES[4]} />; }
+function FinalExercise6Slide(props) { return <FinalExerciseCaseSlide {...props} caseData={FINAL_EXERCISE_CASES[5]} />; }
+
+function FinalExerciseSummarySlide({ slideNum }) {
+  const questions = [
+    'איזה משתנים התחלתם להחשיב יותר?',
+    'איזה משתנים איבדו אצלכם חשיבות?',
+    'באיזה רגע הרגשתם ביטחון מוקדם מדי?',
+    'איזה מידע נוסף הייתם רוצים לאסוף כדי לחזות טוב יותר?',
+  ];
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">הרצאה 2 — שקף {slideNum} — סיכום תרגיל</div>
+      <h2>מה קרה ל"<em>מודל</em>" שלכם תוך כדי?</h2>
+      <div className="card-grid cols2">
+        {questions.map((q, i) => (
+          <div key={q} className="concept-card">
+            <div className="concept-en mono">Reflection {i + 1}</div>
+            <div className="concept-he">{q}</div>
+          </div>
+        ))}
+      </div>
+      <Highlight>
+        מה שחוויתם עכשיו הוא לב הלמידה.
+        <br />
+        התחלתם עם השערה, פגשתם מציאות, טעיתם, ועדכנתם את הדרך שבה אתם שוקלים מידע.
+        <br />
+        זה בדיוק מה שמודל עושה — רק במספרים, ובקנה מידה עצום.
+      </Highlight>
+    </div>
+  );
+}
+
+function NextChapterTeaserSlide({ slideNum }) {
+  const topics = ['Deep Learning', 'Backpropagation', 'Embeddings', 'Transformers'];
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">הרצאה 2 — שקף {slideNum} — טיזר</div>
+      <h2>ב<em>פרק הבא</em></h2>
+      <p className="slide-sub">
+        עד עכשיו שאלנו איך מודל לומד.
+        <br />
+        בפעם הבאה נשאל איך מודל מתחיל להבין מבנים מורכבים, שפה, והקשרים.
+      </p>
+
+      <div className="next-chapter-hero">
+        <div className="next-chapter-grid">
+          {topics.map((topic) => (
+            <div key={topic} className="next-topic-card">
+              <span className="mono">{topic}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ── Main Slides page ──────────────────────────────────────────
 const SLIDE_COMPONENTS = [
   IntroSlide1, IntroSlide2, IntroSlide3, IntroSlide4, IntroSlide5,
@@ -1792,7 +3160,12 @@ const SLIDE_COMPONENTS = [
   Slide1, Slide2, Slide3, Slide4, Slide5,
   Slide6, Slide7, Slide9, Slide8, ProblemTypesSlide,
   RegressionAgeSlide, ClassificationSlide, ClusteringSlide,
-  Slide10, LearningModesSlide, Slide11, Slide12
+  Slide10, LearningModesSlide, Slide11, Slide12, Lecture2AgendaSlide, ThinkingFrameworkSlide, ModelChoiceExampleSlide, ModelChoiceRetailSlide,
+  ModelChoiceBankSlide, ModelChoiceInsuranceSlide, ModelChoiceChurnSlide, ModelChoiceERLoadSlide, Lecture2MachineLearningSlide,
+  InterceptLearningGameSlide, PigeonsPicassoSlide, TolmanMazeSlide, JenniferAnistonNeuronSlide, ComputerBasicsSlide,
+  NeuronHeartbeatSlide, SynapsesSlide, HowModelLearnsSlide,
+  FinalExercise1Slide, FinalExercise2Slide, FinalExercise3Slide, FinalExercise4Slide, FinalExercise5Slide, FinalExercise6Slide,
+  FinalExerciseSummarySlide, NextChapterTeaserSlide
 ];
 
 export default function Slides() {
@@ -1825,7 +3198,7 @@ export default function Slides() {
             className={`nav-item ${i === current ? 'active' : ''}`}
             onClick={() => setCurrent(i)}
           >
-            <span className="nav-num mono">0{s.id}</span>
+            <span className="nav-num mono">{s.navNum ?? `0${s.id}`}</span>
             <span className="nav-title">{s.title}</span>
           </div>
         ))}

@@ -1,7 +1,11 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 
 const WS_PROTOCOL = window.location.protocol === 'https:' ? 'wss' : 'ws';
-const WS_URL = `${WS_PROTOCOL}://${window.location.host}`;
+const WS_URL = (() => {
+  // In Vite dev mode the UI runs on :5173 and backend WS lives on :3001.
+  if (import.meta.env.DEV) return `${WS_PROTOCOL}://${window.location.hostname}:3001`;
+  return `${WS_PROTOCOL}://${window.location.host}`;
+})();
 
 export function useStats() {
   const [stats, setStats]         = useState(null);
