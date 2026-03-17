@@ -2932,7 +2932,7 @@ function HowModelLearnsSlide({ slideNum }) {
         <span className="repeat-note">Gradient Descent: כל צעד מזיז קצת את המשקלים לכיוון שמפחית Loss</span>
       </div>
 
-      <Highlight>למידה = ניחוש → טעות → תיקון → שיפור</Highlight>
+      <Highlight>למידה = ניחוש ← טעות ← תיקון ← שיפור</Highlight>
     </div>
   );
 }
