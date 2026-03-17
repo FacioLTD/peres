@@ -3183,8 +3183,7 @@ export default function Slides() {
       {/* Sidebar nav */}
       <nav className="slides-nav">
         <div className="nav-logo">
-          <div className="mono" style={{ fontSize:10, color:'var(--dim)', letterSpacing:'0.18em', textTransform:'uppercase' }}>הרצאה 1</div>
-          <div style={{ fontSize:14, fontWeight:700, marginTop:4 }}>AI = חיזוי</div>
+          <div style={{ fontSize:14, fontWeight:700, marginTop:4 }}>מבוא לבינה מלאכותית</div>
           <div style={{ display:'flex', alignItems:'center', gap:6, marginTop:8 }}>
             <div className={`conn-dot ${connected ? 'on' : 'off'}`} />
             <span className="mono" style={{ fontSize:10, color:'var(--dim)' }}>
