@@ -3411,7 +3411,7 @@ function Lecture3Slide9({ slideNum }) {
         <div className="l3-neuron-activation mono">activation</div>
         <div className="l3-neuron-output mono">output</div>
       </div>
-      <div className="l3-footnote mono">input × weight → sum → decision signal</div>
+      <div className="l3-footnote mono">input × weight ← sum ← decision signal</div>
       <div className="l3-bottom-line">נוירון לא "מבין" — הוא מגיב לדפוס.</div>
     </div>
   );
@@ -3523,7 +3523,7 @@ function Lecture3Slide12({ slideNum }) {
         </div>
         <div className="l3-backprop-flow">
           <div className="l3-forward-row">Input ← Hidden Layers ← Output</div>
-          <div className="l3-back-row">Error → Weight Update</div>
+          <div className="l3-back-row">Error ← Weight Update</div>
         </div>
       </div>
       <div className="l3-bottom-line">הטעות היא מנגנון הלמידה.</div>

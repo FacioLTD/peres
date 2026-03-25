@@ -4133,7 +4133,7 @@
 }
 
 .l3-evolution-step span::before {
-  content: "→";
+  content: "←";
   position: absolute;
   right: 2px;
   color: var(--dim);
