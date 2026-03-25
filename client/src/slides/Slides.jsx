@@ -98,6 +98,25 @@ const SLIDE_LIST = [
   { id: 54, title: 'אתם המודל: דוגמה 6', navNum: '2.22' },
   { id: 55, title: 'סיכום התרגיל', navNum: '2.23' },
   { id: 56, title: 'בפרק הבא', navNum: '2.24' },
+  { id: 58, title: 'מ-AI קלאסי ללמידה עמוקה', navNum: '3.1' },
+  { id: 59, title: 'למה זה חשוב לעבודת הגמר', navNum: '3.2' },
+  { id: 60, title: 'מה כבר יש לנו בארגז הכלים', navNum: '3.3' },
+  { id: 61, title: 'Classification & Segmentation', navNum: '3.4' },
+  { id: 62, title: 'תרגול 1 — מודל קלאסי מתאים', navNum: '3.5' },
+  { id: 63, title: 'איפה המודלים נשברים', navNum: '3.6' },
+  { id: 64, title: 'ערעור 1 — segmentation לא מספיק', navNum: '3.7' },
+  { id: 65, title: 'השדרוג: Data ל-Label', navNum: '3.8' },
+  { id: 66, title: 'מהו נוירון?', navNum: '3.9' },
+  { id: 67, title: 'למה צריך Hidden Layers?', navNum: '3.10' },
+  { id: 68, title: 'למה Activation Function משנה הכל?', navNum: '3.11' },
+  { id: 69, title: 'איך המודל לומד: Backpropagation', navNum: '3.12' },
+  { id: 70, title: 'תרגול 2 — לחשוב כמו רשת עמוקה', navNum: '3.13' },
+  { id: 71, title: 'רגע ה-WOW', navNum: '3.14' },
+  { id: 72, title: 'מ-Labels ל-Representations', navNum: '3.15' },
+  { id: 73, title: 'Embeddings', navNum: '3.16' },
+  { id: 74, title: 'תרגול 3 — Embedding עסקי', navNum: '3.17' },
+  { id: 75, title: 'Sequence Models / RNN', navNum: '3.18' },
+  { id: 76, title: 'סיכום: האבולוציה של AI', navNum: '3.19' },
 ];
 
 // ── Small reusable components ─────────────────────────────────
@@ -3151,6 +3170,541 @@ function NextChapterTeaserSlide({ slideNum }) {
   );
 }
 
+function Lecture3Slide1({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">הרצאה 3 — שקף {slideNum} — פתיחה</div>
+      <h2>מ-AI קלאסי ל<em>למידה עמוקה</em></h2>
+      <p className="slide-sub">From Labels to Representations</p>
+      <p className="l3-body-text">
+        כשקלאסיפיקציה כבר לא מספיקה, המודל חייב ללמוד ייצוגים, דפוסים והקשר.
+      </p>
+      <div className="l3-transition-viz">
+        <div className="l3-label-node mono">Label</div>
+        <div className="l3-viz-arrow">→</div>
+        <div className="l3-representation-cloud" aria-hidden="true">
+          {Array.from({ length: 14 }, (_, i) => <span key={i} className={`l3-dot d${i + 1}`} />)}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Lecture3Slide2({ slideNum }) {
+  const steps = ['Business Problem', 'Representation', 'Model', 'Action', 'Impact'];
+  const bullets = [
+    'החלטה עסקית ברורה',
+    'למה מודל קלאסי לא מספיק',
+    'איך 2–3 מושגי AI משפרים את ההחלטה',
+  ];
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">הרצאה 3 — שקף {slideNum} — מסגור</div>
+      <h2>למה זה חשוב ל<em>עבודת הגמר</em></h2>
+      <p className="slide-sub">עבודה חזקה ב-AI צריכה להראות 3 דברים:</p>
+      <div className="l3-bullet-board">
+        {bullets.map((item, idx) => (
+          <div key={item} className="l3-bullet-item"><span className="mono">0{idx + 1}</span>{item}</div>
+        ))}
+      </div>
+      <div className="l3-business-flow">
+        {steps.map((step, idx) => (
+          <div key={step} className="l3-business-step">
+            <span className="l3-step-icon" aria-hidden="true">{['◉', '◈', '◌', '◎', '✦'][idx]}</span>
+            <span>{step}</span>
+            {idx < steps.length - 1 && <span className="l3-step-arrow">→</span>}
+          </div>
+        ))}
+      </div>
+      <div className="l3-bottom-line">לא מתחילים מ-AI. מתחילים מבעיה עסקית.</div>
+    </div>
+  );
+}
+
+function Lecture3Slide3({ slideNum }) {
+  const learned = ['Data', 'Features', 'Model', 'Loss', 'Optimization', 'Prediction'];
+  const skills = ['Regression', 'Classification', 'Clustering', 'Neural Networks'];
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">הרצאה 3 — שקף {slideNum} — ארגז כלים</div>
+      <h2>מה כבר יש לנו ב<em>ארגז הכלים</em></h2>
+      <p className="slide-sub">מה למדנו עד עכשיו:</p>
+      <div className="l3-progress-line">
+        {learned.map((item, idx) => (
+          <div key={item} className="l3-progress-stop">
+            <div className="l3-progress-dot" />
+            <div className="mono">{item}</div>
+            {idx < learned.length - 1 && <div className="l3-progress-rail" />}
+          </div>
+        ))}
+      </div>
+      <div className="card-grid cols2">
+        {skills.map((item) => (
+          <div key={item} className="concept-card">
+            <div className="concept-en mono">{item}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function Lecture3Slide4({ slideNum }) {
+  const questions = ['מי בסיכון?', 'מי יקבל איזו הצעה?', 'מי חשוד בהונאה?', 'לאיזה סגמנט הלקוח שייך?'];
+  const segments = ['VIP', 'Price Sensitive', 'Low Activity', 'Fraud Risk'];
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">הרצאה 3 — שקף {slideNum} — פתרון קלאסי</div>
+      <h2>הפתרון הקלאסי: <em>Classification & Segmentation</em></h2>
+      <p className="slide-sub">כך עסקים בדרך כלל חושבים על לקוחות:</p>
+      <ul className="l3-question-list">
+        {questions.map((q) => <li key={q}>{q}</li>)}
+      </ul>
+      <div className="l3-segment-grid">
+        {segments.map((segment) => <div key={segment} className="l3-segment-box">{segment}</div>)}
+        <div className="l3-leaking-customer">👤</div>
+      </div>
+      <div className="l3-bottom-line">המודל הקלאסי מנסה לשים ישויות בקופסאות.</div>
+    </div>
+  );
+}
+
+function Lecture3Slide5({ slideNum }) {
+  const cases = [
+    'חיזוי גובה הפיצוי שחברת ביטוח תשלם על תאונה',
+    'זיהוי האם עסקה בכרטיס אשראי היא הונאה או לגיטימית',
+    'חלוקת לקוחות לקבוצות דומות לפי הרגלי קנייה',
+  ];
+  const options = ['Regression', 'Classification', 'Clustering'];
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">הרצאה 3 — שקף {slideNum} — תרגול</div>
+      <h2>תרגול 1 — איזה מודל קלאסי מתאים לבעיה?</h2>
+      <p className="slide-sub">התאימו לכל מקרה את סוג המודל המתאים:</p>
+      <div className="l3-quiz-cases">
+        {cases.map((item, idx) => (
+          <div key={item} className="l3-case-card">
+            <div className="mono">Case {idx + 1}</div>
+            <p>{item}</p>
+          </div>
+        ))}
+      </div>
+      <div className="l3-quiz-options">
+        {options.map((item) => <button key={item} type="button" className="l3-option-btn">{item}</button>)}
+      </div>
+      <div className="l3-footnote mono">לא כל בעיה עסקית צריכה LLM.</div>
+    </div>
+  );
+}
+
+function Lecture3Slide6({ slideNum }) {
+  const limits = [
+    ['אין הקשר', 'רואים snapshot, לא סיפור'],
+    ['אין זמן', 'סדר הפעולות נעלם'],
+    ['אין מבנים סמויים', 'רק מה שהוגדר בעמודות'],
+    ['אין ייצוג עשיר', 'רק תווית או score פשוט'],
+  ];
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">הרצאה 3 — שקף {slideNum} — נקודת שבירה</div>
+      <h2>איפה המודלים הקלאסיים <em>נשברים</em></h2>
+      <div className="card-grid cols2">
+        {limits.map(([title, desc]) => (
+          <div key={title} className="concept-card">
+            <div className="concept-he">{title}</div>
+            <div className="concept-def">{desc}</div>
+          </div>
+        ))}
+      </div>
+      <div className="l3-flat-to-rich">
+        <div className="l3-flat-sheet">Flat Table</div>
+        <div className="l3-viz-arrow">→</div>
+        <div className="l3-rich-graph">Learned Structure</div>
+      </div>
+      <div className="l3-bottom-line">הבעיה היא לא רק בדאטה — אלא בדרך שבה אנחנו מייצגים אותו.</div>
+    </div>
+  );
+}
+
+function Lecture3Slide7({ slideNum }) {
+  const states = ['VIP', 'disengaged', 'frustrated', 'churn risk'];
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">הרצאה 3 — שקף {slideNum} — ערעור</div>
+      <h2>ערעור 1 — למה segmentation לא מספיק</h2>
+      <p className="slide-sub">קייס: לקוח VIP מפסיק לקנות בפתאומיות. האם הוא עדיין VIP?</p>
+      <ul className="l3-question-list">
+        <li>האם סגמנט קבוע באמת תופס שינוי בזמן?</li>
+        <li>האם לקוח יכול להיות גם premium וגם בסיכון?</li>
+        <li>האם הקטגוריה מסבירה את הסיבה — או רק מתייגת את התוצאה?</li>
+      </ul>
+      <div className="l3-state-line">
+        {states.map((state, idx) => (
+          <div key={state} className="l3-state-chip">
+            {state}
+            {idx < states.length - 1 && <span className="l3-step-arrow">→</span>}
+          </div>
+        ))}
+      </div>
+      <Highlight>
+        Classification שואל: "מה התווית שלך?"
+        <br />
+        המציאות שואלת: "מה קורה איתך עכשיו?"
+      </Highlight>
+    </div>
+  );
+}
+
+function Lecture3Slide8({ slideNum }) {
+  const steps = ['Raw Data', 'Signals', 'Patterns', 'Latent Meaning', 'Decision'];
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">הרצאה 3 — שקף {slideNum} — השדרוג</div>
+      <h2>השדרוג: לא לקפוץ מ-Data ל-Label</h2>
+      <p className="slide-sub">במקום החלטה מיידית, המודל בונה הבנה בהדרגה:</p>
+      <div className="l3-layer-steps">
+        {steps.map((step, idx) => (
+          <div key={step} className={`l3-layer-step s${idx + 1}`}>
+            <span className="mono">{step}</span>
+          </div>
+        ))}
+      </div>
+      <div className="l3-bottom-line">Deep Learning בונה משמעות שכבה אחר שכבה.</div>
+    </div>
+  );
+}
+
+function Lecture3Slide9({ slideNum }) {
+  const inputs = ['x1', 'x2', 'x3'];
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">הרצאה 3 — שקף {slideNum} — יחידת בסיס</div>
+      <h2>מהו <em>נוירון</em>?</h2>
+      <p className="slide-sub">Neuron = weighted sum + activation</p>
+      <ul className="l3-question-list">
+        <li>מקבל כמה inputs</li>
+        <li>לכל input יש weight</li>
+        <li>מחבר אותם</li>
+        <li>מפעיל activation</li>
+        <li>ומחזיר output</li>
+      </ul>
+      <div className="l3-neuron-diagram">
+        <div className="l3-neuron-inputs">
+          {inputs.map((item) => <span key={item} className="mono">{item}</span>)}
+        </div>
+        <div className="l3-neuron-sigma">Σ</div>
+        <div className="l3-neuron-activation mono">activation</div>
+        <div className="l3-neuron-output mono">output</div>
+      </div>
+      <div className="l3-footnote mono">input × weight → sum → decision signal</div>
+      <div className="l3-bottom-line">נוירון לא "מבין" — הוא מגיב לדפוס.</div>
+    </div>
+  );
+}
+
+function Lecture3Slide10({ slideNum }) {
+  const floors = [
+    ['שכבה 1', 'מזהה אותות בסיסיים'],
+    ['שכבה 2', 'בונה צירופים'],
+    ['שכבה 3', 'לומדת משמעות חבויה'],
+    ['פלט', 'תחזית / החלטה'],
+  ];
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">הרצאה 3 — שקף {slideNum} — Hidden Layers</div>
+      <h2>למה צריך <em>Hidden Layers</em>?</h2>
+      <p className="slide-sub">
+        שכבה אחת לומדת גבול פשוט.
+        <br />
+        כמה שכבות לומדות מבנה מורכב.
+      </p>
+      <div className="l3-hidden-split">
+        <div className="l3-model-card">
+          <div className="mono">ללא hidden layer</div>
+          <div className="l3-boundary simple">boundary פשוט</div>
+          <div className="l3-model-note">נכשל על דפוס לא ליניארי</div>
+        </div>
+        <div className="l3-model-card success">
+          <div className="mono">עם hidden layer</div>
+          <div className="l3-boundary complex">boundary מורכב יותר</div>
+          <div className="l3-model-note">מצליח להפריד את הדאטה</div>
+        </div>
+      </div>
+      <div className="l3-pyramid">
+        {floors.map(([title, desc]) => (
+          <div key={title} className="l3-floor">
+            <div className="l3-floor-title">{title}</div>
+            <div className="l3-floor-desc">{desc}</div>
+            <div className="l3-floor-example mono">hidden representation</div>
+          </div>
+        ))}
+      </div>
+      <div className="l3-bottom-line">
+        Hidden layers הן המנוע של representation learning.
+      </div>
+    </div>
+  );
+}
+
+function Lecture3Slide11({ slideNum }) {
+  const demoUrl = 'https://playground.tensorflow.org/#activation=tanh&batchSize=10&dataset=circle&regDataset=reg-plane&learningRate=0.03&regularizationRate=0&noise=0&networkShape=4,2&seed=0.54760&showTestData=false&discretize=false&percTrainData=50&x=true&y=true&xTimesY=false&xSquared=false&ySquared=false&cosX=false&sinX=false&cosY=false&sinY=false&collectStats=false&problem=classification&initZero=false&hideText=false';
+  const activationCards = [
+    ['No activation / linear', 'גבול פשוט מדי'],
+    ['Tanh', 'גבול לא ליניארי גמיש'],
+    ['ReLU', 'גבול חד ומהיר לאימון'],
+  ];
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">הרצאה 3 — שקף {slideNum} — Activation</div>
+      <h2>למה Activation Function משנה הכל?</h2>
+      <p className="slide-sub">
+        בלי activation, גם רשת עמוקה נשארת כמעט ליניארית.
+        <br />
+        activation מאפשרת למודל ללמוד גבולות החלטה לא־ליניאריים.
+      </p>
+      <ul className="l3-question-list">
+        <li>ללמוד קשרים לא־ליניאריים</li>
+        <li>לבנות גבולות החלטה מורכבים</li>
+        <li>להבחין בין דפוסים ש-linear model מפספס</li>
+      </ul>
+      <div className="l3-activation-grid">
+        {activationCards.map(([title, result]) => (
+          <div key={title} className="l3-activation-card">
+            <div className="mono">{title}</div>
+            <div className="l3-activation-result">{result}</div>
+          </div>
+        ))}
+      </div>
+      <div className="l3-demo-line">
+        <strong>Live Demo: TensorFlow Playground</strong>
+        <a href={demoUrl} target="_blank" rel="noreferrer" className="l3-demo-link">{demoUrl}</a>
+      </div>
+      <div className="l3-demo-hints">
+        נסו: להסיר ולהוסיף hidden layer • לשנות פונקציית הפעלה • להוסיף ולהוריד נוירונים • ללחוץ Play ולראות אם,
+        איך ובאיזה מהירות הגבולות משתנים
+      </div>
+      <div className="l3-bottom-line">Activation היא מה שהופך חיבור שכבות ללמידה עמוקה אמיתית.</div>
+    </div>
+  );
+}
+
+function Lecture3Slide12({ slideNum }) {
+  const learningSteps = [
+    '1. Input נכנס למודל',
+    '2. המודל מייצר תחזית',
+    '3. מחשבים טעות',
+    '4. הטעות חוזרת אחורה',
+    '5. המשקלים בכל שכבה מתעדכנים',
+  ];
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">הרצאה 3 — שקף {slideNum} — Backpropagation</div>
+      <h2>איך המודל לומד: <em>Backpropagation</em></h2>
+      <p className="slide-sub">תהליך הלמידה:</p>
+      <div className="l3-backprop-layout">
+        <div className="l3-backprop-list">
+          {learningSteps.map((item) => <div key={item} className="l3-backprop-item">{item}</div>)}
+          <div className="l3-formula mono">w ← w − η · ∂L/∂w</div>
+        </div>
+        <div className="l3-backprop-flow">
+          <div className="l3-forward-row">Input → Hidden Layers → Output</div>
+          <div className="l3-back-row">Error ← Weight Update</div>
+        </div>
+      </div>
+      <div className="l3-bottom-line">הטעות היא מנגנון הלמידה.</div>
+    </div>
+  );
+}
+
+function Lecture3Slide13({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">הרצאה 3 — שקף {slideNum} — תרגול</div>
+      <h2>תרגול 2 — לחשוב כמו <em>רשת עמוקה</em></h2>
+      <p className="slide-sub">מקרה: לקוח עומד לנטוש. מה המודל לומד בכל רמה?</p>
+      <table className="demo-table">
+        <thead>
+          <tr>
+            <th>Level</th>
+            <th>Question</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Neuron / Signal</td>
+            <td>איזה אות בסיסי מופיע?</td>
+          </tr>
+          <tr>
+            <td>Hidden Pattern</td>
+            <td>איזה שילוב של אותות נוצר?</td>
+          </tr>
+          <tr>
+            <td>Latent Meaning</td>
+            <td>איזו משמעות עסקית המודל למד?</td>
+          </tr>
+        </tbody>
+      </table>
+      <div className="l3-example-box">
+        <div><strong>Signal:</strong> ירידה של 40% בזמן שימוש</div>
+        <div><strong>Hidden Pattern:</strong> ירידה + תלונה שלא טופלה + איחור בתשלום</div>
+        <div><strong>Latent Meaning:</strong> תסכול / disengagement</div>
+      </div>
+      <div className="l3-level-flow">
+        <span>Signal</span>
+        <span>Hidden Pattern</span>
+        <span>Latent Meaning</span>
+      </div>
+      <div className="l3-footnote">הרשת לא קופצת מהנתון להחלטה — היא בונה משמעות בהדרגה.</div>
+    </div>
+  );
+}
+
+function Lecture3Slide14({ slideNum }) {
+  const explicit = ['גיל', 'תדירות שימוש', 'מספר פניות', 'סטטוס תשלום'];
+  const latent = ['Friction', 'Intent', 'Trust', 'Price Sensitivity', 'Risk'];
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">הרצאה 3 — שקף {slideNum} — WOW</div>
+      <h2>רגע ה-WOW: המודל לומד גם מה שלא כתוב בטבלה</h2>
+      <div className="l3-melt-layout">
+        <div className="l3-column-list">
+          <div className="l3-list-title mono">Columns</div>
+          {explicit.map((item) => <span key={item} className="l3-column-chip">{item}</span>)}
+        </div>
+        <div className="l3-viz-arrow">→</div>
+        <div className="l3-latent-list">
+          <div className="l3-list-title mono">Latent Variables</div>
+          {latent.map((item) => <span key={item} className="l3-latent-chip">{item}</span>)}
+        </div>
+      </div>
+      <div className="l3-bottom-line">Deep Learning מגלה מבנים חבויים.</div>
+    </div>
+  );
+}
+
+function Lecture3Slide15({ slideNum }) {
+  const entities = ['לקוח', 'מוצר', 'מסמך', 'שיחה', 'תיאור תביעה'];
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">הרצאה 3 — שקף {slideNum} — מעבר</div>
+      <h2>מ-Labels ל-<em>Representations</em></h2>
+      <p className="slide-sub">אם קופסאות לא מספיקות, צריך דרך חדשה לייצג ישויות:</p>
+      <div className="l3-entity-list">
+        {entities.map((entity) => <span key={entity} className="l3-entity-pill">{entity}</span>)}
+      </div>
+      <div className="l3-representation-compare">
+        <div className="l3-hard-label">High Risk</div>
+        <div className="l3-viz-arrow">→</div>
+        <div className="l3-point-space mono">x: 0.41 · y: -1.29 · z: 0.88</div>
+      </div>
+      <div className="l3-bottom-line">
+        אנחנו לא רוצים רק לסווג ישות.
+        <br />
+        אנחנו רוצים לייצג אותה.
+      </div>
+    </div>
+  );
+}
+
+function Lecture3Slide16({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">הרצאה 3 — שקף {slideNum} — Embeddings</div>
+      <h2>Embeddings: משמעות כ<em>מיקום במרחב</em></h2>
+      <div className="l3-embed-points" aria-hidden="true">
+        {Array.from({ length: 21 }, (_, i) => <span key={i} className={`l3-embed-dot e${i + 1}`} />)}
+      </div>
+      <ul className="l3-question-list">
+        <li>דברים דומים יהיו קרובים</li>
+        <li>דברים שונים יהיו רחוקים</li>
+        <li>היחסים במרחב ישקפו משמעות</li>
+      </ul>
+      <div className="l3-footnote">
+        דוגמה עסקית: שני מוצרים שונים יכולים להיות קרובים אם הם משרתים אותו צורך אצל הלקוח.
+      </div>
+    </div>
+  );
+}
+
+function Lecture3Slide17({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">הרצאה 3 — שקף {slideNum} — תרגול</div>
+      <h2>תרגול 3 — מה אומר לכם Embedding עסקי?</h2>
+      <div className="l3-case-answer">
+        <div className="l3-case-question">
+          שני מוצרים שונים מאוד במחיר ובקטגוריה יושבים קרוב במרחב. מה זה אומר?
+        </div>
+        <div className="l3-case-strong">
+          ייתכן שהם משרתים אותו <em>intent</em> אצל הלקוח.
+        </div>
+      </div>
+      <div className="l3-gift-row">
+        <div className="l3-product-card">🥂 שמפניה</div>
+        <div className="l3-intent-bubble mono">"מתנת חגיגה של הרגע האחרון"</div>
+        <div className="l3-product-card">💐 זר פרחים</div>
+      </div>
+      <div className="l3-bottom-line">Embedding מגלה קרבה פונקציונלית, לא רק קטגוריאלית.</div>
+    </div>
+  );
+}
+
+function Lecture3Slide18({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">הרצאה 3 — שקף {slideNum} — רצפים והקשר</div>
+      <h2>כשמשמעות תלויה בהקשר: Sequence Models / RNN</h2>
+      <p className="slide-sub">מודל רגיל רואה snapshot. מודל רצפי רואה רצף.</p>
+      <ul className="l3-question-list">
+        <li>המשמעות של פעולה תלויה במה שקרה לפניה</li>
+        <li>סדר הזמן משנה</li>
+        <li>דפוסים מתגלים רק לאורך רצף</li>
+      </ul>
+      <div className="l3-sequence-timeline">
+        <div className="l3-time-chain mono">txn1 → txn2 → txn3 → txn4 → txn5</div>
+        <div className="l3-hidden-state mono">hidden state: h1 → h2 → h3 → h4 → h5</div>
+      </div>
+      <div className="l3-fraud-row">
+        <div className="l3-single-ok">עסקה אחת של $5 — נראית תקינה</div>
+        <div className="l3-fraud-series">10 עסקאות של $5 בתוך שתי דקות — דפוס חשוד</div>
+      </div>
+      <div className="l3-bottom-line">Sequence models מוסיפים הקשר וזיכרון.</div>
+    </div>
+  );
+}
+
+function Lecture3Slide19({ slideNum }) {
+  const path = [
+    'Regression / Classification / Clustering',
+    'Neural Networks',
+    'Neurons + Hidden Layers + Activation',
+    'Deep Learning',
+    'Representations',
+    'Embeddings',
+    'Sequence Models',
+    'Next: Language Models',
+  ];
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">הרצאה 3 — שקף {slideNum} — סיכום</div>
+      <h2>סיכום: האבולוציה של <em>AI</em></h2>
+      <p className="slide-sub">המסלול שראינו היום:</p>
+      <div className="l3-evolution-path">
+        {path.map((item, idx) => (
+          <div key={item} className={`l3-evolution-step ${idx === path.length - 1 ? 'next' : ''}`}>
+            <span>{item}</span>
+          </div>
+        ))}
+      </div>
+      <Highlight>
+        עד עכשיו לימדנו מכונות לקבל החלטות.
+        <br />
+        מהשיעור הבא נתחיל ללמד אותן להבין שפה.
+      </Highlight>
+    </div>
+  );
+}
+
 // ── Main Slides page ──────────────────────────────────────────
 const SLIDE_COMPONENTS = [
   IntroSlide1, IntroSlide2, IntroSlide3, IntroSlide4, IntroSlide5,
@@ -3165,7 +3719,10 @@ const SLIDE_COMPONENTS = [
   InterceptLearningGameSlide, PigeonsPicassoSlide, TolmanMazeSlide, JenniferAnistonNeuronSlide, ComputerBasicsSlide,
   NeuronHeartbeatSlide, SynapsesSlide, HowModelLearnsSlide,
   FinalExercise1Slide, FinalExercise2Slide, FinalExercise3Slide, FinalExercise4Slide, FinalExercise5Slide, FinalExercise6Slide,
-  FinalExerciseSummarySlide, NextChapterTeaserSlide
+  FinalExerciseSummarySlide, NextChapterTeaserSlide,
+  Lecture3Slide1, Lecture3Slide2, Lecture3Slide3, Lecture3Slide4, Lecture3Slide5, Lecture3Slide6, Lecture3Slide7, Lecture3Slide8,
+  Lecture3Slide9, Lecture3Slide10, Lecture3Slide11, Lecture3Slide12, Lecture3Slide13, Lecture3Slide14, Lecture3Slide15,
+  Lecture3Slide16, Lecture3Slide17, Lecture3Slide18, Lecture3Slide19
 ];
 
 export default function Slides() {
