@@ -3447,6 +3447,132 @@
   font-size: 12px;
 }
 
+.l3-practice-questions {
+  display: grid;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.l3-practice-questions > div {
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--card);
+  padding: 10px 12px;
+  color: var(--white);
+  line-height: 1.6;
+}
+
+.l3-practice-questions .mono {
+  color: var(--accent);
+  font-size: 10px;
+  margin-left: 8px;
+}
+
+.l3-practice-flow {
+  margin-top: 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.l3-practice-step {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px;
+  text-align: center;
+  color: var(--white);
+  font-size: 13px;
+  position: relative;
+  min-height: 52px;
+  display: grid;
+  place-items: center;
+}
+
+.l3-practice-step em {
+  position: absolute;
+  left: -12px;
+  font-style: normal;
+  color: var(--accent);
+}
+
+.l3-case-problem {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--card);
+  padding: 12px;
+  margin-top: 4px;
+}
+
+.l3-case-problem p {
+  margin: 0;
+  color: var(--white);
+  line-height: 1.7;
+}
+
+.l3-case-problem p + p {
+  margin-top: 8px;
+}
+
+.l3-case-subtitle {
+  margin-top: 10px;
+  color: var(--dim);
+  font-size: 14px;
+}
+
+.l3-answer-block {
+  margin-top: 10px;
+  border: 1px solid rgba(232, 255, 71, 0.35);
+  border-radius: 10px;
+  background: rgba(232, 255, 71, 0.05);
+  padding: 12px;
+}
+
+.l3-answer-title {
+  color: var(--accent);
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.l3-answer-subtitle {
+  margin-top: 4px;
+  color: var(--dim);
+  font-size: 12px;
+}
+
+.l3-answer-item {
+  margin-top: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.l3-answer-item strong {
+  color: var(--white);
+}
+
+.l3-answer-item p {
+  margin: 6px 0 0;
+  color: var(--white);
+  line-height: 1.7;
+}
+
+.l3-summary-list {
+  display: grid;
+  gap: 8px;
+}
+
+.l3-summary-item {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--card);
+  padding: 11px 12px;
+  color: var(--white);
+}
+
 .l3-segment-grid {
   margin-top: 16px;
   border: 1px solid var(--border);
@@ -3533,6 +3659,15 @@
   transform: translateY(-2px);
   border-color: var(--accent);
   background: rgba(232, 255, 71, 0.12);
+}
+
+.l3-option-btn.hidden-answer,
+.l3-option-btn.hidden-answer:hover {
+  color: var(--dim);
+  border-color: var(--border);
+  background: rgba(255, 255, 255, 0.02);
+  transform: none;
+  cursor: default;
 }
 
 .l3-footnote {
@@ -4039,6 +4174,7 @@
   .l3-layer-steps,
   .l3-neuron-diagram,
   .l3-hidden-split,
+  .l3-practice-flow,
   .l3-activation-grid,
   .l3-quiz-options,
   .l3-quiz-cases,

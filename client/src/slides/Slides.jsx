@@ -111,12 +111,12 @@ const SLIDE_LIST = [
   { id: 68, title: 'למה Activation Function משנה הכל?', navNum: '3.11' },
   { id: 69, title: 'איך המודל לומד: Backpropagation', navNum: '3.12' },
   { id: 70, title: 'תרגול 2 — לחשוב כמו רשת עמוקה', navNum: '3.13' },
-  { id: 71, title: 'רגע ה-WOW', navNum: '3.14' },
-  { id: 72, title: 'מ-Labels ל-Representations', navNum: '3.15' },
-  { id: 73, title: 'Embeddings', navNum: '3.16' },
-  { id: 74, title: 'תרגול 3 — Embedding עסקי', navNum: '3.17' },
-  { id: 75, title: 'Sequence Models / RNN', navNum: '3.18' },
-  { id: 76, title: 'סיכום: האבולוציה של AI', navNum: '3.19' },
+  { id: 71, title: 'המודל לומד גם מה שלא כתוב בטבלה', navNum: '3.14' },
+  { id: 72, title: 'איך מפרקים בעיה עסקית כבעיית AI', navNum: '3.15' },
+  { id: 73, title: 'קייס 1 — עירייה', navNum: '3.16' },
+  { id: 74, title: 'קייס 2 — משקפי שמש', navNum: '3.17' },
+  { id: 75, title: 'קייס 3 — שיווק', navNum: '3.18' },
+  { id: 76, title: 'מה ראינו בשלושת הקייסים?', navNum: '3.19' },
 ];
 
 // ── Small reusable components ─────────────────────────────────
@@ -3181,7 +3181,7 @@ function Lecture3Slide1({ slideNum }) {
       </p>
       <div className="l3-transition-viz">
         <div className="l3-label-node mono">Label</div>
-        <div className="l3-viz-arrow">→</div>
+        <div className="l3-viz-arrow">←</div>
         <div className="l3-representation-cloud" aria-hidden="true">
           {Array.from({ length: 14 }, (_, i) => <span key={i} className={`l3-dot d${i + 1}`} />)}
         </div>
@@ -3212,7 +3212,7 @@ function Lecture3Slide2({ slideNum }) {
           <div key={step} className="l3-business-step">
             <span className="l3-step-icon" aria-hidden="true">{['◉', '◈', '◌', '◎', '✦'][idx]}</span>
             <span>{step}</span>
-            {idx < steps.length - 1 && <span className="l3-step-arrow">→</span>}
+            {idx < steps.length - 1 && <span className="l3-step-arrow">←</span>}
           </div>
         ))}
       </div>
@@ -3276,6 +3276,7 @@ function Lecture3Slide5({ slideNum }) {
     'חלוקת לקוחות לקבוצות דומות לפי הרגלי קנייה',
   ];
   const options = ['Regression', 'Classification', 'Clustering'];
+  const [revealed, setRevealed] = useState(false);
   return (
     <div className="slide fade-up">
       <div className="slide-eyebrow mono">הרצאה 3 — שקף {slideNum} — תרגול</div>
@@ -3289,8 +3290,22 @@ function Lecture3Slide5({ slideNum }) {
           </div>
         ))}
       </div>
+      <div className="reveal-btn-subtle-row">
+        <button className="reveal-btn" onClick={() => setRevealed((prev) => !prev)}>
+          {revealed ? 'הסתרה' : 'חשיפה'}
+        </button>
+      </div>
       <div className="l3-quiz-options">
-        {options.map((item) => <button key={item} type="button" className="l3-option-btn">{item}</button>)}
+        {options.map((item, idx) => (
+          <button
+            key={item}
+            type="button"
+            className={`l3-option-btn ${revealed ? '' : 'hidden-answer'}`}
+            disabled={!revealed}
+          >
+            {revealed ? item : `Answer ${idx + 1} — ?`}
+          </button>
+        ))}
       </div>
       <div className="l3-footnote mono">לא כל בעיה עסקית צריכה LLM.</div>
     </div>
@@ -3318,7 +3333,7 @@ function Lecture3Slide6({ slideNum }) {
       </div>
       <div className="l3-flat-to-rich">
         <div className="l3-flat-sheet">Flat Table</div>
-        <div className="l3-viz-arrow">→</div>
+        <div className="l3-viz-arrow">←</div>
         <div className="l3-rich-graph">Learned Structure</div>
       </div>
       <div className="l3-bottom-line">הבעיה היא לא רק בדאטה — אלא בדרך שבה אנחנו מייצגים אותו.</div>
@@ -3342,7 +3357,7 @@ function Lecture3Slide7({ slideNum }) {
         {states.map((state, idx) => (
           <div key={state} className="l3-state-chip">
             {state}
-            {idx < states.length - 1 && <span className="l3-step-arrow">→</span>}
+            {idx < states.length - 1 && <span className="l3-step-arrow">←</span>}
           </div>
         ))}
       </div>
@@ -3507,8 +3522,8 @@ function Lecture3Slide12({ slideNum }) {
           <div className="l3-formula mono">w ← w − η · ∂L/∂w</div>
         </div>
         <div className="l3-backprop-flow">
-          <div className="l3-forward-row">Input → Hidden Layers → Output</div>
-          <div className="l3-back-row">Error ← Weight Update</div>
+          <div className="l3-forward-row">Input ← Hidden Layers ← Output</div>
+          <div className="l3-back-row">Error → Weight Update</div>
         </div>
       </div>
       <div className="l3-bottom-line">הטעות היא מנגנון הלמידה.</div>
@@ -3564,14 +3579,14 @@ function Lecture3Slide14({ slideNum }) {
   const latent = ['Friction', 'Intent', 'Trust', 'Price Sensitivity', 'Risk'];
   return (
     <div className="slide fade-up">
-      <div className="slide-eyebrow mono">הרצאה 3 — שקף {slideNum} — WOW</div>
-      <h2>רגע ה-WOW: המודל לומד גם מה שלא כתוב בטבלה</h2>
+      <div className="slide-eyebrow mono">הרצאה 3 — שקף {slideNum} — מבנים חבויים</div>
+      <h2>המודל לומד גם מה שלא כתוב בטבלה</h2>
       <div className="l3-melt-layout">
         <div className="l3-column-list">
           <div className="l3-list-title mono">Columns</div>
           {explicit.map((item) => <span key={item} className="l3-column-chip">{item}</span>)}
         </div>
-        <div className="l3-viz-arrow">→</div>
+        <div className="l3-viz-arrow">←</div>
         <div className="l3-latent-list">
           <div className="l3-list-title mono">Latent Variables</div>
           {latent.map((item) => <span key={item} className="l3-latent-chip">{item}</span>)}
@@ -3583,124 +3598,236 @@ function Lecture3Slide14({ slideNum }) {
 }
 
 function Lecture3Slide15({ slideNum }) {
-  const entities = ['לקוח', 'מוצר', 'מסמך', 'שיחה', 'תיאור תביעה'];
+  const flow = ['החלטה עסקית', 'סוג הבעיה', 'Output', 'מגבלת מודל קלאסי', 'שדרוג בעזרת Deep Learning'];
   return (
     <div className="slide fade-up">
-      <div className="slide-eyebrow mono">הרצאה 3 — שקף {slideNum} — מעבר</div>
-      <h2>מ-Labels ל-<em>Representations</em></h2>
-      <p className="slide-sub">אם קופסאות לא מספיקות, צריך דרך חדשה לייצג ישויות:</p>
-      <div className="l3-entity-list">
-        {entities.map((entity) => <span key={entity} className="l3-entity-pill">{entity}</span>)}
+      <div className="slide-eyebrow mono">הרצאה 3 — שקף {slideNum} — מסגרת תרגול</div>
+      <h2>איך מפרקים בעיה עסקית כבעיית AI</h2>
+      <p className="slide-sub">בכל קייס נענה על 5 שאלות:</p>
+      <div className="l3-practice-questions">
+        <div><span className="mono">01</span> מה ההחלטה העסקית?</div>
+        <div><span className="mono">02</span> האם זו רגרסיה / קלסיפיקציה / קלאסטרינג?</div>
+        <div><span className="mono">03</span> מה ה-output של המודל?</div>
+        <div><span className="mono">04</span> למה מודל קלאסי לא מספיק?</div>
+        <div><span className="mono">05</span> מה למידה עמוקה יכולה להוסיף?</div>
       </div>
-      <div className="l3-representation-compare">
-        <div className="l3-hard-label">High Risk</div>
-        <div className="l3-viz-arrow">→</div>
-        <div className="l3-point-space mono">x: 0.41 · y: -1.29 · z: 0.88</div>
+      <div className="l3-practice-flow">
+        {flow.map((item, idx) => (
+          <div key={item} className="l3-practice-step">
+            <span>{item}</span>
+            {idx < flow.length - 1 && <em>←</em>}
+          </div>
+        ))}
       </div>
-      <div className="l3-bottom-line">
-        אנחנו לא רוצים רק לסווג ישות.
-        <br />
-        אנחנו רוצים לייצג אותה.
+      <div className="l3-footnote">קודם חושבים. אחר כך חושפים תשובות טובות אפשריות.</div>
+    </div>
+  );
+}
+
+function CaseExerciseSlide({ slideNum, caseTitle, problemLines, guideFooter, revealData, revealPunchline }) {
+  const [step, setStep] = useState(0);
+  const canRevealMore = step < 7;
+
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">הרצאה 3 — שקף {slideNum} — קייס</div>
+      <h2>{caseTitle}</h2>
+      <div className="l3-case-problem">
+        {problemLines.map((line) => <p key={line}>{line}</p>)}
       </div>
+      <div className="l3-case-subtitle">חשבו על הבעיה כבעיית AI</div>
+      <div className="l3-practice-questions">
+        <div><span className="mono">01</span> מה ההחלטה העסקית כאן?</div>
+        <div><span className="mono">02</span> האם זו רגרסיה / קלסיפיקציה / קלאסטרינג?</div>
+        <div><span className="mono">03</span> מה ה-output של המודל?</div>
+        <div><span className="mono">04</span> למה מודל קלאסי עלול לא להספיק?</div>
+        <div><span className="mono">05</span> מה למידה עמוקה יכולה להוסיף?</div>
+      </div>
+      <div className="l3-footnote">{guideFooter}</div>
+
+      <div className="reveal-btn-subtle-row">
+        <button className="reveal-btn" onClick={() => setStep((prev) => (prev < 7 ? prev + 1 : prev))} disabled={!canRevealMore}>
+          {canRevealMore ? 'חשיפה' : 'נחשף במלואו'}
+        </button>
+        {step > 0 && (
+          <button className="reveal-btn" onClick={() => setStep(0)}>איפוס</button>
+        )}
+      </div>
+
+      {step > 0 && (
+        <div className="l3-answer-block">
+          <div className="l3-answer-title">תשובות טובות אפשריות</div>
+          <div className="l3-answer-subtitle">לא בהכרח תשובה יחידה — אבל כן כיוון ניתוח חזק</div>
+
+          {step >= 2 && (
+            <div className="l3-answer-item">
+              <strong>החלטה עסקית:</strong>
+              <p>{revealData.decision}</p>
+            </div>
+          )}
+
+          {step >= 3 && (
+            <div className="l3-answer-item">
+              <strong>סוג הבעיה:</strong>
+              <ul className="l3-question-list compact">
+                {revealData.problemType.map((item) => <li key={item}>{item}</li>)}
+              </ul>
+            </div>
+          )}
+
+          {step >= 4 && (
+            <div className="l3-answer-item">
+              <strong>Output אפשרי:</strong>
+              <ul className="l3-question-list compact">
+                {revealData.outputs.map((item) => <li key={item}>{item}</li>)}
+              </ul>
+            </div>
+          )}
+
+          {step >= 5 && (
+            <div className="l3-answer-item">
+              <strong>למה מודל קלאסי לא מספיק:</strong>
+              <p>{revealData.classicLimitLead}</p>
+              <ul className="l3-question-list compact">
+                {revealData.classicLimits.map((item) => <li key={item}>{item}</li>)}
+              </ul>
+            </div>
+          )}
+
+          {step >= 6 && (
+            <div className="l3-answer-item">
+              <strong>מה למידה עמוקה מוסיפה:</strong>
+              <ul className="l3-question-list compact">
+                {revealData.deepAdds.map((item) => <li key={item}>{item}</li>)}
+              </ul>
+            </div>
+          )}
+
+          {step >= 7 && <div className="l3-bottom-line">{revealPunchline}</div>}
+        </div>
+      )}
     </div>
   );
 }
 
 function Lecture3Slide16({ slideNum }) {
   return (
-    <div className="slide fade-up">
-      <div className="slide-eyebrow mono">הרצאה 3 — שקף {slideNum} — Embeddings</div>
-      <h2>Embeddings: משמעות כ<em>מיקום במרחב</em></h2>
-      <div className="l3-embed-points" aria-hidden="true">
-        {Array.from({ length: 21 }, (_, i) => <span key={i} className={`l3-embed-dot e${i + 1}`} />)}
-      </div>
-      <ul className="l3-question-list">
-        <li>דברים דומים יהיו קרובים</li>
-        <li>דברים שונים יהיו רחוקים</li>
-        <li>היחסים במרחב ישקפו משמעות</li>
-      </ul>
-      <div className="l3-footnote">
-        דוגמה עסקית: שני מוצרים שונים יכולים להיות קרובים אם הם משרתים אותו צורך אצל הלקוח.
-      </div>
-    </div>
+    <CaseExerciseSlide
+      slideNum={slideNum}
+      caseTitle="קייס 1 — איך מצמצמים דליפה תקציבית בעירייה?"
+      problemLines={[
+        'מחלקת בקרה תקציבית בעירייה מזהה שבכל שנה יש חריגות תקציב, תשלומים כפולים, הוצאות שלא ברור אם היו מוצדקות, ופערים בין תקציב מאושר לביצוע בפועל.',
+        'המטרה היא לדעת מה לבדוק עכשיו, במקום לעבור ידנית על אלפי שורות.',
+      ]}
+      guideFooter="עצרו רגע ונסו לענות לפני שחושפים."
+      revealData={{
+        decision: 'אילו הוצאות, ספקים או סעיפים צריך לבדוק לעומק עכשיו',
+        problemType: [
+          'קלסיפיקציה אם יש דוגמאות עבר של דליפה',
+          'קלאסטרינג / גילוי חריגות אם אין תוויות טובות',
+        ],
+        outputs: [
+          'ציון סיכון להוצאה',
+          'רשימת חריגות לתעדוף',
+          'זיהוי דפוס חריג בהתנהגות תקציבית',
+        ],
+        classicLimitLead: 'כי דליפה לא יושבת רק על הוצאה גבוהה, אלא על:',
+        classicLimits: ['תזמון חריג', 'פיצול תשלומים', 'ספקים לא רגילים', 'צירופים חשודים בין סעיפים', 'טקסט חריג בתיאור הוצאה'],
+        deepAdds: [
+          'למידת ייצוג של "חריגות תקציבית"',
+          'embeddings לתיאורי הוצאות / ספקים',
+          'זיהוי דפוסים חבויים',
+          'שילוב של structured data, text וזמן',
+        ],
+      }}
+      revealPunchline="זו לא רק שאלה של חריגה — זו שאלה של דפוס חריג בתוך מערכת מורכבת."
+    />
   );
 }
 
 function Lecture3Slide17({ slideNum }) {
   return (
-    <div className="slide fade-up">
-      <div className="slide-eyebrow mono">הרצאה 3 — שקף {slideNum} — תרגול</div>
-      <h2>תרגול 3 — מה אומר לכם Embedding עסקי?</h2>
-      <div className="l3-case-answer">
-        <div className="l3-case-question">
-          שני מוצרים שונים מאוד במחיר ובקטגוריה יושבים קרוב במרחב. מה זה אומר?
-        </div>
-        <div className="l3-case-strong">
-          ייתכן שהם משרתים אותו <em>intent</em> אצל הלקוח.
-        </div>
-      </div>
-      <div className="l3-gift-row">
-        <div className="l3-product-card">🥂 שמפניה</div>
-        <div className="l3-intent-bubble mono">"מתנת חגיגה של הרגע האחרון"</div>
-        <div className="l3-product-card">💐 זר פרחים</div>
-      </div>
-      <div className="l3-bottom-line">Embedding מגלה קרבה פונקציונלית, לא רק קטגוריאלית.</div>
-    </div>
+    <CaseExerciseSlide
+      slideNum={slideNum}
+      caseTitle="קייס 2 — איך לא לפספס טרנד שמתיישן לפני שהמוצר מגיע לחנות?"
+      problemLines={[
+        'חברת משקפי שמש מנסה לזהות טרנדים חדשים בזמן. הבעיה: עד שמזהים טרנד, מעצבים, מייצרים ומפיצים — כבר נולד טרנד חדש.',
+        'המטרה היא לדעת מה לקדם עכשיו, ובאיזו כמות.',
+      ]}
+      guideFooter='אל תחפשו רק "איזה מודל". חפשו מה העסק באמת צריך להחליט.'
+      revealData={{
+        decision: 'איזה סגנון, צבע או דגם לקדם עכשיו — ובאיזו כמות',
+        problemType: [
+          'רגרסיה אם רוצים לחזות ביקוש',
+          'קלסיפיקציה אם רוצים להעריך האם טרנד צפוי להתחזק או להיעלם',
+          'קלאסטרינג אם רוצים לזהות משפחות סגנון והתנהגות צרכנית',
+        ],
+        outputs: ['תחזית ביקוש', 'trend score', 'רשימת סגנונות מתפתחים', 'המלצת portfolio לייצור'],
+        classicLimitLead: 'כי טרנד הוא לא רק מכירות עבר. הוא כולל:',
+        classicLimits: ['תמונות', 'תוכן ברשתות', 'האשטגים', 'שינוי לאורך זמן', 'דמיון בין סגנונות', 'האצה או דעיכה'],
+        deepAdds: [
+          'embeddings לתמונות / סגנונות',
+          'sequence models לדינמיקה של טרנדים',
+          'multimodal learning: תמונה + טקסט + זמן + מכירות',
+          'זיהוי signal חלש לפני שהוא גלוי בטבלה',
+        ],
+      }}
+      revealPunchline="השאלה היא לא רק מה נמכר — אלא איזה סגנון מתחיל להיוולד עכשיו."
+    />
   );
 }
 
 function Lecture3Slide18({ slideNum }) {
   return (
-    <div className="slide fade-up">
-      <div className="slide-eyebrow mono">הרצאה 3 — שקף {slideNum} — רצפים והקשר</div>
-      <h2>כשמשמעות תלויה בהקשר: Sequence Models / RNN</h2>
-      <p className="slide-sub">מודל רגיל רואה snapshot. מודל רצפי רואה רצף.</p>
-      <ul className="l3-question-list">
-        <li>המשמעות של פעולה תלויה במה שקרה לפניה</li>
-        <li>סדר הזמן משנה</li>
-        <li>דפוסים מתגלים רק לאורך רצף</li>
-      </ul>
-      <div className="l3-sequence-timeline">
-        <div className="l3-time-chain mono">txn1 → txn2 → txn3 → txn4 → txn5</div>
-        <div className="l3-hidden-state mono">hidden state: h1 → h2 → h3 → h4 → h5</div>
-      </div>
-      <div className="l3-fraud-row">
-        <div className="l3-single-ok">עסקה אחת של $5 — נראית תקינה</div>
-        <div className="l3-fraud-series">10 עסקאות של $5 בתוך שתי דקות — דפוס חשוד</div>
-      </div>
-      <div className="l3-bottom-line">Sequence models מוסיפים הקשר וזיכרון.</div>
-    </div>
+    <CaseExerciseSlide
+      slideNum={slideNum}
+      caseTitle="קייס 3 — איזה מסר שיווקי נכון לאיזה אדם?"
+      problemLines={[
+        'לחברת שיווק יש מוצר עם כמה ערכים שונים: חיסכון בזמן, חיסכון בכסף, איכות גבוהה, סטטוס ופשטות.',
+        'הבעיה: אנשים שונים מגיבים למסרים שונים, ולא תמיד יודעים לנסח בעצמם מה באמת כואב להם.',
+      ]}
+      guideFooter="נסו לחשוב לא רק מי הלקוח — אלא מה באמת חשוב לו עכשיו."
+      revealData={{
+        decision: 'איזה מסר פרסומי להציג לאיזה אדם, קהל או סשן',
+        problemType: [
+          'קלסיפיקציה אם רוצים לבחור מסר מוביל',
+          'רגרסיה אם רוצים לחזות הסתברות תגובה לכל מסר',
+          'קלאסטרינג אם רוצים לזהות קבוצות כאב / motivation',
+        ],
+        outputs: ['ranked messages', 'probability of response', 'message-to-person fit score'],
+        classicLimitLead: 'כי אנשים לא מגיבים רק לדמוגרפיה, אלא ל:',
+        classicLimits: ['כאב סמוי', 'motivation', 'שלב במסע', 'ניסוח טקסטואלי', 'הקשר רגשי', 'דמיון סמנטי בין מסרים'],
+        deepAdds: [
+          'embeddings למסרים',
+          'embeddings לבעיות / תגובות לקוחות',
+          'hidden layers שלומדות motivations חבויים',
+          'התאמת מסר לפי משמעות, לא רק לפי סגמנט קשיח',
+        ],
+      }}
+      revealPunchline="האתגר הוא לא רק לדעת מי הלקוח — אלא להבין איזה כאב מדבר אליו עכשיו."
+    />
   );
 }
 
 function Lecture3Slide19({ slideNum }) {
-  const path = [
-    'Regression / Classification / Clustering',
-    'Neural Networks',
-    'Neurons + Hidden Layers + Activation',
-    'Deep Learning',
-    'Representations',
-    'Embeddings',
-    'Sequence Models',
-    'Next: Language Models',
+  const takeaways = [
+    'מתחילים מ־החלטה עסקית',
+    'מגדירים סוג בעיה ו־output',
+    'מבינים למה מודל קלאסי לא מספיק',
+    'מוסיפים ייצוג, שכבות, הקשר או רצף',
+    'מקבלים מודל שחושב בצורה קרובה יותר למציאות',
   ];
   return (
     <div className="slide fade-up">
-      <div className="slide-eyebrow mono">הרצאה 3 — שקף {slideNum} — סיכום</div>
-      <h2>סיכום: האבולוציה של <em>AI</em></h2>
-      <p className="slide-sub">המסלול שראינו היום:</p>
-      <div className="l3-evolution-path">
-        {path.map((item, idx) => (
-          <div key={item} className={`l3-evolution-step ${idx === path.length - 1 ? 'next' : ''}`}>
-            <span>{item}</span>
-          </div>
-        ))}
+      <div className="slide-eyebrow mono">הרצאה 3 — שקף {slideNum} — סגירה</div>
+      <h2>מה ראינו ב<em>שלושת הקייסים</em>?</h2>
+      <div className="l3-summary-list">
+        {takeaways.map((item) => <div key={item} className="l3-summary-item">{item}</div>)}
       </div>
-      <Highlight>
-        עד עכשיו לימדנו מכונות לקבל החלטות.
-        <br />
-        מהשיעור הבא נתחיל ללמד אותן להבין שפה.
-      </Highlight>
+      <div className="l3-bottom-line">
+        המעבר ל־Deep Learning הוא לא רק שדרוג בביצועים — אלא שדרוג באופן שבו המערכת מייצגת את העולם.
+      </div>
+      <div className="l3-footnote">בפעם הבאה ניקח את אותה לוגיקה — ונראה איך היא פועלת על שפה.</div>
     </div>
   );
 }
