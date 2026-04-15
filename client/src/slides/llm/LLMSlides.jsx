@@ -45,13 +45,14 @@ const SLIDE_LIST = [
   { id: 31, title: 'Parallelism' },
   { id: 32, title: 'Transformer', navNum: 'ז' },
   { id: 33, title: 'Pre-training' },
+  { id: 34, title: 'אז מה זה GPT?' },
   // Emergence
-  { id: 34, title: 'מה GPT עושה?', navNum: 'ח' },
-  { id: 35, title: 'למה זה נראה חכם?' },
+  { id: 35, title: 'מה GPT עושה?', navNum: 'ח' },
+  { id: 36, title: 'למה זה נראה חכם?' },
   // Practical
-  { id: 36, title: 'Prompting' },
-  { id: 37, title: 'RAG & Agents' },
-  { id: 38, title: 'סיכום' },
+  { id: 37, title: 'Prompting' },
+  { id: 38, title: 'RAG & Agents' },
+  { id: 39, title: 'סיכום' },
 ];
 
 // ═══════════════════════════════════════════════════════════════
@@ -1110,6 +1111,33 @@ function PreTrainingSlide({ slideNum }) {
   );
 }
 
+function WhatIsGPTSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">שקף {slideNum} — פירוק השם</div>
+      <h2>אז מה זה <em>GPT</em>?</h2>
+
+      <div className="gpt-acronym">
+        <div className="acronym-row" style={{ animationDelay: '0.3s' }}>
+          <div className="acronym-letter">G</div>
+          <div className="acronym-word">Generative</div>
+          <div className="acronym-explain">מייצר טקסט — <em>מנבא את המילה הבאה</em></div>
+        </div>
+        <div className="acronym-row" style={{ animationDelay: '0.7s' }}>
+          <div className="acronym-letter">P</div>
+          <div className="acronym-word">Pre-trained</div>
+          <div className="acronym-explain">למד שפה על <em>כמויות עצומות של טקסט</em></div>
+        </div>
+        <div className="acronym-row" style={{ animationDelay: '1.1s' }}>
+          <div className="acronym-letter">T</div>
+          <div className="acronym-word">Transformer</div>
+          <div className="acronym-explain">הארכיטקטורה — <em>Attention</em></div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ═══════════════════════════════════════════════════════════════
 // ACT 8 — EMERGENCE
 // ═══════════════════════════════════════════════════════════════
@@ -1283,6 +1311,7 @@ const SLIDE_COMPONENTS = [
   ParallelismSlide,
   TransformerSlide,
   PreTrainingSlide,
+  WhatIsGPTSlide,
   // Act 8 — Emergence
   WhatGPTDoesSlide,
   WhyItSeemsSmartSlide,

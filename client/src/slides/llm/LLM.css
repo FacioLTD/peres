@@ -1558,6 +1558,62 @@
   animation: fadeUp 0.4s ease both;
 }
 
+/* ── GPT Acronym Breakdown ── */
+.gpt-acronym {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 32px auto;
+  max-width: 600px;
+}
+
+.acronym-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 24px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  animation: fadeUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  transition: all 0.25s;
+}
+
+.acronym-row:hover {
+  border-color: var(--accent);
+  transform: translateX(-4px);
+  box-shadow: 0 6px 24px rgba(99, 102, 241, 0.08);
+}
+
+.acronym-letter {
+  font-size: 42px;
+  font-weight: 900;
+  color: var(--accent);
+  min-width: 52px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.acronym-word {
+  font-family: 'Space Mono', monospace;
+  font-size: 18px;
+  font-weight: 700;
+  min-width: 140px;
+  flex-shrink: 0;
+}
+
+.acronym-explain {
+  font-size: 16px;
+  color: var(--dim);
+  line-height: 1.5;
+}
+
+.acronym-explain em {
+  color: var(--white);
+  font-style: normal;
+  font-weight: 600;
+}
+
 
 /* ═══════════════════════════════════════════════════════════════
    ATTENTION DEEP-DIVE SLIDES
