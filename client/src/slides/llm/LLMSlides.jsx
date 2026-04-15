@@ -6,53 +6,54 @@ import './LLM.css';
 // ── Slide list ────────────────────────────────────────────────
 const SLIDE_LIST = [
   { id: 1,  title: 'שער' },
+  { id: 2,  title: 'הכיתה שלכם' },
   // Act 1 — What is meaning?
-  { id: 2,  title: 'מהי משמעות?', navNum: 'א' },
-  { id: 3,  title: 'מלכודת' },
-  { id: 4,  title: 'הקריסה' },
-  { id: 5,  title: 'הדגמה' },
-  { id: 6,  title: 'המעבר הגדול' },
+  { id: 3,  title: 'מהי משמעות?', navNum: 'א' },
+  { id: 4,  title: 'מלכודת' },
+  { id: 5,  title: 'הקריסה' },
+  { id: 6,  title: 'הדגמה' },
+  { id: 7,  title: 'המעבר הגדול' },
   // Act 2 — The symbolic failure
-  { id: 7,  title: 'העידן הסימבולי', navNum: 'ב' },
-  { id: 8,  title: 'למה זה נשבר' },
-  { id: 9,  title: 'משפט בלתי אפשרי' },
-  { id: 10, title: 'מסקנה' },
+  { id: 8,  title: 'העידן הסימבולי', navNum: 'ב' },
+  { id: 9,  title: 'למה זה נשבר' },
+  { id: 10, title: 'משפט בלתי אפשרי' },
+  { id: 11, title: 'מסקנה' },
   // Act 3 — Statistical revolution
-  { id: 11, title: 'שינוי פרדיגמה', navNum: 'ג' },
-  { id: 12, title: 'N-grams' },
-  { id: 13, title: 'Markov' },
-  { id: 14, title: 'עדיין טיפש' },
+  { id: 12, title: 'שינוי פרדיגמה', navNum: 'ג' },
+  { id: 13, title: 'N-grams' },
+  { id: 14, title: 'Markov' },
+  { id: 15, title: 'עדיין טיפש' },
   // Act 4 — Word2Vec breakthrough
-  { id: 15, title: 'מילים = מספרים', navNum: 'ד' },
-  { id: 16, title: 'מילים = נקודות' },
-  { id: 17, title: 'אינטואיציה' },
-  { id: 18, title: 'קרבה במרחב' },
-  { id: 19, title: 'מלך − גבר + אישה' },
-  { id: 20, title: 'משמעות = קשרים' },
-  { id: 21, title: 'סגירת חלק 1' },
+  { id: 16, title: 'מילים = מספרים', navNum: 'ד' },
+  { id: 17, title: 'מילים = נקודות' },
+  { id: 18, title: 'אינטואיציה' },
+  { id: 19, title: 'קרבה במרחב' },
+  { id: 20, title: 'מלך − גבר + אישה' },
+  { id: 21, title: 'משמעות = קשרים' },
+  { id: 22, title: 'סגירת חלק 1' },
   // Part 2 — The RNN Pain
-  { id: 22, title: 'שמירת הקשר', navNum: 'ה' },
-  { id: 23, title: 'הבעיה' },
-  { id: 24, title: 'הקיר' },
+  { id: 23, title: 'שמירת הקשר', navNum: 'ה' },
+  { id: 24, title: 'הבעיה' },
+  { id: 25, title: 'הקיר' },
   // Attention — The Solution
-  { id: 25, title: 'Attention' },
-  { id: 26, title: 'RNN → Attention' },
-  { id: 27, title: 'Attention בפעולה' },
-  { id: 28, title: 'QKV — שידוכים', navNum: 'ו' },
-  { id: 29, title: 'הדיאלוג הפנימי' },
+  { id: 26, title: 'Attention' },
+  { id: 27, title: 'RNN → Attention' },
+  { id: 28, title: 'Attention בפעולה' },
+  { id: 29, title: 'QKV — שידוכים', navNum: 'ו' },
+  { id: 30, title: 'הדיאלוג הפנימי' },
   // Transformer — The Revolution
-  { id: 30, title: 'ומה אם...?' },
-  { id: 31, title: 'Parallelism' },
-  { id: 32, title: 'Transformer', navNum: 'ז' },
-  { id: 33, title: 'Pre-training' },
-  { id: 34, title: 'אז מה זה GPT?' },
+  { id: 31, title: 'ומה אם...?' },
+  { id: 32, title: 'Parallelism' },
+  { id: 33, title: 'Transformer', navNum: 'ז' },
+  { id: 34, title: 'Pre-training' },
+  { id: 35, title: 'אז מה זה GPT?' },
   // Emergence
-  { id: 35, title: 'מה GPT עושה?', navNum: 'ח' },
-  { id: 36, title: 'למה זה נראה חכם?' },
+  { id: 36, title: 'מה GPT עושה?', navNum: 'ח' },
+  { id: 37, title: 'למה זה נראה חכם?' },
   // Practical
-  { id: 37, title: 'Prompting' },
-  { id: 38, title: 'RAG & Agents' },
-  { id: 39, title: 'סיכום' },
+  { id: 38, title: 'Prompting' },
+  { id: 39, title: 'RAG & Agents' },
+  { id: 40, title: 'סיכום' },
 ];
 
 // ═══════════════════════════════════════════════════════════════
@@ -69,6 +70,113 @@ function TitleSlide() {
           <div className="instructor-name">אוריאל אהרוני</div>
           <div className="instructor-role">CEO & Co-Founder</div>
           <div className="instructor-companies mono">Facio · Choco · InsurMedix</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════
+// SURVEY RESULTS (LIVE)
+// ═══════════════════════════════════════════════════════════════
+
+function SurveyResultsSlide({ stats }) {
+  if (!stats || stats.n === 0) {
+    return (
+      <div className="slide fade-up">
+        <div className="dramatic-center">
+          <h2 className="dramatic-text">ממתינים לתגובות...</h2>
+          <p className="slide-sub">סרקו את ה-QR כדי למלא את הסקר</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Compute averages
+  const avg = arr => arr.length ? (arr.reduce((a, b) => a + b, 0) / arr.length).toFixed(1) : '—';
+  const trustAvg = avg(stats.trustScores || []);
+  const understandAvg = avg(stats.understandScores || []);
+  const workflowAvg = avg(stats.workflowScores || []);
+
+  // Tool distribution: sorted desc
+  const toolEntries = Object.entries(stats.toolCounts || {})
+    .sort((a, b) => b[1] - a[1]);
+  const maxToolCount = toolEntries.length ? toolEntries[0][1] : 1;
+
+  // Frequency distribution: sorted by intensity
+  const freqOrder = ['כל יום, כמה פעמים', 'כל יום', '4–7 פעמים', '1–3 פעמים', 'כלל לא'];
+  const freqEntries = freqOrder
+    .map(k => [k, (stats.frequencyCounts || {})[k] || 0])
+    .filter(([, v]) => v > 0);
+  const maxFreq = freqEntries.length ? Math.max(...freqEntries.map(e => e[1])) : 1;
+
+  const TOOL_COLORS = {
+    'ChatGPT': '#10a37f', 'Claude': '#d97706', 'Gemini': '#4285f4',
+    'Copilot': '#6366f1', 'אחר': '#94a3b8', 'לא משתמש': '#64748b',
+  };
+
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">שקף 02 — תמונת הכיתה</div>
+      <h2><em>{stats.n}</em> מכם ענו על הסקר. הנה מה גילינו.</h2>
+
+      <div className="survey-results-grid">
+        {/* Left: tool bars */}
+        <div className="survey-section">
+          <div className="survey-section-title mono">באיזה כלי אתם משתמשים?</div>
+          <div className="survey-bars">
+            {toolEntries.map(([tool, count], i) => (
+              <div key={tool} className="survey-bar-row" style={{ animationDelay: `${0.2 + i * 0.12}s` }}>
+                <span className="bar-label">{tool}</span>
+                <div className="bar-track">
+                  <div
+                    className="bar-fill"
+                    style={{
+                      width: `${(count / maxToolCount) * 100}%`,
+                      background: TOOL_COLORS[tool] || 'var(--accent)',
+                      animationDelay: `${0.4 + i * 0.12}s`,
+                    }}
+                  />
+                </div>
+                <span className="bar-count mono">{count}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Right: stats + frequency */}
+        <div className="survey-section">
+          <div className="survey-section-title mono">מה אתם מרגישים?</div>
+          <div className="survey-stat-cards">
+            <div className="survey-stat" style={{ animationDelay: '0.3s' }}>
+              <div className="survey-stat-value">{trustAvg}</div>
+              <div className="survey-stat-label">אמון ב-AI</div>
+            </div>
+            <div className="survey-stat" style={{ animationDelay: '0.5s' }}>
+              <div className="survey-stat-value">{understandAvg}</div>
+              <div className="survey-stat-label">מרגיש שמבין אותי</div>
+            </div>
+            <div className="survey-stat" style={{ animationDelay: '0.7s' }}>
+              <div className="survey-stat-value">{workflowAvg}</div>
+              <div className="survey-stat-label">שינה את העבודה</div>
+            </div>
+          </div>
+
+          <div className="survey-section-title mono" style={{ marginTop: 20 }}>תדירות שימוש</div>
+          <div className="survey-bars">
+            {freqEntries.map(([freq, count], i) => (
+              <div key={freq} className="survey-bar-row" style={{ animationDelay: `${0.6 + i * 0.1}s` }}>
+                <span className="bar-label">{freq}</span>
+                <div className="bar-track">
+                  <div
+                    className="bar-fill freq-bar"
+                    style={{ width: `${(count / maxFreq) * 100}%`, animationDelay: `${0.8 + i * 0.1}s` }}
+                  />
+                </div>
+                <span className="bar-count mono">{count}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
@@ -1272,6 +1380,7 @@ function SummarySlide({ slideNum }) {
 // ═══════════════════════════════════════════════════════════════
 const SLIDE_COMPONENTS = [
   TitleSlide,
+  SurveyResultsSlide,
   // Act 1
   OpeningSlide,
   TrapSlide,

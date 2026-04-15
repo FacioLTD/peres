@@ -29,6 +29,116 @@
   background: var(--black);
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   SURVEY RESULTS DASHBOARD
+   ═══════════════════════════════════════════════════════════════ */
+
+.survey-results-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-top: 24px;
+}
+
+.survey-section-title {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  margin-bottom: 14px;
+  font-weight: 600;
+}
+
+/* ── Bar chart ── */
+.survey-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.survey-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  animation: fadeUp 0.4s ease both;
+}
+
+.bar-label {
+  font-size: 13px;
+  font-weight: 600;
+  min-width: 100px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.bar-track {
+  flex: 1;
+  height: 22px;
+  background: var(--muted);
+  border-radius: 11px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 11px;
+  background: var(--accent);
+  animation: barGrow 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.freq-bar {
+  background: linear-gradient(90deg, #a855f7, #6366f1);
+}
+
+@keyframes barGrow {
+  from { width: 0 !important; }
+}
+
+.bar-count {
+  font-size: 14px;
+  font-weight: 700;
+  min-width: 24px;
+  text-align: center;
+  color: var(--accent);
+}
+
+/* ── Stat cards ── */
+.survey-stat-cards {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.survey-stat {
+  flex: 1;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 12px;
+  text-align: center;
+  animation: fadeUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  transition: all 0.25s;
+}
+
+.survey-stat:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.08);
+}
+
+.survey-stat-value {
+  font-size: 32px;
+  font-weight: 900;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.survey-stat-label {
+  font-size: 11px;
+  color: var(--dim);
+  font-weight: 600;
+}
+
 /* ── Nav adjustments for light theme ── */
 .deck-llm .slides-nav {
   background: #ffffff;
