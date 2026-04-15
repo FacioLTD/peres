@@ -44,13 +44,14 @@ const SLIDE_LIST = [
   { id: 30, title: 'ומה אם...?' },
   { id: 31, title: 'Parallelism' },
   { id: 32, title: 'Transformer', navNum: 'ז' },
+  { id: 33, title: 'Pre-training' },
   // Emergence
-  { id: 33, title: 'מה GPT עושה?', navNum: 'ח' },
-  { id: 34, title: 'למה זה נראה חכם?' },
+  { id: 34, title: 'מה GPT עושה?', navNum: 'ח' },
+  { id: 35, title: 'למה זה נראה חכם?' },
   // Practical
-  { id: 35, title: 'Prompting' },
-  { id: 36, title: 'RAG & Agents' },
-  { id: 37, title: 'סיכום' },
+  { id: 36, title: 'Prompting' },
+  { id: 37, title: 'RAG & Agents' },
+  { id: 38, title: 'סיכום' },
 ];
 
 // ═══════════════════════════════════════════════════════════════
@@ -1078,6 +1079,37 @@ function TransformerSlide({ slideNum }) {
   );
 }
 
+function PreTrainingSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">שקף {slideNum} — אימון</div>
+      <h2>איך <em>מאמנים</em> מודל כזה?</h2>
+
+      <div className="training-pipeline">
+        <div className="training-phase phase-pre" style={{ animationDelay: '0.3s' }}>
+          <div className="phase-icon">🌍</div>
+          <div className="phase-title">Pre-training</div>
+          <div className="phase-desc">לומד מ<em>כל האינטרנט</em></div>
+          <div className="phase-detail">ויקיפדיה, ספרים, קוד, פורומים, חדשות...<br />מיליארדי משפטים. חודשים של חישוב.</div>
+        </div>
+
+        <div className="training-arrow" style={{ animationDelay: '0.8s' }}>↓</div>
+
+        <div className="training-phase phase-fine" style={{ animationDelay: '1.0s' }}>
+          <div className="phase-icon">🎯</div>
+          <div className="phase-title">Fine-tuning</div>
+          <div className="phase-desc">מתמחה ב<em>משימות ספציפיות</em></div>
+          <div className="phase-detail">שיחה, שירות לקוחות, קוד, רפואה...<br />דאטה ממוקד. משוב אנושי.</div>
+        </div>
+      </div>
+
+      <Highlight>
+        Pre-training נותן <em>שפה</em>. Fine-tuning נותן <em>כישורים</em>.
+      </Highlight>
+    </div>
+  );
+}
+
 // ═══════════════════════════════════════════════════════════════
 // ACT 8 — EMERGENCE
 // ═══════════════════════════════════════════════════════════════
@@ -1250,6 +1282,7 @@ const SLIDE_COMPONENTS = [
   RevolutionMomentSlide,
   ParallelismSlide,
   TransformerSlide,
+  PreTrainingSlide,
   // Act 8 — Emergence
   WhatGPTDoesSlide,
   WhyItSeemsSmartSlide,
