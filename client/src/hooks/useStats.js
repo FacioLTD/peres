@@ -1,18 +1,21 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 
 const WS_PROTOCOL = window.location.protocol === 'https:' ? 'wss' : 'ws';
-const WS_URL = (() => {
-  // In Vite dev mode the UI runs on :5173 and backend WS lives on :3001.
-  if (import.meta.env.DEV) return `${WS_PROTOCOL}://${window.location.hostname}:3001`;
-  return `${WS_PROTOCOL}://${window.location.host}`;
-})();
 
-export function useStats() {
+export function useStats(deck = 'foundations') {
   const [stats, setStats]         = useState(null);
   const [connected, setConnected] = useState(false);
   const [newFlash, setNewFlash]   = useState(false);
   const ws         = useRef(null);
   const flashTimer = useRef(null);
+
+  const wsUrl = useMemo(() => {
+    // In Vite dev mode the UI runs on :5173 and backend WS lives on :3001.
+    const base = import.meta.env.DEV
+      ? `${WS_PROTOCOL}://${window.location.hostname}:3001`
+      : `${WS_PROTOCOL}://${window.location.host}`;
+    return `${base}?deck=${deck}`;
+  }, [deck]);
 
   const triggerFlash = useCallback(() => {
     setNewFlash(true);
@@ -22,7 +25,7 @@ export function useStats() {
 
   useEffect(() => {
     function connect() {
-      ws.current = new WebSocket(WS_URL);
+      ws.current = new WebSocket(wsUrl);
       ws.current.onopen  = () => setConnected(true);
       ws.current.onclose = () => { setConnected(false); setTimeout(connect, 2000); };
       ws.current.onerror = () => ws.current.close();
@@ -34,7 +37,7 @@ export function useStats() {
     }
     connect();
     return () => { ws.current?.close(); clearTimeout(flashTimer.current); };
-  }, [triggerFlash]);
+  }, [wsUrl, triggerFlash]);
 
   return { stats, connected, newFlash };
 }

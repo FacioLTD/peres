@@ -1,0 +1,17 @@
+[
+  {
+    "tool": "ChatGPT",
+    "frequency": "כל יום",
+    "promptLength": 30,
+    "firstTry": "בדרך כלל",
+    "usedImageGen": "כן",
+    "usedCodeGen": "לא",
+    "trust": 7,
+    "understand": 6,
+    "workflowImpact": 8,
+    "longestConvo": "16–30 הודעות",
+    "samplePrompt": "אני סטודנט למדעי המחשב",
+    "surprisingAI": "כתב לי שיר מושלם",
+    "timestamp": "2026-04-15T07:03:08.211Z"
+  }
+]
