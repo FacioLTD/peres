@@ -13,47 +13,77 @@ const SLIDE_LIST = [
   { id: 5,  title: 'הקריסה' },
   { id: 6,  title: 'הדגמה' },
   { id: 7,  title: 'המעבר הגדול' },
+  // Act 2 — What is data?
+  { id: 8,  title: 'מה זה דאטה?', navNum: 'ב' },
+  { id: 9,  title: 'המחשב לא רואה משמעות' },
+  { id: 10, title: 'Structured vs Unstructured' },
+  { id: 11, title: 'למה זה חשוב?' },
+  { id: 12, title: 'הבעיה של AI' },
+  { id: 13, title: 'המעבר למילים' },
   // Act 2 — The symbolic failure
-  { id: 8,  title: 'העידן הסימבולי', navNum: 'ב' },
-  { id: 9,  title: 'למה זה נשבר' },
-  { id: 10, title: 'משפט בלתי אפשרי' },
-  { id: 11, title: 'מסקנה' },
+  { id: 14, title: 'העידן הסימבולי', navNum: 'ג' },
+  { id: 15, title: 'למה זה נשבר' },
+  { id: 16, title: 'משפט בלתי אפשרי' },
+  { id: 17, title: 'מסקנה' },
   // Act 3 — Statistical revolution
-  { id: 12, title: 'שינוי פרדיגמה', navNum: 'ג' },
-  { id: 13, title: 'N-grams' },
-  { id: 14, title: 'Markov' },
-  { id: 15, title: 'עדיין טיפש' },
+  { id: 18, title: 'שינוי פרדיגמה', navNum: 'ד' },
+  { id: 19, title: 'N-grams' },
+  { id: 20, title: 'Markov' },
+  { id: 21, title: 'עדיין טיפש' },
+  // Act 4 — Vectors and dimensions
+  { id: 22, title: 'מה זה וקטור?', navNum: 'ה' },
+  { id: 23, title: 'וקטור = נקודה' },
+  { id: 24, title: 'קרבה = דמיון' },
+  { id: 25, title: 'מגבלת הדמיון' },
+  { id: 26, title: 'למחשב אין בעיה' },
+  { id: 27, title: 'מי החליט?' },
+  { id: 28, title: 'מימדים סמויים' },
   // Act 4 — Word2Vec breakthrough
-  { id: 16, title: 'מילים = מספרים', navNum: 'ד' },
-  { id: 17, title: 'מילים = נקודות' },
-  { id: 18, title: 'אינטואיציה' },
-  { id: 19, title: 'קרבה במרחב' },
-  { id: 20, title: 'מלך − גבר + אישה' },
-  { id: 21, title: 'משמעות = קשרים' },
-  { id: 22, title: 'סגירת חלק 1' },
+  { id: 29, title: 'מילים = מספרים', navNum: 'ו' },
+  { id: 30, title: 'מילים = נקודות' },
+  { id: 31, title: 'אינטואיציה' },
+  { id: 32, title: 'קרבה במרחב' },
+  { id: 33, title: 'מלך − גבר + אישה' },
+  { id: 34, title: 'משמעות = קשרים' },
+  { id: 35, title: 'סגירת חלק 1' },
   // Part 2 — The RNN Pain
-  { id: 23, title: 'שמירת הקשר', navNum: 'ה' },
-  { id: 24, title: 'הבעיה' },
-  { id: 25, title: 'הקיר' },
+  { id: 36, title: 'שמירת הקשר', navNum: 'ז' },
+  { id: 37, title: 'איך RNN עובד?' },
+  { id: 38, title: 'הבעיה' },
+  { id: 39, title: 'הקיר' },
+  { id: 40, title: 'צוואר הבקבוק' },
   // Attention — The Solution
-  { id: 26, title: 'Attention' },
-  { id: 27, title: 'RNN → Attention' },
-  { id: 28, title: 'Attention בפעולה' },
-  { id: 29, title: 'QKV — שידוכים', navNum: 'ו' },
-  { id: 30, title: 'הדיאלוג הפנימי' },
+  { id: 41, title: 'Attention', navNum: 'ח' },
+  { id: 42, title: 'RNN → Attention' },
+  { id: 43, title: 'כל המילים על השולחן' },
+  { id: 44, title: 'טבלת קשרים' },
+  { id: 45, title: 'Attention בפעולה' },
+  { id: 46, title: 'QKV — שידוכים' },
+  { id: 47, title: 'הדיאלוג הפנימי' },
+  { id: 48, title: 'Attention קורה עכשיו' },
+  { id: 49, title: 'Multi-head Attention' },
+  { id: 50, title: 'Parallelism' },
+  { id: 51, title: 'סיכום Attention' },
   // Transformer — The Revolution
-  { id: 31, title: 'ומה אם...?' },
-  { id: 32, title: 'Parallelism' },
-  { id: 33, title: 'Transformer', navNum: 'ז' },
-  { id: 34, title: 'Pre-training' },
-  { id: 35, title: 'אז מה זה GPT?' },
+  { id: 52, title: 'ומה אם...?', navNum: 'ט' },
+  { id: 53, title: 'Transformer' },
+  { id: 54, title: 'Pre-training' },
+  { id: 55, title: 'אז מה זה GPT?' },
   // Emergence
-  { id: 36, title: 'מה GPT עושה?', navNum: 'ח' },
-  { id: 37, title: 'למה זה נראה חכם?' },
+  { id: 56, title: 'מה GPT עושה?', navNum: 'י' },
+  { id: 57, title: 'למה זה נראה חכם?' },
+  { id: 58, title: 'האם GPT זוכר?' },
+  { id: 59, title: 'Weights ≠ Database' },
+  { id: 60, title: 'למה יש הזיות?' },
+  { id: 61, title: 'מחברים לאמת' },
   // Practical
-  { id: 38, title: 'Prompting' },
-  { id: 39, title: 'RAG & Agents' },
-  { id: 40, title: 'סיכום' },
+  { id: 62, title: 'Chat Programming', navNum: 'יא' },
+  { id: 63, title: 'הבעיה העסקית' },
+  { id: 64, title: 'RAG Pipeline' },
+  { id: 65, title: 'RAG משתמש בוקטורים' },
+  { id: 66, title: 'RAG ≠ SQL' },
+  { id: 67, title: 'Agents' },
+  { id: 68, title: 'סיכום' },
 ];
 
 // ═══════════════════════════════════════════════════════════════
@@ -302,6 +332,161 @@ function BigTransitionSlide({ slideNum }) {
 }
 
 // ═══════════════════════════════════════════════════════════════
+// ACT 2 — WHAT IS DATA?
+// ═══════════════════════════════════════════════════════════════
+
+function WhatIsDataSlide({ slideNum }) {
+  const dataTypes = [
+    { icon: '📝', title: 'טקסט', desc: 'הודעות, חוזים, מאמרים, קוד' },
+    { icon: '🖼️', title: 'תמונה', desc: 'פיקסלים, צבעים, צורות, פנים' },
+    { icon: '🎧', title: 'קול', desc: 'גלים, קצב, טון, שיחה' },
+    { icon: '📊', title: 'טבלה', desc: 'שורות, עמודות, מספרים, קטגוריות' },
+  ];
+
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">שקף {slideNum} — מה זה דאטה?</div>
+      <h2>כל דבר בעולם יכול להפוך ל<em>דאטה</em>.</h2>
+      <p className="slide-sub">דאטה הוא לא רק טבלה באקסל. דאטה הוא דרך לייצג את המציאות כך שמחשב יוכל לעבוד איתה.</p>
+
+      <div className="data-types-grid">
+        {dataTypes.map((item, i) => (
+          <div key={item.title} className="data-type-card" style={{ animationDelay: `${0.2 + i * 0.14}s` }}>
+            <div className="data-type-icon">{item.icon}</div>
+            <div className="data-type-title">{item.title}</div>
+            <div className="data-type-desc">{item.desc}</div>
+          </div>
+        ))}
+      </div>
+
+      <Highlight>
+        AI לא נולד בתוך שפה. הוא מתחיל במקום הרבה יותר קר: <em>ייצוג</em>.
+      </Highlight>
+    </div>
+  );
+}
+
+function ComputerSeesNumbersSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">שקף {slideNum} — המחשב לא רואה משמעות</div>
+      <h2>המחשב לא רואה <em>חתול</em>. הוא רואה מספרים.</h2>
+
+      <div className="data-conversion-flow">
+        <div className="data-world-card" style={{ animationDelay: '0.2s' }}>
+          <div className="data-world-icon">🐱</div>
+          <div className="data-world-title">חתול בעולם</div>
+          <div className="data-world-sub">יצור חי, רך, קופץ, מגרגר</div>
+        </div>
+        <div className="data-flow-arrow">←</div>
+        <div className="data-modalities" style={{ animationDelay: '0.45s' }}>
+          <span>המילה "חתול"</span>
+          <span>תמונה של חתול</span>
+          <span>צליל מיאו</span>
+        </div>
+        <div className="data-flow-arrow">←</div>
+        <div className="number-rain" style={{ animationDelay: '0.7s' }}>
+          <span>0.12</span><span>187</span><span>1</span><span>0.004</span><span>255</span><span>-0.73</span>
+        </div>
+      </div>
+
+      <Highlight>
+        המהפכה היא לא שהמחשב “מבין חתול”. המהפכה היא שמצאנו דרך להפוך חתול, טקסט וקול ל<em>מספרים שימושיים</em>.
+      </Highlight>
+    </div>
+  );
+}
+
+function StructuredUnstructuredSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">שקף {slideNum} — Structured vs Unstructured</div>
+      <h2>שני סוגי דאטה. שני עולמות.</h2>
+
+      <div className="structured-split">
+        <div className="structured-side structured" style={{ animationDelay: '0.2s' }}>
+          <div className="structured-label mono">Structured</div>
+          <div className="mini-table">
+            <div>שם</div><div>גיל</div><div>עיר</div>
+            <div>נועה</div><div>24</div><div>חיפה</div>
+            <div>דניאל</div><div>31</div><div>תל אביב</div>
+          </div>
+          <div className="structured-desc">מסודר, צפוי, קל לשאול עליו שאלות.</div>
+        </div>
+
+        <div className="structured-side unstructured" style={{ animationDelay: '0.45s' }}>
+          <div className="structured-label mono">Unstructured</div>
+          <div className="doc-chaos">
+            <span>אימייל</span>
+            <span>PDF</span>
+            <span>שיחת לקוח</span>
+            <span>צילום</span>
+            <span>חוזה</span>
+            <span>וידאו</span>
+          </div>
+          <div className="structured-desc">עשיר, מבולגן, מלא הקשר — כמו העולם האמיתי.</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function WhyDataMattersSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">שקף {slideNum} — למה זה חשוב?</div>
+      <div className="revelation-scene">
+        <div className="revelation-main" style={{ fontSize: 44 }}>תוכנה רגילה אוהבת טבלאות.</div>
+        <div className="revelation-glow" style={{ fontSize: 34 }}>העולם האמיתי מדבר בסיפורים.</div>
+        <div className="card-grid cols2" style={{ marginTop: 24, width: '100%' }}>
+          <ConceptCard en="Easy for Software" he="קל לתוכנה" def="חיפוש, סינון, סכימה, SQL, דוחות. הכל מוגדר מראש." />
+          <ConceptCard en="Real World" he="העולם האמיתי" def="מיילים, שאלות, תמונות, שיחות, מסמכים. הכל תלוי הקשר." accent />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AIRepresentationProblemSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">שקף {slideNum} — הבעיה של AI</div>
+      <div className="dramatic-center">
+        <h2 className="dramatic-text" style={{ fontSize: 44 }}>
+          הבעיה אינה “איך לגרום למחשב להבין”.
+        </h2>
+        <div className="closing-divider" />
+        <div className="dramatic-sub" style={{ maxWidth: 760 }}>
+          הבעיה היא: איך מייצגים משהו עשיר, עמום ומלא הקשר —<br />
+          בצורה מתמטית שאפשר <em>לחשב</em> עליה?
+        </div>
+        <div className="representation-formula">
+          עולם ← דאטה ← מספרים ← חישוב ← תשובה
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function DataToWordsTransitionSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">שקף {slideNum} — המעבר</div>
+      <div className="dramatic-center">
+        <h2 className="dramatic-text">
+          אם הכל מספרים —<br />
+          איך מייצגים <em>מילה</em>?
+        </h2>
+        <div className="dramatic-sub">
+          מכאן מתחיל המסע: מחוקים ידניים, דרך סטטיסטיקה,<br />
+          ועד מרחבים שבהם משמעות הופכת לגאומטריה.
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════
 // ACT 2 — THE SYMBOLIC FAILURE
 // ═══════════════════════════════════════════════════════════════
 
@@ -538,6 +723,166 @@ function StillStupidSlide({ slideNum }) {
 }
 
 // ═══════════════════════════════════════════════════════════════
+// ACT 4 — VECTORS AND DIMENSIONS
+// ═══════════════════════════════════════════════════════════════
+
+function VectorDefinitionSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">שקף {slideNum} — מה זה וקטור?</div>
+      <h2>וקטור הוא <em>רשימה של מספרים</em> שמתארת משהו.</h2>
+      <p className="slide-sub">במקום מילה אחת או ID אחד, נותנים לאובייקט הרבה תכונות בבת אחת.</p>
+
+      <div className="vector-person-card">
+        <div className="person-avatar">🧑</div>
+        <div className="person-vector">
+          <span>אדם</span>
+          <span className="mono">= [גובה: 1.78, גיל: 24, משקל: 72]</span>
+        </div>
+      </div>
+
+      <Highlight>
+        וקטור הוא הדרך שבה מחשב אומר: “אני לא שומר רק שם. אני שומר <em>מיקום בתוך מרחב של תכונות</em>.”
+      </Highlight>
+    </div>
+  );
+}
+
+function VectorPointSpaceSlide({ slideNum }) {
+  const people = [
+    { name: 'נועה', x: 24, y: 36 },
+    { name: 'דניאל', x: 42, y: 56 },
+    { name: 'מאיה', x: 68, y: 42 },
+    { name: 'יונתן', x: 74, y: 72 },
+  ];
+
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">שקף {slideNum} — וקטור = נקודה במרחב</div>
+      <h2>שני מימדים: <em>גיל + גובה</em>.</h2>
+      <p className="slide-sub">כל אדם הופך לנקודה. כל תכונה היא ציר.</p>
+
+      <div className="vector-plane">
+        <div className="axis-label x-axis">גיל →</div>
+        <div className="axis-label y-axis">גובה ↑</div>
+        {people.map((p, i) => (
+          <div key={p.name} className="plane-point" style={{ right: `${p.x}%`, bottom: `${p.y}%`, animationDelay: `${0.25 + i * 0.15}s` }}>
+            <span className="plane-dot" />
+            <span className="plane-label">{p.name}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function VectorSimilaritySlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">שקף {slideNum} — קרבה = דמיון</div>
+      <h2>מרחק במרחב הופך ל<em>מדד דמיון</em>.</h2>
+
+      <div className="vector-similarity-demo">
+        <div className="similarity-pair close">
+          <span>נועה</span>
+          <div className="similarity-line"><span className="mono">מרחק 0.18</span></div>
+          <span>דניאל</span>
+          <strong>דומים בתכונות</strong>
+        </div>
+        <div className="similarity-pair far">
+          <span>נועה</span>
+          <div className="similarity-line"><span className="mono">מרחק 0.91</span></div>
+          <span>יונתן</span>
+          <strong>רחוקים בתכונות</strong>
+        </div>
+      </div>
+
+      <Highlight>
+        אותו רעיון יעבוד עוד רגע על מילים: “חתול” ו“כלב” יהיו קרובים כי הם חיים בהקשרים דומים.
+      </Highlight>
+    </div>
+  );
+}
+
+function HumanDimensionLimitSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">שקף {slideNum} — Inception</div>
+      <div className="dramatic-center">
+        <h2 className="dramatic-text" style={{ fontSize: 44 }}>כאן הדמיון האנושי מתחיל לקרוס.</h2>
+        <div className="dimension-stack">
+          <span>2D: קל לדמיין</span>
+          <span>3D: עדיין אפשרי</span>
+          <span className="hard">100D: אין לנו תמונה בראש</span>
+          <span className="hard">1,536D: זה כבר מרחב של מחשב</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ComputerHandlesDimensionsSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">שקף {slideNum} — למחשב אין בעיה</div>
+      <h2>אנחנו לא רואים את המרחב. <em>המחשב מחשב אותו</em>.</h2>
+
+      <div className="distance-machine">
+        <div className="machine-input">וקטור A<br /><span className="mono">[0.12, -0.7, ...]</span></div>
+        <div className="machine-core">distance()</div>
+        <div className="machine-input">וקטור B<br /><span className="mono">[0.10, -0.6, ...]</span></div>
+        <div className="machine-output">קרובים<br /><span className="mono">0.08</span></div>
+      </div>
+
+      <Highlight>
+        המחשב לא צריך “לדמיין” 100 מימדים. הוא רק צריך לחשב מרחקים, כיוונים ושכנים.
+      </Highlight>
+    </div>
+  );
+}
+
+function LearnedDimensionsSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">שקף {slideNum} — מי החליט על המימדים?</div>
+      <div className="revelation-scene">
+        <div className="revelation-main" style={{ fontSize: 48 }}>לא אדם.</div>
+        <div className="revelation-glow" style={{ fontSize: 34 }}>המודל לומד אותם מהדאטה.</div>
+        <div className="dramatic-sub" style={{ maxWidth: 720 }}>
+          אנחנו לא יושבים ומגדירים “ציר חתוליות” או “ציר רשמיות”.
+          המודל רואה מיליארדי דוגמאות ומארגן את המרחב כך שחיזוי יעבוד טוב יותר.
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function LatentDimensionsSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">שקף {slideNum} — מימדים סמויים</div>
+      <h2>המימדים לא חייבים להיות “גובה” או “גיל”.</h2>
+      <p className="slide-sub">בשפה, המימדים הם latent — תבניות נסתרות שהמודל למד בעצמו.</p>
+
+      <div className="latent-grid">
+        <div className="latent-known">גובה</div>
+        <div className="latent-known">גיל</div>
+        <div className="latent-known">משקל</div>
+        <div className="latent-secret">פורמליות?</div>
+        <div className="latent-secret">רגש?</div>
+        <div className="latent-secret">זמן?</div>
+        <div className="latent-secret">קשר סמנטי?</div>
+        <div className="latent-secret">תבנית נסתרת #482</div>
+      </div>
+
+      <Highlight>
+        מכאן נולדת אינטואיציה חדשה: משמעות היא לא הגדרה מילונית. משמעות היא <em>מיקום במרחב שנלמד מדאטה</em>.
+      </Highlight>
+    </div>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════
 // ACT 4 — WORD2VEC BREAKTHROUGH
 // ═══════════════════════════════════════════════════════════════
 
@@ -591,7 +936,7 @@ function WordsAsPointsSlide({ slideNum }) {
     <div className="slide fade-up">
       <div className="slide-eyebrow mono">שקף {slideNum} — רגע המהפכה</div>
       <h2>מילים = <em>נקודות במרחב</em>.</h2>
-      <p className="slide-sub">Word2Vec (2013): כל מילה הופכת לנקודה. מילים דומות → נקודות קרובות.</p>
+      <p className="slide-sub">זו לא מפה שאדם צייר. זו מפה שהמודל גילה מתוך דאטה: מילים דומות → נקודות קרובות.</p>
 
       <div className="word-space">
         {/* Cluster rings */}
@@ -684,6 +1029,8 @@ function VectorArithmeticSlide({ slideNum }) {
   return (
     <div className="slide fade-up">
       <div className="slide-eyebrow mono">שקף {slideNum} — Mind-blow 🤯</div>
+      <h2>אנחנו לא מבינים את כל המרחב — אבל מזהים <em>כיוונים עקביים</em>.</h2>
+      <p className="slide-sub">יש כיוון שמייצג “מגדר”, כיוון שמייצג “זמן”, כיוון שמייצג “מדינה → עיר בירה”.</p>
 
       <div className="dramatic-center" style={{ minHeight: '35vh' }}>
         <div className="vector-equation">
@@ -793,6 +1140,46 @@ function RNNIntroSlide({ slideNum }) {
   );
 }
 
+function RNNArchitectureSlide({ slideNum }) {
+  const steps = [
+    { word: 'הוא', state: 'h1' },
+    { word: 'הלך', state: 'h2' },
+    { word: 'לחנות', state: 'h3' },
+    { word: 'וקנה', state: 'h4' },
+  ];
+
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">שקף {slideNum} — איך RNN עובד?</div>
+      <h2>ההתקדמות: לרשת יש <em>זיכרון מתגלגל</em>.</h2>
+      <p className="slide-sub">במקום לטפל בכל מילה כאילו היא לבד, אותה רשת רצה שוב ושוב — ובכל צעד מעדכנת מצב פנימי.</p>
+
+      <div className="rnn-architecture">
+        {steps.map((step, i) => (
+          <div key={step.state} className="rnn-arch-step" style={{ animationDelay: `${0.2 + i * 0.18}s` }}>
+            <div className="rnn-arch-word">{step.word}</div>
+            <div className="rnn-arch-cell">
+              <div className="rnn-cell-title mono">same neural net</div>
+              <div className="rnn-cell-loop">↺</div>
+            </div>
+            <div className="rnn-arch-state mono">{step.state}</div>
+            {i < steps.length - 1 && <div className="rnn-arch-arrow">←</div>}
+          </div>
+        ))}
+      </div>
+
+      <div className="rnn-formula-card">
+        <span className="mono">h<sub>t</sub> = f(Wx<sub>t</sub> + Uh<sub>t-1</sub>)</span>
+        <span>המילה החדשה + הזיכרון הקודם → הזיכרון הבא</span>
+      </div>
+
+      <Highlight>
+        זו הייתה קפיצה גדולה: המודל כבר לא רק סופר שכנים קרובים. הוא יכול לבנות הקשר לאורך רצף.
+      </Highlight>
+    </div>
+  );
+}
+
 function RNNProblemSlide({ slideNum }) {
   const words = [
     { t: 'יוסי', o: 0.08 }, { t: 'הלך', o: 0.12 }, { t: 'עם', o: 0.16 },
@@ -838,6 +1225,35 @@ function RNNWallSlide({ slideNum }) {
           המילים הראשונות נעלמות — וההקשר איתן.
         </div>
       </div>
+    </div>
+  );
+}
+
+function RNNBottleneckSlide({ slideNum }) {
+  const sentence = ['יוסי', 'הלך', 'עם', 'דני', 'לחנות', 'אחרי', 'שאבא', 'שלו', 'התקשר', 'אליו'];
+
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">שקף {slideNum} — מה בדיוק נשבר ב-RNN?</div>
+      <h2>לא רק “שוכח”. יש כאן <em>צוואר בקבוק</em>.</h2>
+      <p className="slide-sub">כל המשפט נדחס לזיכרון קטן אחד שעובר קדימה.</p>
+
+      <div className="bottleneck-visual">
+        <div className="bottleneck-words">
+          {sentence.map((word, i) => (
+            <span key={word} style={{ animationDelay: `${0.15 + i * 0.06}s` }}>{word}</span>
+          ))}
+        </div>
+        <div className="bottleneck-funnel">↓</div>
+        <div className="bottleneck-state">
+          <div className="mono">Hidden State</div>
+          <strong>קפסולה קטנה של הקשר</strong>
+        </div>
+      </div>
+
+      <Highlight color="#ef4444">
+        כשכל העבר חייב לעבור דרך נקודה אחת, פרטים חשובים נמעכים. Attention משנה את המשחק: במקום לזכור הכל, הוא חוזר ומסתכל על המקור.
+      </Highlight>
     </div>
   );
 }
@@ -912,7 +1328,7 @@ function ParadigmShiftSlide({ slideNum }) {
         </div>
 
         <div className="rnn-vs-divider">
-          <span className="rnn-vs-arrow">→</span>
+          <span className="rnn-vs-arrow">←</span>
         </div>
 
         <div className="rnn-vs-side attn-side" style={{ animationDelay: '0.5s' }}>
@@ -933,6 +1349,74 @@ function ParadigmShiftSlide({ slideNum }) {
           <div className="rnn-vs-desc">רואה את <em>הכל בבת אחת</em>.<br />מחשב קשרים במקביל.</div>
         </div>
       </div>
+    </div>
+  );
+}
+
+function AllTokensOnTableSlide({ slideNum }) {
+  const tokens = ['הוא', 'ניגש', 'ל', 'דוכן', 'ו', 'קנה', 'עיתון'];
+
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">שקף {slideNum} — כל המילים על השולחן</div>
+      <h2>“הכל בבת אחת” לא אומר קסם.</h2>
+      <p className="slide-sub">זה אומר שכל הטוקנים נמצאים יחד במטריצה אחת, והמודל מחשב קשרים ביניהם.</p>
+
+      <div className="token-matrix">
+        {tokens.map((token, i) => (
+          <div key={token} className="matrix-token" style={{ animationDelay: `${0.2 + i * 0.08}s` }}>
+            <span className="mono">t{i + 1}</span>
+            {token}
+          </div>
+        ))}
+      </div>
+
+      <Highlight>
+        עכשיו כל מילה יכולה לשאול: “מי במשפט הזה רלוונטי אליי?”
+      </Highlight>
+    </div>
+  );
+}
+
+function AttentionMatrixSlide({ slideNum }) {
+  const words = ['הוא', 'דוכן', 'קנה', 'עיתון'];
+  const weights = [
+    [0.1, 0.2, 0.6, 0.1],
+    [0.1, 0.4, 0.4, 0.1],
+    [0.1, 0.55, 0.2, 0.15],
+    [0.05, 0.25, 0.45, 0.25],
+  ];
+
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">שקף {slideNum} — טבלת קשרים</div>
+      <h2>Attention הוא <em>טבלת רלוונטיות</em>.</h2>
+      <p className="slide-sub">כל מילה מול כל מילה. כל תא אומר: כמה מילה אחת צריכה להקשיב לאחרת.</p>
+
+      <div className="attention-heatmap" style={{ gridTemplateColumns: `110px repeat(${words.length}, 1fr)` }}>
+        <div className="heatmap-corner" />
+        {words.map((word) => <div key={`col-${word}`} className="heatmap-header">{word}</div>)}
+        {words.flatMap((row, rowIndex) => [
+            <div key={`row-${row}`} className="heatmap-header row-header">{row}</div>
+            ,
+            ...words.map((col, colIndex) => (
+              <div
+                key={`${row}-${col}`}
+                className="heatmap-cell"
+                style={{
+                  '--w': weights[rowIndex][colIndex],
+                  animationDelay: `${0.18 + (rowIndex * words.length + colIndex) * 0.035}s`,
+                }}
+              >
+                <span className="mono">{weights[rowIndex][colIndex].toFixed(2)}</span>
+              </div>
+            )),
+          ])}
+      </div>
+
+      <Highlight>
+        כשמפרשים את “קנה”, התא מול “דוכן” נדלק חזק יותר. זו משמעות שנוצרת מתוך הקשר.
+      </Highlight>
     </div>
   );
 }
@@ -985,14 +1469,14 @@ function QKVMatchmakingSlide({ slideNum }) {
           <div className="qkv-match-quote">״מה אני מחפש?״</div>
           <div className="qkv-match-sub">כל מילה שואלת:<br />״מי כאן רלוונטי אליי?״</div>
         </div>
-        <div className="qkv-match-arrow" style={{ animationDelay: '0.4s' }}>→</div>
+        <div className="qkv-match-arrow" style={{ animationDelay: '0.4s' }}>←</div>
         <div className="qkv-match-step" style={{ animationDelay: '0.5s' }}>
           <div className="qkv-match-icon">🏷️</div>
           <div className="qkv-match-title">Key · מפתח</div>
           <div className="qkv-match-quote">״זה מה שיש לי להציע״</div>
           <div className="qkv-match-sub">כל מילה מפרסמת:<br />״הנה התווית שלי״</div>
         </div>
-        <div className="qkv-match-arrow" style={{ animationDelay: '0.7s' }}>→</div>
+        <div className="qkv-match-arrow" style={{ animationDelay: '0.7s' }}>←</div>
         <div className="qkv-match-step" style={{ animationDelay: '0.8s' }}>
           <div className="qkv-match-icon">📦</div>
           <div className="qkv-match-title">Value · ערך</div>
@@ -1033,6 +1517,63 @@ function InternalDialogueSlide({ slideNum }) {
           </div>
         </div>
       </div>
+    </div>
+  );
+}
+
+function AttentionHappensNowSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">שקף {slideNum} — Attention קורה גם עכשיו</div>
+      <h2>Attention הוא לא רק משהו שקרה באימון.</h2>
+
+      <div className="now-flow">
+        <div className="now-step" style={{ animationDelay: '0.2s' }}>
+          <div className="now-icon">🏋️</div>
+          <div className="now-title">באימון</div>
+          <div className="now-desc">המודל לומד איך לחשב Attention: אילו דפוסים כדאי לחפש.</div>
+        </div>
+        <div className="now-step accent" style={{ animationDelay: '0.5s' }}>
+          <div className="now-icon">💬</div>
+          <div className="now-title">בזמן שימוש</div>
+          <div className="now-desc">הוא מריץ Attention מחדש על הטקסט שלך, בכל תשובה, בכל צעד.</div>
+        </div>
+      </div>
+
+      <Highlight>
+        לכן אותו מודל יכול לענות אחרת על אותה מילה בתוך הקשר אחר. ה-Attention מחושב מחדש לפי השיחה הנוכחית.
+      </Highlight>
+    </div>
+  );
+}
+
+function MultiHeadAttentionSlide({ slideNum }) {
+  const heads = [
+    { icon: '🎯', title: 'נושא', desc: 'מי עושה את הפעולה?' },
+    { icon: '🔗', title: 'כינוי', desc: 'למי “הוא” מתייחס?' },
+    { icon: '🎭', title: 'טון', desc: 'רציני, ציני, רגשי?' },
+    { icon: '🧭', title: 'סמנטיקה', desc: 'איזו משמעות מתאימה כאן?' },
+  ];
+
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">שקף {slideNum} — Multi-head Attention</div>
+      <h2>ראש אחד לא מספיק. המודל מסתכל מכמה זוויות.</h2>
+      <p className="slide-sub">כל head יכול ללמוד סוג אחר של קשר בתוך המשפט.</p>
+
+      <div className="multihead-grid">
+        {heads.map((head, i) => (
+          <div key={head.title} className="head-card" style={{ animationDelay: `${0.2 + i * 0.12}s` }}>
+            <div className="head-icon">{head.icon}</div>
+            <div className="head-title">{head.title}</div>
+            <div className="head-desc">{head.desc}</div>
+          </div>
+        ))}
+      </div>
+
+      <Highlight>
+        ביחד, הרבה ראשים יוצרים תמונת הקשר עשירה יותר מכל מבט יחיד.
+      </Highlight>
     </div>
   );
 }
@@ -1213,7 +1754,7 @@ function PreTrainingSlide({ slideNum }) {
       </div>
 
       <Highlight>
-        Pre-training נותן <em>שפה</em>. Fine-tuning נותן <em>כישורים</em>.
+        Pre-training לא שומר עובדות כמו DB. הוא משנה <em>משקלים</em> — כדי שהחיזוי הבא יהיה טוב יותר.
       </Highlight>
     </div>
   );
@@ -1305,6 +1846,101 @@ function WhyItSeemsSmartSlide({ slideNum }) {
   );
 }
 
+function DoesGPTRememberSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">שקף {slideNum} — האם GPT זוכר?</div>
+      <div className="dramatic-center">
+        <h2 className="dramatic-text">שאלה קריטית: האם GPT <em>זוכר</em>?</h2>
+        <div className="memory-choice">
+          <div className="memory-choice-card">
+            <div className="memory-choice-icon">🧠</div>
+            <strong>נראה שכן</strong>
+            <span>הוא מדבר בביטחון, מצטט, מסביר, מחבר רעיונות.</span>
+          </div>
+          <div className="memory-choice-card accent">
+            <div className="memory-choice-icon">⚙️</div>
+            <strong>אבל טכנית: לא כמו DB</strong>
+            <span>הוא לא שולף רשומה. הוא מחולל המשך סביר לפי משקלים והקשר.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function WeightsNotDatabaseSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">שקף {slideNum} — Weights ≠ Database</div>
+      <h2>משקלים הם לא <em>בסיס נתונים</em>.</h2>
+
+      <div className="db-vs-llm">
+        <div className="db-card" style={{ animationDelay: '0.2s' }}>
+          <div className="db-icon">🗄️</div>
+          <div className="db-title">Database</div>
+          <div className="db-desc">שולף עובדה קיימת: רשומה, שורה, מזהה, מקור.</div>
+          <div className="db-line mono">SELECT price FROM products WHERE id=42</div>
+        </div>
+        <div className="db-card accent" style={{ animationDelay: '0.45s' }}>
+          <div className="db-icon">✨</div>
+          <div className="db-title">LLM</div>
+          <div className="db-desc">מחולל תשובה סבירה מתוך דפוסים שלמד.</div>
+          <div className="db-line mono">next_token = argmax(P(token | context))</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function HallucinationWhySlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">שקף {slideNum} — למה יש הזיות?</div>
+      <h2>כי המודל ממשיך לחזות גם כשאין לו <em>עוגן עובדתי</em>.</h2>
+
+      <div className="hallucination-scene">
+        <div className="hallucination-prompt">“מה המדיניות החדשה של החברה שלנו לגבי החזרי נסיעות?”</div>
+        <div className="hallucination-arrow">↓</div>
+        <div className="hallucination-answer">
+          נשמע כמו שאלה שיש לה תשובה...<br />
+          אז המודל מייצר תשובה סבירה, גם אם הוא לא מכיר את המסמך האמיתי.
+        </div>
+      </div>
+
+      <Highlight color="#ef4444">
+        הזיה היא לא “באג מוזר”. היא תוצאה טבעית של מערכת שמטרתה להמשיך טקסט, לא לאמת עובדות.
+      </Highlight>
+    </div>
+  );
+}
+
+function TruthBridgeToRAGSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">שקף {slideNum} — אז איך מחברים אותו לאמת?</div>
+      <div className="dramatic-center">
+        <h2 className="dramatic-text">
+          לא מספיק מודל חכם.<br />
+          צריך <em>מקור אמת</em>.
+        </h2>
+        <div className="rag-bridge">
+          <span>שאלה</span>
+          <span>←</span>
+          <span>חיפוש במסמכים</span>
+          <span>←</span>
+          <span>הקשר אמיתי</span>
+          <span>←</span>
+          <span>תשובה</span>
+        </div>
+        <div className="dramatic-sub">
+          לזה קוראים RAG: Retrieval-Augmented Generation.
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ═══════════════════════════════════════════════════════════════
 // PRACTICAL
 // ═══════════════════════════════════════════════════════════════
@@ -1312,10 +1948,10 @@ function WhyItSeemsSmartSlide({ slideNum }) {
 function PromptingSlide({ slideNum }) {
   return (
     <div className="slide fade-up">
-      <div className="slide-eyebrow mono">שקף {slideNum} — Prompting</div>
-      <h2><em>Prompting</em> — לדבר עם AI.</h2>
-      <p className="slide-sub">ה-Prompt הוא הממשק שלנו עם המודל. איכות הפלט תלויה ישירות באיכות הקלט.</p>
-      <div className="card-grid cols2">
+      <div className="slide-eyebrow mono">שקף {slideNum} — Chat Programming</div>
+      <h2><em>Chat Programming</em> — לתכנת התנהגות בשפה.</h2>
+      <p className="slide-sub">Prompt הוא לא “בקשה יפה”. הוא מפרט התנהגות: תפקיד, הקשר, משימה, מגבלות ובדיקת איכות.</p>
+      <div className="chat-programming-grid">
         <div className="concept-card">
           <div className="concept-en mono">❌ Weak Prompt</div>
           <div className="concept-he">פרומפט חלש</div>
@@ -1330,28 +1966,135 @@ function PromptingSlide({ slideNum }) {
             <div className="prompt-body">"אתה מומחה שיווק B2B. כתוב 3 כותרות לניוזלטר שבועי לקהל מנהלי IT, בטון מקצועי אך נגיש."</div>
           </div>
         </div>
+        <div className="concept-card behavior-card">
+          <div className="concept-en mono">⚙ Behavior System</div>
+          <div className="concept-he">מערכת התנהגות</div>
+          <div className="prompt-block" style={{ margin: '12px 0 0' }}>
+            <div className="prompt-body">"תמיד שאל שאלת הבהרה אחת אם חסר מידע. החזר תשובה קצרה, עם הנחות מפורשות וצעדי המשך."</div>
+          </div>
+        </div>
       </div>
       <Highlight>
-        <em>Role + Context + Task + Constraints</em> — ארבעת האלמנטים של prompt אפקטיבי.
+        <em>Role + Context + Task + Constraints + Quality Check</em> — כך מתכנתים התנהגות בשפה.
       </Highlight>
     </div>
   );
 }
 
-function RAGAgentsSlide({ slideNum }) {
+function BusinessProblemSlide({ slideNum }) {
   return (
     <div className="slide fade-up">
-      <div className="slide-eyebrow mono">שקף {slideNum} — RAG & Agents</div>
-      <h2><em>RAG</em> ו-<em>Agents</em>.</h2>
-      <p className="slide-sub">שתי גישות שמרחיבות את יכולת ה-LLM מעבר לידע הפנימי שלו.</p>
+      <div className="slide-eyebrow mono">שקף {slideNum} — הבעיה העסקית</div>
+      <h2>המודל לא מכיר את <em>הארגון שלך</em>.</h2>
+      <p className="slide-sub">הוא לא יודע מה כתוב ב-Notion שלכם, בחוזים שלכם, ב-CRM שלכם או בנהלים שהתעדכנו אתמול.</p>
+
       <div className="card-grid cols2">
-        <ConceptCard en="RAG" he="Retrieval-Augmented Generation"
-          def="המודל מחפש מידע במאגר חיצוני לפני שהוא עונה — כמו סטודנט שפותח ספר לפני מבחן." accent />
-        <ConceptCard en="Agents" he="סוכני AI"
-          def="המודל לא רק עונה — הוא מתכנן, מבצע פעולות, ובודק תוצאות. Plan → Act → Observe." />
+        <ConceptCard en="Public Knowledge" he="ידע ציבורי" def="מה שהיה בדאטה של האימון, עד תאריך מסוים, בלי התחייבות לעדכניות." />
+        <ConceptCard en="Private Truth" he="אמת ארגונית" def="מסמכים, מדיניות, לקוחות, עסקאות, קוד פנימי ונתונים חיים." accent />
       </div>
+
       <Highlight color="#a855f7">
-        בחלק הבא של הקורס נראה איך הכלים האלה נכנסים לשימוש בארגונים — ומה הסיכונים.
+        לכן בארגון אמיתי, LLM לבד הוא לא מערכת. הוא צריך חיבור לדאטה אמיתי.
+      </Highlight>
+    </div>
+  );
+}
+
+function RAGPipelineSlide({ slideNum }) {
+  const steps = ['User', 'Search', 'Relevant Docs', 'Context', 'Answer'];
+
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">שקף {slideNum} — RAG Pipeline</div>
+      <h2>RAG: קודם מחפשים, אחר כך עונים.</h2>
+
+      <div className="rag-pipeline">
+        {steps.map((step, i) => (
+          <div key={step} className="rag-step-wrap">
+            <div className="rag-step" style={{ animationDelay: `${0.2 + i * 0.12}s` }}>
+              <span className="mono">{i + 1}</span>
+              {step}
+            </div>
+            {i < steps.length - 1 && <div className="rag-arrow">←</div>}
+          </div>
+        ))}
+      </div>
+
+      <Highlight>
+        RAG לא משנה את המודל. הוא נותן לו חומר רלוונטי בתוך ההקשר של השאלה.
+      </Highlight>
+    </div>
+  );
+}
+
+function RAGUsesVectorsSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">שקף {slideNum} — RAG משתמש בוקטורים</div>
+      <h2>גם כאן חוזרים ל<em>מרחב הווקטורי</em>.</h2>
+      <p className="slide-sub">שאלה ומסמכים הופכים לווקטורים. מחפשים מי קרוב סמנטית.</p>
+
+      <div className="rag-vector-space">
+        <div className="query-point">שאלה</div>
+        <div className="doc-point close one">מסמך רלוונטי</div>
+        <div className="doc-point close two">נוהל פנימי</div>
+        <div className="doc-point far">פוסט לא קשור</div>
+        <svg viewBox="0 0 100 60" className="rag-vector-lines" preserveAspectRatio="none">
+          <line x1="50" y1="30" x2="32" y2="18" />
+          <line x1="50" y1="30" x2="65" y2="22" />
+        </svg>
+      </div>
+
+      <Highlight>
+        זה אותו רעיון של Word2Vec, רק על משפטים ומסמכים שלמים.
+      </Highlight>
+    </div>
+  );
+}
+
+function RAGNotSQLSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">שקף {slideNum} — RAG ≠ SQL</div>
+      <h2>SQL מחפש התאמה. RAG מחפש <em>דמיון</em>.</h2>
+
+      <div className="db-vs-llm">
+        <div className="db-card" style={{ animationDelay: '0.2s' }}>
+          <div className="db-icon">🔎</div>
+          <div className="db-title">SQL</div>
+          <div className="db-desc">“תן לי את הלקוח עם id=42”. התאמה מדויקת, סכימה ידועה.</div>
+          <div className="db-line mono">WHERE customer_id = 42</div>
+        </div>
+        <div className="db-card accent" style={{ animationDelay: '0.45s' }}>
+          <div className="db-icon">🧲</div>
+          <div className="db-title">RAG</div>
+          <div className="db-desc">“איפה כתוב על החזרי נסיעות?”. התאמה סמנטית, ניסוח חופשי.</div>
+          <div className="db-line mono">nearest_vectors(question, docs)</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AgentsSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">שקף {slideNum} — Agents</div>
+      <h2>Agent = מודל + כלים + פעולות + בדיקה.</h2>
+      <p className="slide-sub">המודל לא רק עונה. הוא יכול לתכנן, לקרוא כלי, לבצע פעולה, לבדוק תוצאה ולתקן.</p>
+
+      <div className="agent-loop">
+        <div>Plan</div>
+        <span>←</span>
+        <div>Act</div>
+        <span>←</span>
+        <div>Observe</div>
+        <span>←</span>
+        <div>Verify</div>
+      </div>
+
+      <Highlight color="#a855f7">
+        בחלק הבא נראה איך זה נכנס לאוטומציה עסקית — וגם למה חייבים ביקורת, הרשאות וגבולות.
       </Highlight>
     </div>
   );
@@ -1361,12 +2104,22 @@ function SummarySlide({ slideNum }) {
   return (
     <div className="slide fade-up">
       <div className="slide-eyebrow mono">שקף {slideNum} — סיכום</div>
-      <h2>מה <em>ראינו</em> היום?</h2>
-      <div className="card-grid cols2">
-        <ConceptCard en="Language ≠ Rules" he="שפה ≠ חוקים" def="אי אפשר ללמד מחשב שפה דרך כללים. שפה = סטטיסטיקה של הקשר." accent />
-        <ConceptCard en="Words = Points" he="מילים = נקודות" def="Word2Vec: מילים הן נקודות במרחב. קרבה = דמיון." />
-        <ConceptCard en="Attention" he="הקשר" def="Transformer: המודל בוחר במה להתמקד בכל צעד." />
-        <ConceptCard en="Prompting" he="לדבר עם AI" def="Role + Context + Task + Constraints = prompt אפקטיבי." />
+      <h2>המסע שעשינו היום.</h2>
+      <div className="summary-ladder">
+        {[
+          'דאטה הוא ייצוג',
+          'וקטורים נותנים למחשב מרחב',
+          'Word2Vec הראה שמשמעות יכולה להיות גאומטריה',
+          'Attention נותן הקשר דינמי',
+          'GPT מנבא, לא יודע',
+          'RAG מחבר אותו לדאטה אמיתי',
+          'Agents מחברים אותו לפעולה בעולם',
+        ].map((item, i) => (
+          <div key={item} className="summary-step" style={{ animationDelay: `${0.15 + i * 0.08}s` }}>
+            <span className="mono">{i + 1}</span>
+            {item}
+          </div>
+        ))}
       </div>
       <Highlight>
         בפעם הבאה: <em>Business Automation, AI Regulation, Critical Thinking</em>.
@@ -1387,6 +2140,13 @@ const SLIDE_COMPONENTS = [
   CollapseSlide,
   DemoSlide,
   BigTransitionSlide,
+  // Act 2 — Data
+  WhatIsDataSlide,
+  ComputerSeesNumbersSlide,
+  StructuredUnstructuredSlide,
+  WhyDataMattersSlide,
+  AIRepresentationProblemSlide,
+  DataToWordsTransitionSlide,
   // Act 2
   SymbolicSlide,
   WhyBreaksSlide,
@@ -1397,6 +2157,14 @@ const SLIDE_COMPONENTS = [
   NgramsSlide,
   MarkovSlide,
   StillStupidSlide,
+  // Act 4 — Vectors and Dimensions
+  VectorDefinitionSlide,
+  VectorPointSpaceSlide,
+  VectorSimilaritySlide,
+  HumanDimensionLimitSlide,
+  ComputerHandlesDimensionsSlide,
+  LearnedDimensionsSlide,
+  LatentDimensionsSlide,
   // Act 4
   WordsAsIDsSlide,
   WordsAsPointsSlide,
@@ -1407,26 +2175,41 @@ const SLIDE_COMPONENTS = [
   ClosingPart1Slide,
   // Act 5 — RNN Pain
   RNNIntroSlide,
+  RNNArchitectureSlide,
   RNNProblemSlide,
   RNNWallSlide,
+  RNNBottleneckSlide,
   // Act 6 — Attention Solution
   AttentionSlide,
   ParadigmShiftSlide,
+  AllTokensOnTableSlide,
+  AttentionMatrixSlide,
   AttentionInActionSlide,
   QKVMatchmakingSlide,
   InternalDialogueSlide,
+  AttentionHappensNowSlide,
+  MultiHeadAttentionSlide,
+  ParallelismSlide,
+  AttentionSummarySlide,
   // Act 7 — Transformer Revolution
   RevolutionMomentSlide,
-  ParallelismSlide,
   TransformerSlide,
   PreTrainingSlide,
   WhatIsGPTSlide,
   // Act 8 — Emergence
   WhatGPTDoesSlide,
   WhyItSeemsSmartSlide,
+  DoesGPTRememberSlide,
+  WeightsNotDatabaseSlide,
+  HallucinationWhySlide,
+  TruthBridgeToRAGSlide,
   // Practical
   PromptingSlide,
-  RAGAgentsSlide,
+  BusinessProblemSlide,
+  RAGPipelineSlide,
+  RAGUsesVectorsSlide,
+  RAGNotSQLSlide,
+  AgentsSlide,
   SummarySlide,
 ];
 
