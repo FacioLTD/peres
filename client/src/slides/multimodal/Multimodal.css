@@ -1,0 +1,170 @@
+/* ═══════════════════════════════════════════════════════════════
+   Multimodal Intelligence — Cinematic Dark Theme
+   ═══════════════════════════════════════════════════════════════
+   Design intent: cinematic, immersive, high-contrast.
+   Deep blacks with warm amber/gold accents and teal highlights.
+   Designed to feel like entering a cinema — dramatic reveals,
+   rich imagery, and bold typography against true-dark canvases.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Theme Overrides ── */
+.deck-multimodal {
+  --black:   #0a0a0f;
+  --white:   #f0ece4;
+  --accent:  #f59e0b;
+  --orange:  #14b8a6;
+  --muted:   #18181f;
+  --card:    #111118;
+  --border:  #2a2a35;
+  --dim:     #7c7a85;
+  color: var(--white);
+  background: var(--black);
+}
+
+.deck-multimodal-page {
+  --black:   #0a0a0f;
+  --white:   #f0ece4;
+  --accent:  #f59e0b;
+  --orange:  #14b8a6;
+  --muted:   #18181f;
+  --card:    #111118;
+  --border:  #2a2a35;
+  --dim:     #7c7a85;
+  color: var(--white);
+  background: var(--black);
+}
+
+/* ── Nav adjustments for dark cinematic theme ── */
+.deck-multimodal .slides-nav {
+  background: #0e0e14;
+  border-left-color: var(--border);
+}
+
+.deck-multimodal .nav-item:hover {
+  background: rgba(245, 158, 11, 0.04);
+}
+
+.deck-multimodal .nav-item.active {
+  background: rgba(245, 158, 11, 0.08);
+  border-right-color: var(--accent);
+}
+
+.deck-multimodal .qr-nav-btn {
+  background: rgba(245, 158, 11, 0.06);
+  border-color: rgba(245, 158, 11, 0.2);
+  color: var(--accent);
+}
+
+.deck-multimodal .qr-nav-btn:hover {
+  background: rgba(245, 158, 11, 0.12);
+}
+
+/* ── Slide area — cinematic atmosphere ── */
+.deck-multimodal .slides-main {
+  background:
+    radial-gradient(ellipse at 30% 0%, rgba(245, 158, 11, 0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 100%, rgba(20, 184, 166, 0.03) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(245, 158, 11, 0.01) 0%, transparent 70%),
+    var(--black);
+}
+
+.deck-multimodal .concept-card.accent {
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+.deck-multimodal .concept-card:hover {
+  border-color: var(--accent);
+}
+
+.deck-multimodal .ctrl-btn.primary:hover {
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.28);
+}
+
+/* ── Hero title glow for cinematic effect ── */
+.deck-multimodal .hero-title em {
+  text-shadow: 0 0 40px rgba(245, 158, 11, 0.2);
+}
+
+/* ── Cinematic utility classes (ready for content slides) ── */
+
+/* Full-bleed image background slide */
+.cinematic-bg {
+  position: relative;
+  min-height: 55vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.cinematic-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 10, 15, 0.3) 0%,
+    rgba(10, 10, 15, 0.7) 60%,
+    rgba(10, 10, 15, 0.95) 100%
+  );
+  z-index: 1;
+}
+
+.cinematic-bg > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Cinematic reveal text */
+.cinematic-reveal {
+  font-size: 56px;
+  font-weight: 900;
+  line-height: 1.1;
+  animation: cinematicFadeIn 1.2s ease both;
+}
+
+@keyframes cinematicFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.97);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* Teal secondary accent for visual variety */
+.teal-accent {
+  color: var(--orange); /* --orange is mapped to teal in this theme */
+}
+
+/* Image frame — for real images we'll add later */
+.cinematic-frame {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow:
+    0 0 0 1px rgba(245, 158, 11, 0.06),
+    0 20px 60px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+}
+
+.cinematic-frame:hover {
+  border-color: rgba(245, 158, 11, 0.2);
+  box-shadow:
+    0 0 0 1px rgba(245, 158, 11, 0.12),
+    0 24px 72px rgba(0, 0, 0, 0.6);
+  transform: translateY(-2px);
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .cinematic-reveal {
+    font-size: 36px;
+  }
+}

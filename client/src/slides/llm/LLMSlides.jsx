@@ -93,9 +93,9 @@ function TitleSlide() {
   return (
     <div className="slide fade-up">
       <div className="hero-center">
-        <div className="hero-title">מודלי שפה ו-<em>AI גנרטיבי</em></div>
-        <div className="hero-subtitle">Language Models & Generative AI</div>
-        <div className="hero-lecture-num">חלק שני</div>
+        <div className="hero-title">מודלי שפה ו-<em>בינה לשונית</em></div>
+        <div className="hero-subtitle">Language Intelligence</div>
+        <div className="hero-lecture-num">מודול 2 — חלק א׳</div>
         <div className="instructor-block">
           <div className="instructor-name">אוריאל אהרוני</div>
           <div className="instructor-role">CEO & Co-Founder</div>
@@ -2218,7 +2218,7 @@ export default function LLMSlides() {
     <SlideShell
       slideList={SLIDE_LIST}
       slideComponents={SLIDE_COMPONENTS}
-      deckTitle="מודלי שפה ו-AI גנרטיבי"
+      deckTitle="בינה לשונית"
       deckClass="deck-llm"
       deck="llm"
       surveyPath="/llm"

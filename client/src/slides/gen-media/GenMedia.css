@@ -1,0 +1,180 @@
+/* ═══════════════════════════════════════════════════════════════
+   Generative Media — Neon-Creative Dark Theme
+   ═══════════════════════════════════════════════════════════════
+   Design intent: creative, electric, futuristic.
+   True-dark canvas with vivid magenta/pink accent and
+   electric cyan secondary. Feels like a creative studio —
+   generative, playful, cutting-edge.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Theme Overrides ── */
+.deck-gen-media {
+  --black:   #09090b;
+  --white:   #fafafa;
+  --accent:  #e879f9;
+  --orange:  #22d3ee;
+  --muted:   #18181b;
+  --card:    #111113;
+  --border:  #27272a;
+  --dim:     #71717a;
+  color: var(--white);
+  background: var(--black);
+}
+
+.deck-gen-media-page {
+  --black:   #09090b;
+  --white:   #fafafa;
+  --accent:  #e879f9;
+  --orange:  #22d3ee;
+  --muted:   #18181b;
+  --card:    #111113;
+  --border:  #27272a;
+  --dim:     #71717a;
+  color: var(--white);
+  background: var(--black);
+}
+
+/* ── Nav adjustments for creative dark theme ── */
+.deck-gen-media .slides-nav {
+  background: #0c0c0e;
+  border-left-color: var(--border);
+}
+
+.deck-gen-media .nav-item:hover {
+  background: rgba(232, 121, 249, 0.04);
+}
+
+.deck-gen-media .nav-item.active {
+  background: rgba(232, 121, 249, 0.08);
+  border-right-color: var(--accent);
+}
+
+.deck-gen-media .qr-nav-btn {
+  background: rgba(232, 121, 249, 0.06);
+  border-color: rgba(232, 121, 249, 0.2);
+  color: var(--accent);
+}
+
+.deck-gen-media .qr-nav-btn:hover {
+  background: rgba(232, 121, 249, 0.12);
+}
+
+/* ── Slide area — creative neon atmosphere ── */
+.deck-gen-media .slides-main {
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(232, 121, 249, 0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 100%, rgba(34, 211, 238, 0.03) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 30%, rgba(232, 121, 249, 0.01) 0%, transparent 60%),
+    var(--black);
+}
+
+.deck-gen-media .concept-card.accent {
+  border-color: rgba(232, 121, 249, 0.3);
+}
+
+.deck-gen-media .concept-card:hover {
+  border-color: var(--accent);
+}
+
+.deck-gen-media .ctrl-btn.primary:hover {
+  box-shadow: 0 4px 14px rgba(232, 121, 249, 0.28);
+}
+
+/* ── Hero title neon glow ── */
+.deck-gen-media .hero-title em {
+  text-shadow: 0 0 40px rgba(232, 121, 249, 0.25);
+}
+
+/* ── Creative utility classes (ready for content slides) ── */
+
+/* Gradient text */
+.gen-gradient-text {
+  background: linear-gradient(135deg, #e879f9, #22d3ee);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Neon card glow */
+.gen-glow-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px;
+  transition: all 0.3s ease;
+}
+
+.gen-glow-card:hover {
+  border-color: rgba(232, 121, 249, 0.3);
+  box-shadow:
+    0 0 20px rgba(232, 121, 249, 0.06),
+    0 0 60px rgba(232, 121, 249, 0.03);
+}
+
+/* Generated image showcase frame */
+.gen-showcase {
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  position: relative;
+  box-shadow:
+    0 0 0 1px rgba(232, 121, 249, 0.06),
+    0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.gen-showcase::after {
+  content: 'AI GENERATED';
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  background: rgba(9, 9, 11, 0.8);
+  padding: 4px 10px;
+  border-radius: 4px;
+  backdrop-filter: blur(4px);
+}
+
+/* Before/After comparison */
+.gen-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.gen-compare-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dim);
+  text-align: center;
+  padding: 8px;
+  background: var(--muted);
+}
+
+/* Creative pulse animation */
+@keyframes creativePulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(232, 121, 249, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 20px 4px rgba(232, 121, 249, 0.1);
+  }
+}
+
+.gen-pulse {
+  animation: creativePulse 3s ease infinite;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .gen-compare {
+    grid-template-columns: 1fr;
+  }
+}
