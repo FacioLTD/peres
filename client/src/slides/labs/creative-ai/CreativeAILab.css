@@ -1,0 +1,580 @@
+/* ═══════════════════════════════════════════════════════════════
+   Lab Session 1 — Creative AI & Multimodal Pipelines
+   ═══════════════════════════════════════════════════════════════
+   Design intent: dark cyberpunk, electric, subversive.
+   Ultra-deep slate with electric cyan accent and hot magenta
+   secondary. Feels like a hacker lab / creative underground —
+   neon code on dark walls, glitch aesthetics.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Theme Overrides ── */
+.deck-lab-creative {
+  --black:   #07080d;
+  --white:   #e8e6f0;
+  --accent:  #00f0ff;
+  --orange:  #ff3d71;
+  --muted:   #12131a;
+  --card:    #0e0f16;
+  --border:  #1f2133;
+  --dim:     #6b6d80;
+  color: var(--white);
+  background: var(--black);
+}
+
+.deck-lab-creative-page {
+  --black:   #07080d;
+  --white:   #e8e6f0;
+  --accent:  #00f0ff;
+  --orange:  #ff3d71;
+  --muted:   #12131a;
+  --card:    #0e0f16;
+  --border:  #1f2133;
+  --dim:     #6b6d80;
+  color: var(--white);
+  background: var(--black);
+}
+
+/* ── Nav adjustments for cyberpunk theme ── */
+.deck-lab-creative .slides-nav {
+  background: #0a0b12;
+  border-left-color: var(--border);
+}
+
+.deck-lab-creative .nav-item:hover {
+  background: rgba(0, 240, 255, 0.04);
+}
+
+.deck-lab-creative .nav-item.active {
+  background: rgba(0, 240, 255, 0.08);
+  border-right-color: var(--accent);
+}
+
+.deck-lab-creative .qr-nav-btn {
+  background: rgba(0, 240, 255, 0.06);
+  border-color: rgba(0, 240, 255, 0.2);
+  color: var(--accent);
+}
+
+.deck-lab-creative .qr-nav-btn:hover {
+  background: rgba(0, 240, 255, 0.12);
+}
+
+/* ── Slide area — cyberpunk atmosphere ── */
+.deck-lab-creative .slides-main {
+  background:
+    radial-gradient(ellipse at 15% 0%, rgba(0, 240, 255, 0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 85% 100%, rgba(255, 61, 113, 0.03) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 40%, rgba(0, 240, 255, 0.01) 0%, transparent 60%),
+    var(--black);
+}
+
+.deck-lab-creative .concept-card.accent {
+  border-color: rgba(0, 240, 255, 0.3);
+}
+
+.deck-lab-creative .concept-card:hover {
+  border-color: var(--accent);
+}
+
+.deck-lab-creative .ctrl-btn.primary:hover {
+  box-shadow: 0 4px 14px rgba(0, 240, 255, 0.28);
+}
+
+/* ── Hero title neon glow ── */
+.deck-lab-creative .hero-title em {
+  text-shadow: 0 0 40px rgba(0, 240, 255, 0.3);
+}
+
+/* ── RTL direction for slides ── */
+.deck-lab-creative .slide {
+  direction: rtl;
+}
+
+.deck-lab-creative .slide h2 {
+  text-wrap: balance;
+}
+
+.deck-lab-creative .slide-sub {
+  color: #9496a8;
+}
+
+.deck-lab-creative .big-quote {
+  border-color: rgba(0, 240, 255, 0.18);
+}
+
+.deck-lab-creative .concept-card {
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.035), transparent),
+    rgba(14, 15, 22, 0.86);
+  box-shadow: 0 18px 50px rgba(0,0,0,0.22);
+}
+
+/* ── Lab badge ── */
+.lab-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  border-radius: 100px;
+  font-size: 11px;
+  font-family: 'Space Mono', monospace;
+  color: var(--accent);
+  letter-spacing: 0.16em;
+  margin-bottom: 20px;
+  background: rgba(0, 240, 255, 0.04);
+  text-transform: uppercase;
+}
+
+.lab-badge::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: pulse 2s infinite;
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.5);
+}
+
+/* ── Slide hero image ── */
+.lab-hero-image {
+  position: relative;
+  margin: 24px 0;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 240, 255, 0.15);
+  box-shadow:
+    0 0 0 1px rgba(0, 240, 255, 0.05),
+    0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.lab-hero-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(7,8,13,0) 40%, rgba(7,8,13,0.7) 100%),
+    radial-gradient(circle at 75% 20%, rgba(0,240,255,0.08), transparent 32%);
+}
+
+.lab-hero-image img {
+  display: block;
+  width: 100%;
+  max-height: 340px;
+  object-fit: cover;
+  background: #050608;
+}
+
+/* ── Gradient text ── */
+.lab-gradient-text {
+  background: linear-gradient(135deg, #00f0ff, #ff3d71);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Pipeline flow ── */
+.lab-pipeline {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  margin: 28px 0;
+}
+
+.lab-pipeline-step {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px 18px;
+  text-align: center;
+  animation: fadeUp 0.5s ease both;
+  transition: all 0.25s;
+  position: relative;
+}
+
+.lab-pipeline-step:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 240, 255, 0.1);
+}
+
+.lab-pipeline-step:not(:last-child)::after {
+  content: '←';
+  position: absolute;
+  top: 50%;
+  left: -14px;
+  transform: translateY(-50%);
+  color: var(--accent);
+  font-size: 16px;
+  text-shadow: 0 0 8px rgba(0, 240, 255, 0.4);
+}
+
+.lab-pipeline-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: var(--accent);
+  letter-spacing: 0.12em;
+  margin-bottom: 8px;
+}
+
+.lab-pipeline-label {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.lab-pipeline-sub {
+  font-size: 12px;
+  color: var(--dim);
+}
+
+/* ── Iceberg visual ── */
+.lab-iceberg {
+  position: relative;
+  margin: 28px 0;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.lab-iceberg img {
+  display: block;
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+}
+
+.lab-iceberg-labels {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 28px 32px;
+  pointer-events: none;
+}
+
+.lab-iceberg-label {
+  background: rgba(7, 8, 13, 0.75);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  border-radius: 12px;
+  padding: 14px 20px;
+  max-width: 280px;
+  animation: fadeUp 0.6s ease both;
+}
+
+.lab-iceberg-label.top {
+  align-self: flex-start;
+}
+
+.lab-iceberg-label.bottom {
+  align-self: flex-end;
+  animation-delay: 0.4s;
+}
+
+.lab-iceberg-label .label-title {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: var(--accent);
+  letter-spacing: 0.14em;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.lab-iceberg-label .label-items {
+  font-size: 14px;
+  color: var(--white);
+  line-height: 1.6;
+}
+
+/* ── Comparison cards ── */
+.lab-compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 80px 1fr;
+  gap: 0;
+  align-items: center;
+  margin: 28px 0;
+}
+
+.lab-compare-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px 24px;
+  animation: fadeUp 0.5s ease both;
+  transition: border-color 0.25s;
+}
+
+.lab-compare-card:hover {
+  border-color: var(--accent);
+}
+
+.lab-compare-card.magenta:hover {
+  border-color: var(--orange);
+}
+
+.lab-compare-title {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  color: var(--accent);
+  letter-spacing: 0.12em;
+  margin-bottom: 12px;
+}
+
+.lab-compare-card.magenta .lab-compare-title {
+  color: var(--orange);
+}
+
+.lab-compare-main {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.lab-compare-desc {
+  font-size: 14px;
+  color: var(--dim);
+  line-height: 1.6;
+}
+
+.lab-compare-vs {
+  display: grid;
+  place-items: center;
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--dim);
+}
+
+/* ── Stage cards (for pipeline stages) ── */
+.lab-stage-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 28px 0;
+}
+
+.lab-stage-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px 20px;
+  animation: fadeUp 0.5s ease both;
+  transition: all 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+
+.lab-stage-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--orange));
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+
+.lab-stage-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 240, 255, 0.08);
+}
+
+.lab-stage-card:hover::before {
+  opacity: 1;
+}
+
+.lab-stage-icon {
+  font-size: 32px;
+  margin-bottom: 14px;
+}
+
+.lab-stage-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.lab-stage-desc {
+  font-size: 13px;
+  color: var(--dim);
+  line-height: 1.6;
+}
+
+/* ── Param cards ── */
+.lab-param-row {
+  display: flex;
+  gap: 14px;
+  margin: 20px 0;
+}
+
+.lab-param-card {
+  flex: 1;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  animation: fadeUp 0.5s ease both;
+  transition: border-color 0.2s;
+}
+
+.lab-param-card:hover {
+  border-color: var(--accent);
+}
+
+.lab-param-name {
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.lab-param-desc {
+  font-size: 13px;
+  color: var(--dim);
+  line-height: 1.55;
+}
+
+/* ── Copyright dilemma visual ── */
+.lab-dilemma-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.lab-dilemma-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px 20px;
+  text-align: center;
+  animation: fadeUp 0.5s ease both;
+  transition: all 0.25s;
+}
+
+.lab-dilemma-card:hover {
+  border-color: var(--orange);
+  box-shadow: 0 8px 28px rgba(255, 61, 113, 0.08);
+}
+
+.lab-dilemma-icon {
+  font-size: 36px;
+  margin-bottom: 12px;
+}
+
+.lab-dilemma-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.lab-dilemma-desc {
+  font-size: 12px;
+  color: var(--dim);
+  line-height: 1.55;
+}
+
+/* ── Neon glow animation ── */
+@keyframes neonPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(0, 240, 255, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 20px 4px rgba(0, 240, 255, 0.1);
+  }
+}
+
+.lab-neon-pulse {
+  animation: neonPulse 3s ease infinite;
+}
+
+/* ── Summary outcome row ── */
+.lab-outcome-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 28px 0;
+}
+
+.lab-outcome-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 28px 22px;
+  text-align: center;
+  animation: fadeUp 0.5s ease both;
+  transition: all 0.3s;
+}
+
+.lab-outcome-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-6px);
+  box-shadow:
+    0 0 20px rgba(0, 240, 255, 0.06),
+    0 16px 48px rgba(0, 0, 0, 0.3);
+}
+
+.lab-outcome-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 42px;
+  font-weight: 900;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 12px;
+}
+
+.lab-outcome-label {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.lab-outcome-desc {
+  font-size: 12px;
+  color: var(--dim);
+  line-height: 1.55;
+}
+
+/* ── Closing divider ── */
+.lab-closing-divider {
+  width: 80px;
+  height: 3px;
+  margin: 20px auto;
+  background: linear-gradient(90deg, var(--accent), var(--orange));
+  border-radius: 2px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .lab-stage-grid,
+  .lab-dilemma-grid,
+  .lab-outcome-row {
+    grid-template-columns: 1fr;
+  }
+
+  .lab-compare-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .lab-compare-vs {
+    transform: rotate(90deg);
+  }
+
+  .lab-pipeline {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .lab-pipeline-step:not(:last-child)::after {
+    display: none;
+  }
+
+  .lab-param-row {
+    flex-direction: column;
+  }
+}

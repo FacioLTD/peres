@@ -37,7 +37,10 @@ const SLIDE_LIST = [
   { id: 30, title: 'Multimodal Intelligence' },
   { id: 31, title: 'Visual Reasoning' },
   { id: 32, title: 'Agents' },
-  { id: 33, title: 'סיכום' },
+  { id: 33, title: 'ומה לגבי קול?', navNum: 'ז' },
+  { id: 34, title: 'Speech AI' },
+  { id: 35, title: 'Everything Embeds' },
+  { id: 36, title: 'סיכום' },
 ];
 
 // ── Slide components ──────────────────────────────────────────
@@ -1015,22 +1018,127 @@ function AgentsSlide({ slideNum }) {
   );
 }
 
+function SoundWaveSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <SlideHeader
+        slideNum={slideNum}
+        kicker="Audio Intelligence"
+        title={'ומה לגבי <em>קול?</em><br />איך מחשב “שומע”'}
+        subtitle="קול הוא לא מילים בתוך המחשב. קול הוא גל לחץ באוויר. המיקרופון מודד את הגל הזה הרבה פעמים בשנייה, וכל מדידה הופכת למספר."
+      />
+      <div className="sound-explainer">
+        <div className="sound-wave-panel">
+          <div className="wave-line">
+            {Array.from({ length: 34 }).map((_, i) => <span key={i} style={{ '--h': `${22 + (i % 7) * 9}px` }} />)}
+          </div>
+          <div className="sample-dots">
+            {Array.from({ length: 18 }).map((_, i) => <i key={i} />)}
+          </div>
+          <div className="wave-caption mono">sound wave → samples → numbers</div>
+        </div>
+        <div className="spectrogram-panel">
+          <div className="spectrogram-grid">
+            {Array.from({ length: 72 }).map((_, i) => <span key={i} className={`energy-${(i * 7) % 5}`} />)}
+          </div>
+          <div className="wave-caption mono">FFT / spectrogram</div>
+        </div>
+      </div>
+      <div className="card-grid cols3">
+        <ConceptCard en="WAVE" he="גל" def="האוויר רועד. הגל מתאר שינוי לחץ לאורך זמן." />
+        <ConceptCard en="SAMPLE" he="דגימה" def="המחשב מודד את עוצמת הגל בנקודות זמן רבות מאוד." accent />
+        <ConceptCard en="SPECTROGRAM" he="מפה של תדרים" def="במקום לראות רק עוצמה לאורך זמן, רואים אילו תדרים חזקים בכל רגע." />
+      </div>
+      <Highlight>
+        FFT היא דרך מתמטית לפרק גל לצלילים המרכיבים אותו: נמוכים, גבוהים, חזקים וחלשים. Spectrogram הוא פשוט “תמונה” של הפירוק הזה לאורך זמן.
+      </Highlight>
+    </div>
+  );
+}
+
+function SpeechAIRevolutionSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <SlideHeader
+        slideNum={slideNum}
+        kicker="Speech AI Revolution"
+        title={'מהפכת ה־<em>Speech AI</em><br />הכניסה קול למוצרים אמיתיים'}
+        subtitle="ברגע שמודלים התחילו להבין דיבור בצורה אמינה, קול הפך מממשק ניסיוני לשכבת עבודה: עוזרים אישיים, מוקדי שירות, זיהוי דובר ותרגום בזמן אמת."
+      />
+      <div className="speech-grid">
+        {[
+          ['Siri', 'הראתה שעוזר קולי יכול להיות חלק ממכשיר יומיומי, גם אם ההבנה הייתה מוגבלת.'],
+          ['Alexa', 'הכניסה Voice UI לבית: פקודות קוליות למוזיקה, בית חכם ושאלות קצרות.'],
+          ['Whisper', 'מודל של OpenAI לתמלול רב־שפתי חזק, שמקרב אותנו להבנת דיבור “בעולם האמיתי”.'],
+          ['Call Centers', 'תמלול שיחות, סיכום, זיהוי כוונות, QA אוטומטי ותובנות מנציגים ולקוחות.'],
+          ['Voice Biometrics', 'זיהוי דובר לפי מאפייני קול, למשל לאימות זהות או איתור התחזות.'],
+          ['Real-time Translation', 'דיבור בשפה אחת, תמלול, תרגום והשמעה בשפה אחרת כמעט בזמן אמת.'],
+        ].map(([title, text], i) => (
+          <div className="speech-card" key={title} style={{ animationDelay: `${i * 0.08}s` }}>
+            <span className="mono">{String(i + 1).padStart(2, '0')}</span>
+            <b>{title}</b>
+            <p>{text}</p>
+          </div>
+        ))}
+      </div>
+      <Highlight>המהפכה היא לא רק “זיהוי מילים”. היא הפיכת שיחה אנושית לדאטה שאפשר לחפש, לסכם, לנתח ולחבר לפעולה.</Highlight>
+    </div>
+  );
+}
+
+function EverythingEmbeddingsSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <SlideHeader
+        slideNum={slideNum}
+        kicker="Everything Becomes Embeddings"
+        title={'בסוף, כל מודאליות הופכת<br />ל־<em>Embedding</em>.'}
+        subtitle="טקסט, תמונה, קול ווידאו מתחילים כחומרים שונים לגמרי. אבל מודלים מודרניים לומדים להכניס אותם למרחב סמוי משותף שבו אפשר להשוות, לחפש, להסביר ולפעול."
+      />
+      <div className="unified-embedding-map">
+        {[
+          ['TEXT', 'טקסט', 'מילים ומשפטים'],
+          ['IMAGE', 'תמונה', 'פיקסלים וצורות'],
+          ['AUDIO', 'קול', 'גלים ותדרים'],
+          ['VIDEO', 'וידאו', 'תנועה בזמן'],
+        ].map(([en, he, sub], i) => (
+          <div className={`unified-input u${i + 1}`} key={en}>
+            <span className="mono">{en}</span>
+            <b>{he}</b>
+            <p>{sub}</p>
+          </div>
+        ))}
+        <div className="latent-core">
+          <span className="mono">LATENT SPACE</span>
+          <b>מרחב משותף</b>
+          <p>אותה שפה מספרית לכל סוגי המידע</p>
+        </div>
+        <span className="latent-link l1" />
+        <span className="latent-link l2" />
+        <span className="latent-link l3" />
+        <span className="latent-link l4" />
+      </div>
+      <div className="big-quote">זה סוגר את המעגל: AI לא “רואה” או “שומע” כמונו. הוא לומד להפוך הכול לייצוגים שאפשר לחשוב איתם.</div>
+    </div>
+  );
+}
+
 function SummarySlide({ slideNum }) {
   return (
     <div className="slide fade-up">
       <SlideHeader
         slideNum={slideNum}
         kicker="סיכום"
-        title={'האבולוציה של ראייה ממוחשבת<br />היא מעבר מ־<em>פיקסלים לפעולה</em>.'}
+        title={'האבולוציה של בינה מולטימודלית<br />היא מעבר מ־<em>אותות לפעולה</em>.'}
       />
       <div className="summary-timeline">
         {[
           ['01', 'פיקסלים', 'מספרים בלי משמעות'],
           ['02', 'Features', 'כללים ותכונות ידניות'],
           ['03', 'CNNs', 'ייצוגים שנלמדים מהדאטה'],
-          ['04', 'Detection', 'מה יש ואיפה'],
-          ['05', 'CLIP', 'חיבור בין תמונה לשפה'],
-          ['06', 'Multimodal Agents', 'הבנה חזותית שמובילה לפעולה'],
+          ['04', 'Vision + Speech', 'תמונה, וידאו וקול הופכים לאותות נלמדים'],
+          ['05', 'Embeddings', 'כל מודאליות נכנסת למרחב משותף'],
+          ['06', 'Multimodal Agents', 'הבנה רב־חושית שמובילה לפעולה'],
         ].map(([num, title, text]) => (
           <div className="summary-step" key={num}>
             <span className="mono">{num}</span>
@@ -1039,7 +1147,7 @@ function SummarySlide({ slideNum }) {
           </div>
         ))}
       </div>
-      <div className="big-quote">השאלה החדשה היא לא ״האם AI מזהה תמונה?״ אלא <em>איזו עבודה אפשר לתת לו כשהוא מבין מה הוא רואה?</em></div>
+      <div className="big-quote">השאלה החדשה היא לא ״האם AI מזהה תמונה או קול?״ אלא <em>איזו עבודה אפשר לתת לו כשהוא מבין את העולם בכמה ערוצים?</em></div>
     </div>
   );
 }
@@ -1078,6 +1186,9 @@ const SLIDE_COMPONENTS = [
   MultimodalSlide,
   VisualReasoningSlide,
   AgentsSlide,
+  SoundWaveSlide,
+  SpeechAIRevolutionSlide,
+  EverythingEmbeddingsSlide,
   SummarySlide,
 ];
 

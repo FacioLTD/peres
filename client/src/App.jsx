@@ -21,6 +21,9 @@ import BusinessSurvey  from './survey/BusinessSurvey';
 import BusinessThanks  from './survey/BusinessThanks';
 import BusinessSlides  from './slides/business/BusinessSlides';
 
+// ── Lab Sessions ─────────────────────────────────────────────
+import CreativeAILabSlides from './slides/labs/creative-ai/CreativeAILabSlides';
+
 import './index.css';
 import './App.css';
 
@@ -48,6 +51,9 @@ export default function App() {
         <Route path="/business"        element={<BusinessSurvey />} />
         <Route path="/business/thanks" element={<BusinessThanks />} />
         <Route path="/business/slides" element={<BusinessSlides />} />
+
+        {/* ── Lab Session 1 — Creative AI ── */}
+        <Route path="/labs/creative-ai/slides" element={<CreativeAILabSlides />} />
       </Routes>
     </BrowserRouter>
   );
