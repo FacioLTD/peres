@@ -4,7 +4,7 @@ import '../../shared/SlideShell.css';
 import './CreativeAILab.css';
 
 // ── Slide list ────────────────────────────────────────────────
-const SLIDE_LIST = [
+export const SLIDE_LIST = [
   { id: 1,  title: 'שער' },
   { id: 2,  title: 'מ-YOLO להבנה', navNum: 'א' },
   { id: 3,  title: 'שתי שפות שונות' },
@@ -701,7 +701,7 @@ function SummarySlide({ slideNum }) {
 
 // ── Wire up ───────────────────────────────────────────────────
 
-const SLIDE_COMPONENTS = [
+export const SLIDE_COMPONENTS = [
   TitleSlide,
   YoloToVLMSlide,
   TwoLanguagesSlide,

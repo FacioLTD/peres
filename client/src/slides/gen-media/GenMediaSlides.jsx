@@ -4,7 +4,7 @@ import '../shared/SlideShell.css';
 import './GenMedia.css';
 
 // ── Slide list ────────────────────────────────────────────────
-const SLIDE_LIST = [
+export const SLIDE_LIST = [
   { id: 1, title: 'שער' },
   // Topics to build:
   // diffusion, image generation, video generation,
@@ -31,7 +31,7 @@ function TitleSlide() {
 }
 
 // ── Wire up ───────────────────────────────────────────────────
-const SLIDE_COMPONENTS = [
+export const SLIDE_COMPONENTS = [
   TitleSlide,
 ];
 

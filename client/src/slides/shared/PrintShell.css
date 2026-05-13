@@ -1,0 +1,257 @@
+/* ═══════════════════════════════════════════════════════════════
+   PrintShell — Print / PDF View Styles
+   ═══════════════════════════════════════════════════════════════
+   Screen: stacked slide cards with header/footer chrome
+   Print:  clean, full-page slides, one per page (A4 landscape)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Print page ── */
+.print-page {
+  min-height: 100vh;
+  background: var(--black);
+  color: var(--white);
+  direction: rtl;
+}
+
+/* ── Screen header ── */
+.print-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 32px;
+  background: rgba(10, 10, 10, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.print-header-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.print-header-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.print-header-count {
+  font-size: 12px;
+  color: var(--dim);
+}
+
+.print-btn {
+  padding: 10px 24px;
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.3);
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Heebo', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.print-btn:hover {
+  background: var(--accent);
+  color: var(--black);
+  box-shadow: 0 4px 20px rgba(232, 255, 71, 0.2);
+}
+
+/* ── Slide cards on screen ── */
+.print-slides {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 24px 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.print-slide-wrap {
+  position: relative;
+}
+
+.print-slide-num {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 12px;
+  color: var(--dim);
+  margin-bottom: 10px;
+  padding-right: 4px;
+}
+
+.print-slide-title-inline {
+  font-family: 'Heebo', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.print-slide-content {
+  background: var(--card, #141414);
+  border: 1px solid var(--border, #2a2a2a);
+  border-radius: 18px;
+  padding: 48px 56px;
+  overflow: hidden;
+  min-height: 400px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Ensure slides inside print view don't have extra fade animations */
+.print-slide-content .slide {
+  animation: none;
+}
+
+/* ── Screen footer ── */
+.print-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 32px;
+  background: rgba(10, 10, 10, 0.9);
+  backdrop-filter: blur(8px);
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--dim);
+  z-index: 100;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Print Styles
+   ═══════════════════════════════════════════════════════════════ */
+
+@media print {
+  /* Hide screen-only elements */
+  .no-print {
+    display: none !important;
+  }
+
+  /* Reset page background */
+  .print-page {
+    background: white !important;
+    color: #111 !important;
+  }
+
+  /* Page setup — landscape A4 */
+  @page {
+    size: A4 landscape;
+    margin: 0;
+  }
+
+  /* Container reset */
+  .print-slides {
+    max-width: none;
+    padding: 0;
+    margin: 0;
+    gap: 0;
+  }
+
+  /* Each slide = one page */
+  .print-slide-wrap {
+    page-break-after: always;
+    break-after: page;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: stretch;
+  }
+
+  .print-slide-wrap:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+
+  .print-slide-content {
+    flex: 1;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 40px 60px;
+    min-height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: white !important;
+  }
+
+  /* Fix text colors for print */
+  .print-slide-content .slide,
+  .print-slide-content h2,
+  .print-slide-content p,
+  .print-slide-content li {
+    color: #111 !important;
+  }
+
+  .print-slide-content em {
+    color: #0066cc !important;
+  }
+
+  .print-slide-content .slide-eyebrow {
+    color: #666 !important;
+  }
+
+  .print-slide-content .slide-sub {
+    color: #444 !important;
+  }
+
+  /* Cards for print */
+  .print-slide-content .concept-card,
+  .print-slide-content .lab-compare-card,
+  .print-slide-content .lab-encoder-card,
+  .print-slide-content .lab-stage-card,
+  .print-slide-content .lab-dilemma-card,
+  .print-slide-content .lab-outcome-card,
+  .print-slide-content .lab-language-card,
+  .print-slide-content .lab-contrastive-pair,
+  .print-slide-content .lab-param-card,
+  .print-slide-content .lab-pipeline-step {
+    background: #f8f8f8 !important;
+    border-color: #ddd !important;
+    color: #111 !important;
+    box-shadow: none !important;
+  }
+
+  /* Highlight boxes */
+  .print-slide-content .highlight-box {
+    border-color: #0066cc !important;
+    background: #f0f4ff !important;
+    color: #111 !important;
+  }
+
+  /* Images */
+  .print-slide-content .lab-hero-image {
+    border-color: #ddd !important;
+    box-shadow: none !important;
+  }
+
+  .print-slide-content .lab-hero-image::after {
+    display: none;
+  }
+
+  /* Instructor block */
+  .print-slide-content .instructor-name,
+  .print-slide-content .instructor-role,
+  .print-slide-content .instructor-companies {
+    color: #333 !important;
+  }
+
+  /* Hero elements */
+  .print-slide-content .hero-title {
+    color: #111 !important;
+  }
+
+  .print-slide-content .hero-subtitle,
+  .print-slide-content .hero-lecture-num {
+    color: #555 !important;
+  }
+}

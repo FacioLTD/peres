@@ -4,7 +4,7 @@ import '../shared/SlideShell.css';
 import './Business.css';
 
 // ── Slide list ────────────────────────────────────────────────
-const SLIDE_LIST = [
+export const SLIDE_LIST = [
   { id: 1, title: 'שער — עסקים ואתיקה' },
   { id: 2, title: 'מבנה ההרצאה' },
   { id: 3, title: 'AI בארגונים' },
@@ -262,7 +262,7 @@ function CourseSummarySlide({ slideNum }) {
 }
 
 // ── Wire up ───────────────────────────────────────────────────
-const SLIDE_COMPONENTS = [
+export const SLIDE_COMPONENTS = [
   TitleSlide,
   AgendaSlide,
   AIInOrgsSlide,

@@ -4,7 +4,7 @@ import '../shared/SlideShell.css';
 import './LLM.css';
 
 // ── Slide list ────────────────────────────────────────────────
-const SLIDE_LIST = [
+export const SLIDE_LIST = [
   { id: 1,  title: 'שער' },
   { id: 2,  title: 'הכיתה שלכם' },
   // Act 1 — What is meaning?
@@ -2131,7 +2131,7 @@ function SummarySlide({ slideNum }) {
 // ═══════════════════════════════════════════════════════════════
 // WIRE UP
 // ═══════════════════════════════════════════════════════════════
-const SLIDE_COMPONENTS = [
+export const SLIDE_COMPONENTS = [
   TitleSlide,
   SurveyResultsSlide,
   // Act 1

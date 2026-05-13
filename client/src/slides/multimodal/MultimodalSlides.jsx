@@ -4,7 +4,7 @@ import '../shared/SlideShell.css';
 import './Multimodal.css';
 
 // ── Slide list ────────────────────────────────────────────────
-const SLIDE_LIST = [
+export const SLIDE_LIST = [
   { id: 1,  title: 'שער' },
   { id: 2,  title: 'מה אתם רואים?' },
   { id: 3,  title: 'הבעיה' },
@@ -1153,7 +1153,7 @@ function SummarySlide({ slideNum }) {
 }
 
 // ── Wire up ───────────────────────────────────────────────────
-const SLIDE_COMPONENTS = [
+export const SLIDE_COMPONENTS = [
   TitleSlide,
   OpeningQuestionSlide,
   VisionProblemSlide,
