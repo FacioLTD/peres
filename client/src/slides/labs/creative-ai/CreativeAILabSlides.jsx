@@ -5,14 +5,17 @@ import './CreativeAILab.css';
 
 // ── Slide list ────────────────────────────────────────────────
 const SLIDE_LIST = [
-  { id: 1, title: 'שער' },
-  { id: 2, title: 'מ-YOLO להבנה', navNum: 'א' },
-  { id: 3, title: 'Multimodal Reasoning', navNum: 'ב' },
-  { id: 4, title: 'Engine vs. Product', navNum: 'ג' },
-  { id: 5, title: 'מילים ולחן', navNum: 'ד' },
-  { id: 6, title: 'תסריט וויזואל', navNum: 'ה' },
-  { id: 7, title: 'הנפשה ו-Deep Fake', navNum: 'ו' },
-  { id: 8, title: 'סיכום 2026', navNum: 'ז' },
+  { id: 1,  title: 'שער' },
+  { id: 2,  title: 'מ-YOLO להבנה', navNum: 'א' },
+  { id: 3,  title: 'שתי שפות שונות' },
+  { id: 4,  title: 'Dual Encoder' },
+  { id: 5,  title: 'Contrastive Learning' },
+  { id: 6,  title: 'Multimodal Reasoning', navNum: 'ב' },
+  { id: 7,  title: 'Engine vs. Product', navNum: 'ג' },
+  { id: 8,  title: 'מילים ולחן', navNum: 'ד' },
+  { id: 9,  title: 'תסריט וויזואל', navNum: 'ה' },
+  { id: 10, title: 'הנפשה ו-Deep Fake', navNum: 'ו' },
+  { id: 11, title: 'סיכום 2026', navNum: 'ז' },
 ];
 
 // ── Helper: Slide hero image ──────────────────────────────────
@@ -109,7 +112,244 @@ function YoloToVLMSlide({ slideNum }) {
 }
 
 // ═══════════════════════════════════════════════════════════════
-// SLIDE 3: MULTIMODAL REASONING
+// SLIDE 3: THE PROBLEM — TWO DIFFERENT LANGUAGES
+// ═══════════════════════════════════════════════════════════════
+
+function TwoLanguagesSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">שקף {slideNum} — הבעיה</div>
+      <h2>
+        שתי <em>שפות</em> שונות לגמרי
+      </h2>
+      <p className="slide-sub">
+        מודלי ראייה כמו YOLO למדו רק &quot;לתייג&quot;. הם ראו אופנוע ולמדו
+        שהתווית היא &quot;Motorcycle&quot; — אבל לא הבינו מה זה אופנוע. עבורם
+        זה היה אוסף פיקסלים שמוביל לאינדקס מסוים במערך.
+      </p>
+
+      <div className="lab-languages-split">
+        <div
+          className="lab-language-card"
+          style={{ animationDelay: '0.2s' }}
+        >
+          <div className="lab-language-header">
+            <div className="lab-language-icon">🖼️</div>
+            <div className="lab-language-title">שפת התמונה</div>
+          </div>
+          <ul className="lab-language-features">
+            <li>וקטור של תכונות ויזואליות</li>
+            <li>צבע, צורה, טקסטורה, קצוות</li>
+            <li>מרחב מספרי &quot;גולמי&quot; — בלי משמעות</li>
+          </ul>
+          <div className="lab-language-vector">
+            [0.82, -0.14, 0.67, ...] (dim: 2048)
+          </div>
+        </div>
+        <div
+          className="lab-language-card magenta"
+          style={{ animationDelay: '0.45s' }}
+        >
+          <div className="lab-language-header">
+            <div className="lab-language-icon">📝</div>
+            <div className="lab-language-title">שפת הטקסט</div>
+          </div>
+          <ul className="lab-language-features">
+            <li>וקטור של משמעויות סמנטיות</li>
+            <li>הקשר, רגש, דקדוק, כוונה</li>
+            <li>מרחב מספרי &quot;עשיר&quot; — מלא משמעות</li>
+          </ul>
+          <div className="lab-language-vector">
+            [0.31, 0.55, -0.78, ...] (dim: 768)
+          </div>
+        </div>
+      </div>
+
+      <Highlight>
+        הבעיה: שני המרחבים <em>לא מדברים</em> אחד עם השני. הוקטור של תמונת
+        אופנוע והוקטור של המילה &quot;אופנוע&quot; נמצאים בעולמות נפרדים
+        לחלוטין.
+      </Highlight>
+    </div>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════
+// SLIDE 4: THE SOLUTION — DUAL ENCODER
+// ═══════════════════════════════════════════════════════════════
+
+function DualEncoderSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">שקף {slideNum} — הפתרון</div>
+      <h2>
+        ארכיטקטורת <em>Dual Encoder</em>
+      </h2>
+      <p className="slide-sub">
+        לא משתמשים במודל אחד, אלא בשני &quot;מומחים&quot; שעובדים יחד — כל
+        אחד מתמחה בשפה שלו, ושכבת Projection מחברת ביניהם.
+      </p>
+
+      <div className="lab-dual-encoder">
+        <div
+          className="lab-encoder-card"
+          style={{ animationDelay: '0.2s' }}
+        >
+          <div className="lab-encoder-icon">👁️</div>
+          <div className="lab-encoder-title">IMAGE ENCODER</div>
+          <div className="lab-encoder-name">Vision Transformer</div>
+          <div className="lab-encoder-desc">
+            מפרק את התמונה לתכונות ויזואליות — קצוות, צורות, מרקמים, יחסים
+            מרחביים.
+          </div>
+          <div className="lab-encoder-vector">Output: vec(2048)</div>
+        </div>
+
+        <div className="lab-encoder-merge">
+          <div className="lab-encoder-merge-icon">⚡</div>
+          <div className="lab-encoder-merge-label">Projection</div>
+        </div>
+
+        <div
+          className="lab-encoder-card magenta"
+          style={{ animationDelay: '0.45s' }}
+        >
+          <div className="lab-encoder-icon">💬</div>
+          <div className="lab-encoder-title">TEXT ENCODER</div>
+          <div className="lab-encoder-name">Transformer</div>
+          <div className="lab-encoder-desc">
+            הופך משפטים למשמעויות — הקשר, רגש, יחסים בין מילים.
+          </div>
+          <div className="lab-encoder-vector">Output: vec(768)</div>
+        </div>
+      </div>
+
+      <div className="lab-projection">
+        <div className="lab-projection-title">Linear Projection Layer</div>
+        <div className="lab-projection-flow">
+          <div
+            className="lab-projection-box cyan"
+            style={{ animationDelay: '0.3s' }}
+          >
+            Image: dim 2048
+          </div>
+          <div className="lab-projection-arrow">→</div>
+          <div
+            className="lab-projection-box shared"
+            style={{ animationDelay: '0.5s' }}
+          >
+            Shared: dim 512
+          </div>
+          <div className="lab-projection-arrow">←</div>
+          <div
+            className="lab-projection-box magenta"
+            style={{ animationDelay: '0.3s' }}
+          >
+            Text: dim 768
+          </div>
+        </div>
+        <div className="lab-projection-desc">
+          שכבה מתמטית פשוטה (Linear Projection) שדוחסת / מרחיבה את שני
+          הוקטורים לאותו מימד בדיוק. עכשיו הם מדברים באותה &quot;שפה&quot;
+          וקטורית.
+        </div>
+      </div>
+
+      <Highlight>
+        הסוד: לא צריך לשנות את המומחים. רק צריך <em>שכבת תרגום</em> שגורמת
+        לשתי השפות להיפגש באותו מרחב.
+      </Highlight>
+    </div>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════
+// SLIDE 5: THE MECHANICS — CONTRASTIVE LEARNING
+// ═══════════════════════════════════════════════════════════════
+
+function ContrastiveLearningSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">
+        שקף {slideNum} — המכניקה
+      </div>
+      <h2>
+        למידה <em>ניגודית</em>
+      </h2>
+      <p className="slide-sub">
+        איך המודל יודע שהפיקסלים של ניידת משטרה קשורים למילה
+        &quot;משטרה&quot;? דרך מיליוני זוגות של (תמונה, טקסט) מהאינטרנט.
+      </p>
+
+      <div className="lab-contrastive-grid">
+        <div
+          className="lab-contrastive-pair"
+          style={{ animationDelay: '0.2s' }}
+        >
+          <div className="lab-contrastive-item">
+            🖼️ תמונת ניידת משטרה
+            <span className="mono">IMAGE VECTOR</span>
+          </div>
+          <div className="lab-contrastive-arrow">⟷</div>
+          <div className="lab-contrastive-item">
+            📝 &quot;ניידת משטרה ברחוב&quot;
+            <span className="mono">TEXT VECTOR</span>
+          </div>
+          <div className="lab-contrastive-score high">✓ 0.94</div>
+        </div>
+
+        <div
+          className="lab-contrastive-pair negative"
+          style={{ animationDelay: '0.4s' }}
+        >
+          <div className="lab-contrastive-item">
+            🖼️ תמונת ניידת משטרה
+            <span className="mono">IMAGE VECTOR</span>
+          </div>
+          <div className="lab-contrastive-arrow">⟷</div>
+          <div className="lab-contrastive-item">
+            📝 &quot;חופש&quot;
+            <span className="mono">TEXT VECTOR</span>
+          </div>
+          <div className="lab-contrastive-score low">✗ 0.12</div>
+        </div>
+
+        <div
+          className="lab-contrastive-pair negative"
+          style={{ animationDelay: '0.6s' }}
+        >
+          <div className="lab-contrastive-item">
+            🖼️ תמונת ניידת משטרה
+            <span className="mono">IMAGE VECTOR</span>
+          </div>
+          <div className="lab-contrastive-arrow">⟷</div>
+          <div className="lab-contrastive-item">
+            📝 &quot;אופנוע במדבר&quot;
+            <span className="mono">TEXT VECTOR</span>
+          </div>
+          <div className="lab-contrastive-score low">✗ 0.08</div>
+        </div>
+      </div>
+
+      <div className="lab-formula">
+        <div className="lab-formula-label">Cosine Similarity</div>
+        <div className="lab-formula-text">
+          cos(θ) = (A · B) / (‖A‖ · ‖B‖)
+        </div>
+      </div>
+
+      <Highlight>
+        <strong>האפקט:</strong> ה-Image Encoder לומד שתכונות ויזואליות כמו מדים,
+        כחול-לבן, סירנה — הן אלו שמייצגות את המושג <em>&quot;מדינת
+        משטרה&quot;</em>. המודל <em>מושך</em> זוגות תואמים ו<em>דוחף</em> זוגות
+        לא-תואמים.
+      </Highlight>
+    </div>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════
+// SLIDE 6: MULTIMODAL REASONING
 // ═══════════════════════════════════════════════════════════════
 
 function MultimodalReasoningSlide({ slideNum }) {
@@ -464,6 +704,9 @@ function SummarySlide({ slideNum }) {
 const SLIDE_COMPONENTS = [
   TitleSlide,
   YoloToVLMSlide,
+  TwoLanguagesSlide,
+  DualEncoderSlide,
+  ContrastiveLearningSlide,
   MultimodalReasoningSlide,
   EngineVsProductSlide,
   AudioSynthesisSlide,
