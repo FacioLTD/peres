@@ -25,11 +25,12 @@ import BusinessSlides  from './slides/business/BusinessSlides';
 import CreativeAILabSlides from './slides/labs/creative-ai/CreativeAILabSlides';
 
 // ── PDF / Print Views ────────────────────────────────────────
-import LLMPrintView        from './slides/llm/LLMPrintView';
-import MultimodalPrintView from './slides/multimodal/MultimodalPrintView';
-import GenMediaPrintView   from './slides/gen-media/GenMediaPrintView';
-import BusinessPrintView   from './slides/business/BusinessPrintView';
-import CreativeAIPrintView from './slides/labs/creative-ai/CreativeAIPrintView';
+import LLMPrintView          from './slides/llm/LLMPrintView';
+import MultimodalPrintView   from './slides/multimodal/MultimodalPrintView';
+import GenMediaPrintView     from './slides/gen-media/GenMediaPrintView';
+import BusinessPrintView     from './slides/business/BusinessPrintView';
+import CreativeAIPrintView   from './slides/labs/creative-ai/CreativeAIPrintView';
+import FoundationsPrintView  from './slides/FoundationsPrintView';
 
 import './index.css';
 import './App.css';
@@ -63,6 +64,7 @@ export default function App() {
         <Route path="/labs/creative-ai/slides" element={<CreativeAILabSlides />} />
 
         {/* ── PDF / Print Views ── */}
+        <Route path="/pdf"                 element={<FoundationsPrintView />} />
         <Route path="/llm/pdf"              element={<LLMPrintView />} />
         <Route path="/multimodal/pdf"       element={<MultimodalPrintView />} />
         <Route path="/gen-media/pdf"        element={<GenMediaPrintView />} />

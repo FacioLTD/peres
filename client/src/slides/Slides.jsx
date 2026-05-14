@@ -40,7 +40,7 @@ const ACCENT       = '#e8ff47';
 const ORANGE       = '#ff6b35';
 const DIM_BAR      = '#2a2a2a';
 
-const SLIDE_LIST = [
+export const SLIDE_LIST = [
   { id: 1,  title: 'שער הקורס' },
   { id: 2,  title: 'מבנה ההרצאה' },
   { id: 3,  title: 'עם מה תצאו' },
@@ -3833,7 +3833,7 @@ function Lecture3Slide19({ slideNum }) {
 }
 
 // ── Main Slides page ──────────────────────────────────────────
-const SLIDE_COMPONENTS = [
+export const SLIDE_COMPONENTS = [
   IntroSlide1, IntroSlide2, IntroSlide3, IntroSlide4, IntroSlide5,
   IntroSlide6, IntroSlide7, FinalProjectSlide8, FinalProjectSlide9, FinalProjectSlide10, FinalProjectSlide11,
   AIMapSlide, IntelligenceSlide, IntelComponentsSlide,
