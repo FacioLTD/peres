@@ -8,7 +8,7 @@ export default function BusinessPrintView() {
     <PrintShell
       slideList={SLIDE_LIST}
       slideComponents={SLIDE_COMPONENTS}
-      deckTitle="עסקים ואתיקה ב-AI"
+      deckTitle="הטמעת AI בארגונים"
       deckClass="deck-business"
     />
   );
