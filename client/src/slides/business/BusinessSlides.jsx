@@ -162,48 +162,49 @@ function TemperatureSlide({ slideNum }) {
 
 function HallucinationSlide({ slideNum }) {
   const factors = [
-    ['Training Data Conflicts', 'גבוהה מאוד'],
-    ['Missing Context', 'גבוהה'],
-    ['Lack of RAG / Grounding', 'גבוהה'],
-    ['Prompt Ambiguity', 'גבוהה'],
-    ['Temperature / Decoding', 'מגביר / מקטין'],
+    ['מידע אנושי סותר', 'גבוהה מאוד'],
+    ['חוסר קונטקסט', 'גבוהה'],
+    ['היעדר Grounding / RAG', 'גבוהה'],
+    ['Prompt עמום', 'גבוהה'],
+    ['Temperature / Decoding', 'מגביר או מקטין'],
     ['Reasoning Depth', 'יכול להקטין'],
   ];
   return (
     <div className="slide fade-up">
       <div className="slide-eyebrow mono">חלק 3 — שקף {slideNum} — Hallucinations</div>
       <h2>למה הזיות הן <em>בלתי נמנעות</em> במערכות Generative.</h2>
-      <p className="slide-sub">המודל לא "רואה אמת". הוא רואה התפלגויות של גרסאות אפשריות למציאות.</p>
+      <p className="slide-sub">המודל לא לומד <em>אמת</em>. הוא לומד <em>התפלגות של גרסאות אפשריות למציאות</em>.</p>
       <div className="flow-v">
-        <div className="flow-v-step"><div className="flow-v-title">Reality</div></div>
+        <div className="flow-v-step"><div className="flow-v-title">מציאות</div></div>
         <div className="flow-v-arrow">↓</div>
-        <div className="flow-v-step"><div className="flow-v-title">Human Data</div><div className="flow-v-sub">contradictory · incomplete · biased</div></div>
+        <div className="flow-v-step"><div className="flow-v-title">מידע אנושי</div><div className="flow-v-sub">סותר · חלקי · מוטה · לא עקבי</div></div>
         <div className="flow-v-arrow">↓</div>
-        <div className="flow-v-step accent"><div className="flow-v-title">Training Distribution</div><div className="flow-v-sub">statistical compression of conflicting realities</div></div>
+        <div className="flow-v-step accent"><div className="flow-v-title">Distribution סטטיסטי</div><div className="flow-v-sub">המודל לומד דפוסים הסתברותיים — לא עובדות</div></div>
         <div className="flow-v-arrow">↓</div>
-        <div className="flow-v-step"><div className="flow-v-title">Sampling Policy</div><div className="flow-v-sub">temperature · decoding · top-k / top-p</div></div>
+        <div className="flow-v-step"><div className="flow-v-title">מדיניות יצירה (Sampling)</div><div className="flow-v-sub">Temperature · Decoding · Top-k / Top-p</div></div>
         <div className="flow-v-arrow">↓</div>
-        <div className="flow-v-step"><div className="flow-v-title">Generated Output</div></div>
+        <div className="flow-v-step"><div className="flow-v-title">פלט גנרטיבי</div></div>
       </div>
+      <div className="biz-code-label">מה מגביר הזיות?</div>
       <table className="biz-table">
         <thead><tr><th>גורם</th><th>השפעה על הזיות</th></tr></thead>
         <tbody>{factors.map(([f, i]) => <tr key={f}><td>{f}</td><td>{i}</td></tr>)}</tbody>
       </table>
       <div className="biz-split">
         <div className="biz-split-side" style={{borderColor:'rgba(248,113,113,.3)'}}>
-          <div className="biz-split-label" style={{color:'#ef4444'}}>WITHOUT GROUNDING</div>
-          <div className="biz-split-desc">Hallucination probability rises — no external anchor to verify against.</div>
+          <div className="biz-split-label" style={{color:'#ef4444'}}>ללא GROUNDING</div>
+          <div className="biz-split-desc">למודל אין "עוגן מציאות" לבדוק מולו את עצמו. הסתברות ההזיה עולה. Confidence לא מעיד על אמת.</div>
         </div>
         <div className="biz-split-side accent-side">
-          <div className="biz-split-label" style={{color:'#22c55e'}}>WITH RAG / VERIFICATION</div>
-          <div className="biz-split-desc">Hallucination probability decreases — output is constrained by source documents.</div>
+          <div className="biz-split-label" style={{color:'#22c55e'}}>עם RAG / אימות חיצוני</div>
+          <div className="biz-split-desc">הפלט מוגבל על ידי מסמכי מקור אמיתיים. ההסתברות להזיה יורדת. המערכת פחות "ממציאה".</div>
         </div>
       </div>
       <div className="biz-equation">
         <span className="eq-strike">Enterprise AI = Model</span><br />
         Enterprise AI <span className="eq-op">=</span> Model <span className="eq-op">+</span> Grounding <span className="eq-op">+</span> Guardrails
       </div>
-      <Highlight><em>Hallucinations emerge when probabilistic generation operates without sufficient grounding constraints.</em> Creativity and hallucination emerge from the same statistical engine.</Highlight>
+      <Highlight>הזיות נוצרות כשמערכת הסתברותית פועלת ללא <em>עוגן מציאות</em> מספק. יצירתיות והזיה יוצאות מאותו מנוע סטטיסטי.</Highlight>
     </div>
   );
 }
