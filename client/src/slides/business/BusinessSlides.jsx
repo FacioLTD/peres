@@ -20,15 +20,17 @@ export const SLIDE_LIST = [
   { id: 14, title: 'סוכנים' },
   { id: 15, title: 'כלכלת טוקנים' },
   { id: 16, title: 'שכבת בקרה' },
-  { id: 17, title: 'אופרציונליזציה', navNum: 'ג' },
-  { id: 18, title: 'מפתח ה-AI' },
-  { id: 19, title: 'מחזור חיי פרויקט' },
-  { id: 20, title: 'הערכה ומדידה' },
-  { id: 21, title: 'Guardrails' },
-  { id: 22, title: 'ROI קוגניטיבי' },
-  { id: 23, title: 'הארגון העתידי' },
-  { id: 24, title: 'משאבים' },
-  { id: 25, title: 'סיכום הקורס' },
+  { id: 17, title: 'למה AI נכשל?', navNum: 'ג' },
+  { id: 18, title: 'בעיה אופרציונלית' },
+  { id: 19, title: 'מה AI צריך?' },
+  { id: 20, title: 'מפתח ה-AI' },
+  { id: 21, title: 'מחזור חיי פרויקט' },
+  { id: 22, title: 'הערכה ומדידה' },
+  { id: 23, title: 'Guardrails' },
+  { id: 24, title: 'ROI קוגניטיבי' },
+  { id: 25, title: 'הארגון העתידי' },
+  { id: 26, title: 'משאבים' },
+  { id: 27, title: 'סיכום הקורס' },
 ];
 
 // ═══════════════════════════════════════════════════════════════
@@ -508,23 +510,85 @@ function ControlLayerSlide({ slideNum }) {
 // ACT 3 — יישום והוצאה לפועל
 // ═══════════════════════════════════════════════════════════════
 
-function OperationalizeSlide({ slideNum }) {
+function WhyAIFailsSlide({ slideNum }) {
+  const fails = ['בעיה עמומה', 'מטרה לא מדידה', 'חוסר הגדרה עסקית', 'ROI לא ברור'];
   return (
     <div className="slide fade-up">
-      <div className="slide-eyebrow mono">חלק 3 — שקף {slideNum} — Operationalizing</div>
-      <h2><em>אופרציונליזציה</em> של בעיות.</h2>
-      <p className="slide-sub">הסיבה המובילה לכך שפרויקטי AI נכשלים: בחירת בעיה עמומה ולא מוגדרת.</p>
-      <div className="biz-split">
-        <div className="biz-split-side" style={{borderColor:'rgba(248,113,113,.3)'}}>
-          <div className="biz-split-label" style={{color:'#ef4444'}}>❌ הגדרה גרועה</div>
-          <div className="biz-split-desc" style={{fontStyle:'italic'}}>"Improve our organization's customer support using a smart AI model."</div>
-        </div>
-        <div className="biz-split-side accent-side">
-          <div className="biz-split-label" style={{color:'#22c55e'}}>✓ הגדרה אופרציונלית</div>
-          <div className="biz-split-desc" style={{fontStyle:'italic'}}>"Extract the exact urgency level (1-5) from incoming complaint emails and auto-route scores above 4 to the escalation queue."</div>
-        </div>
+      <div className="slide-eyebrow mono">חלק 3 — שקף {slideNum} — למה AI נכשל?</div>
+      <h2>למה רוב פרויקטי ה-AI <em>נכשלים</em>?</h2>
+      <div className="dramatic-stat">
+        <div className="dramatic-stat-num">85%</div>
+        <div className="dramatic-stat-label">מפרויקטי ה-AI הארגוניים נכשלים.</div>
+        <div className="dramatic-stat-sub">לא בגלל שהמודל "לא מספיק חכם". אלא בגלל:</div>
       </div>
-      <Highlight><em>AI projects fail at problem definition</em> — not at modeling.</Highlight>
+      <div className="fail-reasons">
+        {fails.map((f, i) => <span key={f} className="fail-tag" style={{animationDelay:`${0.3+i*0.15}s`}}>{f}</span>)}
+      </div>
+      <div className="wrong-example">
+        <div className="wrong-example-tag">❌ הטעות הכי נפוצה</div>
+        <div className="wrong-example-text">"אנחנו רוצים להשתמש ב-AI כדי לשפר את השירות"</div>
+        <div className="wrong-example-verdict">זו לא בעיית AI. זו כוונה עסקית כללית.</div>
+      </div>
+    </div>
+  );
+}
+
+function OperationalProblemSlide({ slideNum }) {
+  const ioRows = [
+    ['מייל תלונה', 'ציון דחיפות 1–5', 'ניתוב להסלמה'],
+    ['ביקורת מלון', 'קטגוריית תקלה', 'פתיחת קריאת שירות'],
+    ['תביעת ביטוח', 'Fraud Score', 'שליחה לבדיקה'],
+    ['נתוני מכירות', 'תחזית ביקוש', 'הזמנת מלאי'],
+  ];
+  const compares = [
+    ['"לשפר שירות לקוחות"', '"לחלץ רמת דחיפות ממיילים"'],
+    ['"לייעל מלאי"', '"לחזות ביקוש 14 יום קדימה"'],
+    ['"לזהות הונאות"', '"לחשב Fraud Probability"'],
+    ['"לנתח ביקורות"', '"לסווג תלונות ל-5 קטגוריות"'],
+  ];
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">חלק 3 — שקף {slideNum} — בעיה אופרציונלית</div>
+      <h2>מה זו בעיית AI <em>אמיתית</em>?</h2>
+      <p className="slide-sub">בעיה אופרציונלית = Input ברור → Output מדיד → Action עסקי.</p>
+      <table className="io-table">
+        <thead><tr><th>Input</th><th>Output</th><th>Action</th></tr></thead>
+        <tbody>{ioRows.map(([i, o, a]) => (
+          <tr key={i}><td className="io-input">{i}</td><td className="io-output">{o}</td><td className="io-action">{a}</td></tr>
+        ))}</tbody>
+      </table>
+      <div className="biz-code-label">המעבר הקריטי</div>
+      <div className="compare-rows">
+        {compares.map(([bad, good], i) => (
+          <div key={i} className="compare-row">
+            <div className="compare-bad">❌ {bad}</div>
+            <div className="compare-arrow">→</div>
+            <div className="compare-good">✓ {good}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function WhatAINeedsSlide({ slideNum }) {
+  const reqs = [
+    ['Input ברור', 'Complaint Email'],
+    ['Output מדיד', 'Urgency Score 1–5'],
+    ['Metric', 'Accuracy / F1-Score'],
+    ['Action עסקי', 'Escalation Queue'],
+    ['ROI ברור', 'קיצור זמן תגובה ב-60%'],
+  ];
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">חלק 3 — שקף {slideNum} — מה AI צריך?</div>
+      <h2>כל פרויקט AI חייב <em>להגדיר</em>:</h2>
+      <table className="biz-table">
+        <thead><tr><th>רכיב</th><th>דוגמה</th></tr></thead>
+        <tbody>{reqs.map(([r, e]) => <tr key={r}><td>{r}</td><td>{e}</td></tr>)}</tbody>
+      </table>
+      <div className="biz-punchline">AI לא פותר עמימות. <em>AI פותר בעיות שמוגדרות היטב.</em></div>
+      <Highlight>אם אי אפשר <em>למדוד את הפלט</em> — עדיין אין לכם פרויקט AI.</Highlight>
     </div>
   );
 }
@@ -732,7 +796,9 @@ export const SLIDE_COMPONENTS = [
   TokenEconomicsSlide,
   ControlLayerSlide,
   // ACT 3
-  OperationalizeSlide,
+  WhyAIFailsSlide,
+  OperationalProblemSlide,
+  WhatAINeedsSlide,
   AIDeveloperSlide,
   LifecycleSlide,
   EvaluationSlide,
