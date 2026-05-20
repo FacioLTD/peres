@@ -141,6 +141,19 @@ function TemperatureSlide({ slideNum }) {
           <div className="temp-zone-use">Marketing · Ideation · Product Strategy</div>
         </div>
       </div>
+      <div className="biz-code-label">השלמת המילה הבאה:</div>
+      <div className="biz-punchline" style={{fontStyle:'normal',fontSize:20,textAlign:'center'}}>״היום יום <span style={{borderBottom:'2px dashed var(--accent)',padding:'0 8px'}}>___</span>״</div>
+      <table className="biz-table">
+        <thead><tr><th>מילה אפשרית</th><th>Temp = 0.1</th><th>Temp = 1.0</th></tr></thead>
+        <tbody>
+          <tr><td>רביעי</td><td style={{color:'#3b82f6',fontWeight:700}}>91%</td><td style={{color:'#ef4444'}}>45%</td></tr>
+          <tr><td>חמישי</td><td style={{color:'#3b82f6'}}>6%</td><td style={{color:'#ef4444'}}>20%</td></tr>
+          <tr><td>שישי</td><td style={{color:'#3b82f6'}}>2%</td><td style={{color:'#ef4444'}}>15%</td></tr>
+          <tr><td>חג</td><td style={{color:'#3b82f6'}}>0.7%</td><td style={{color:'#ef4444'}}>10%</td></tr>
+          <tr><td>הולדת</td><td style={{color:'#3b82f6'}}>0.2%</td><td style={{color:'#ef4444'}}>6%</td></tr>
+          <tr><td>השנה</td><td style={{color:'#3b82f6'}}>0.1%</td><td style={{color:'#ef4444'}}>4%</td></tr>
+        </tbody>
+      </table>
       <Highlight>Every AI system is a <em>risk policy</em> disguised as a product decision.</Highlight>
     </div>
   );
