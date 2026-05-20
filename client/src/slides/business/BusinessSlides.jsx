@@ -11,23 +11,24 @@ export const SLIDE_LIST = [
   { id: 5, title: 'Temperature' },
   { id: 6, title: 'הזיות' },
   { id: 7, title: 'מנוע הפשרות' },
-  { id: 8, title: 'בחירת כלי', navNum: 'ב' },
-  { id: 9, title: 'LLM כמהנדס' },
-  { id: 10, title: 'Embeddings' },
-  { id: 11, title: 'RAG vs Fine-Tuning' },
-  { id: 12, title: 'Inference Scaling' },
-  { id: 13, title: 'סוכנים' },
-  { id: 14, title: 'כלכלת טוקנים' },
-  { id: 15, title: 'שכבת בקרה' },
-  { id: 16, title: 'אופרציונליזציה', navNum: 'ג' },
-  { id: 17, title: 'מפתח ה-AI' },
-  { id: 18, title: 'מחזור חיי פרויקט' },
-  { id: 19, title: 'הערכה ומדידה' },
-  { id: 20, title: 'Guardrails' },
-  { id: 21, title: 'ROI קוגניטיבי' },
-  { id: 22, title: 'הארגון העתידי' },
-  { id: 23, title: 'משאבים' },
-  { id: 24, title: 'סיכום הקורס' },
+  { id: 8, title: '3 סוגי בעיות' },
+  { id: 9, title: 'בחירת כלי', navNum: 'ב' },
+  { id: 10, title: 'LLM כמהנדס' },
+  { id: 11, title: 'Embeddings' },
+  { id: 12, title: 'RAG vs Fine-Tuning' },
+  { id: 13, title: 'Inference Scaling' },
+  { id: 14, title: 'סוכנים' },
+  { id: 15, title: 'כלכלת טוקנים' },
+  { id: 16, title: 'שכבת בקרה' },
+  { id: 17, title: 'אופרציונליזציה', navNum: 'ג' },
+  { id: 18, title: 'מפתח ה-AI' },
+  { id: 19, title: 'מחזור חיי פרויקט' },
+  { id: 20, title: 'הערכה ומדידה' },
+  { id: 21, title: 'Guardrails' },
+  { id: 22, title: 'ROI קוגניטיבי' },
+  { id: 23, title: 'הארגון העתידי' },
+  { id: 24, title: 'משאבים' },
+  { id: 25, title: 'סיכום הקורס' },
 ];
 
 // ═══════════════════════════════════════════════════════════════
@@ -207,28 +208,70 @@ function HallucinationSlide({ slideNum }) {
   );
 }
 
-function TradeoffSlide({ slideNum }) {
-  const axes = [
-    ['Reliability', 'Creativity', 'אמינות מול יצירתיות'],
-    ['Cost', 'Capability', 'עלות מול עומק יכולת'],
-    ['Latency', 'Reasoning', 'מהירות מול עומק מחשבה'],
-    ['Determinism', 'Flexibility', 'תוצאה קבועה מול גמישות'],
+function TradeoffMatrixSlide({ slideNum }) {
+  const L = (c, t) => <td className={c}>{t}</td>;
+  const dims = ['Reliability','Creativity','Cost Sens.','Capability','Latency','Reasoning','Determinism','Flexibility','Explain.'];
+  const rows = [
+    ['חיזוי ביקושים ותפעול',  'high','low','high','med','high','low','high','low','high'],
+    ['פרסונליזציה והמלצות',   'med','high','med','high','med','med','low','high','med'],
+    ['זיהוי חריגות והונאה',    'crit','zero','high','med','crit','med','crit','low','crit'],
+    ['תובנות ממידע לא מובנה',  'high','med','med','crit','med','high','med','high','med'],
+    ['אוטומציית מומחיות',      'crit','low','low','crit','low','crit','med','high','high'],
+  ];
+  const lvlMap = { crit:'קריטית', high:'גבוהה', med:'בינונית', low:'נמוכה', zero:'אפסית' };
+  const optRows = [
+    ['חיזוי ביקושים','צמצום בזבוז וחוסרים'],
+    ['פרסונליזציה','הגדלת Conversion ו-Retention'],
+    ['זיהוי הונאה','הקטנת סיכון וטעויות'],
+    ['תובנות מטקסט','הפיכת כאוס לקבלת החלטות'],
+    ['אוטומציית מומחיות','שימור ידע והקטנת תלות באנשים'],
   ];
   return (
     <div className="slide fade-up">
       <div className="slide-eyebrow mono">חלק 3 — שקף {slideNum} — Tradeoffs</div>
       <h2>מנוע <em>הפשרות</em>.</h2>
-      <p className="slide-sub">אין מערכת AI מושלמת. כל ארכיטקטורה ארגונית היא ניהול של פשרות קשות.</p>
-      <div className="tradeoff-list">
-        {axes.map(([l, r, he]) => (
-          <div key={l} className="tradeoff-item">
-            <span className="tradeoff-left">{l}</span>
-            <div className="tradeoff-bar" />
-            <span className="tradeoff-right">{r}</span>
-          </div>
-        ))}
+      <p className="slide-sub">כל מערכת AI היא אופטימיזציה עסקית. הפרויקטים שבחרתם — כל אחד דורש פרופיל פשרות שונה.</p>
+      <table className="biz-matrix">
+        <thead><tr><th>Use Case</th>{dims.map(d => <th key={d}>{d}</th>)}</tr></thead>
+        <tbody>{rows.map(([name, ...levels]) => (
+          <tr key={name}><td>{name}</td>{levels.map((l, i) => <td key={i} className={`lvl-${l}`}>{lvlMap[l]}</td>)}</tr>
+        ))}</tbody>
+      </table>
+      <div className="biz-code-label">מה הארגון באמת עושה אופטימיזציה עבורו?</div>
+      <table className="biz-table">
+        <thead><tr><th>Use Case</th><th>האופטימיזציה העסקית</th></tr></thead>
+        <tbody>{optRows.map(([u, o]) => <tr key={u}><td>{u}</td><td>{o}</td></tr>)}</tbody>
+      </table>
+    </div>
+  );
+}
+
+function ThreeProblemTypesSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">חלק 3 — שקף {slideNum} — 3 סוגי בעיות</div>
+      <h2>למרות עשרות ארגונים שונים — רוב מערכות ה-AI פותרות רק <em>3 סוגי בעיות</em>.</h2>
+      <div className="three-cats">
+        <div className="three-cat">
+          <div className="three-cat-icon">📈</div>
+          <div className="three-cat-title">Prediction</div>
+          <div className="three-cat-q">מה יקרה?</div>
+          <div className="three-cat-desc">חיזוי ביקוש, תחזית מכירות, סיכון חיתומי, תחזוקה מונעת.</div>
+        </div>
+        <div className="three-cat">
+          <div className="three-cat-icon">🧭</div>
+          <div className="three-cat-title">Recommendation</div>
+          <div className="three-cat-q">מה כדאי לעשות?</div>
+          <div className="three-cat-desc">פרסונליזציה, הקצאת משאבים, ניתוב שיחות, תעדוף משימות.</div>
+        </div>
+        <div className="three-cat">
+          <div className="three-cat-icon">🚨</div>
+          <div className="three-cat-title">Detection</div>
+          <div className="three-cat-q">מה חריג / מסוכן / חשוב?</div>
+          <div className="three-cat-desc">הונאות, חריגות, סנטימנט שלילי, סיכון רגולטורי.</div>
+        </div>
       </div>
-      <div className="biz-punchline"><em>AI architecture is tradeoff management.</em></div>
+      <Highlight><em>AI Architecture is the process of translating business optimization into compute decisions.</em></Highlight>
     </div>
   );
 }
@@ -646,7 +689,8 @@ export const SLIDE_COMPONENTS = [
   DeepThoughtSlide,
   TemperatureSlide,
   HallucinationSlide,
-  TradeoffSlide,
+  TradeoffMatrixSlide,
+  ThreeProblemTypesSlide,
   // ACT 2
   ToolSelectionSlide,
   FeatureEngSlide,
