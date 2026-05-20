@@ -260,9 +260,180 @@
   line-height: 1.6;
 }
 
+/* ── Business Tables ── */
+.biz-table { width:100%; border-collapse:collapse; margin:20px 0; font-size:14px; }
+.biz-table th { font-family:'Space Mono',monospace; font-size:10px; color:var(--accent); text-transform:uppercase; letter-spacing:.1em; padding:12px 16px; border-bottom:2px solid var(--border); text-align:right; background:var(--muted); }
+.biz-table td { padding:12px 16px; border-bottom:1px solid var(--border); color:var(--dim); line-height:1.5; }
+.biz-table tr:hover td { background:var(--muted); color:var(--white); }
+.biz-table td:first-child { font-weight:700; color:var(--white); }
+.biz-table td.tech-col { font-family:'Space Mono',monospace; font-size:12px; color:var(--accent); }
+
+/* ── Punchline Quote ── */
+.biz-punchline { background:var(--card); border:1px solid var(--border); border-right:4px solid var(--accent); border-radius:4px; padding:20px 24px; margin:24px 0; font-size:17px; font-weight:600; font-style:italic; line-height:1.6; }
+.biz-punchline em { font-style:normal; color:var(--accent); }
+
+/* ── Split Dual Layout ── */
+.biz-split { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin:24px 0; }
+.biz-split-side { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:24px; position:relative; }
+.biz-split-side.accent-side { border-color:rgba(217,119,6,.3); }
+.biz-split-label { font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; margin-bottom:12px; color:var(--accent); }
+.biz-split-title { font-size:18px; font-weight:700; margin-bottom:8px; }
+.biz-split-desc { font-size:13px; color:var(--dim); line-height:1.65; }
+.biz-split-bullets { list-style:none; padding:0; margin:8px 0 0; display:flex; flex-direction:column; gap:6px; }
+.biz-split-bullets li { font-size:13px; color:var(--dim); line-height:1.5; padding-right:14px; position:relative; }
+.biz-split-bullets li::before { content:'•'; position:absolute; right:0; color:var(--accent); }
+
+/* ── Code / Prompt Containers ── */
+.biz-code { background:#1c1917; color:#e7e5e4; border-radius:8px; padding:18px 20px; margin:12px 0; font-family:'Space Mono',monospace; font-size:13px; line-height:1.7; direction:ltr; text-align:left; overflow-x:auto; }
+.biz-code .hl-key { color:#d97706; }
+.biz-code .hl-val { color:#4ade80; }
+.biz-code .hl-bool { color:#60a5fa; }
+.biz-code .hl-num { color:#f472b6; }
+.biz-code-label { font-family:'Space Mono',monospace; font-size:10px; color:var(--dim); letter-spacing:.12em; text-transform:uppercase; margin-bottom:6px; }
+.biz-prompt-compare { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:20px 0; }
+.biz-prompt-box { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:20px; }
+.biz-prompt-box.bad { border-color:rgba(248,113,113,.3); }
+.biz-prompt-box.good { border-color:rgba(74,222,128,.3); }
+.biz-prompt-tag { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; margin-bottom:8px; }
+.biz-prompt-box.bad .biz-prompt-tag { color:#ef4444; }
+.biz-prompt-box.good .biz-prompt-tag { color:#22c55e; }
+.biz-prompt-text { font-size:14px; color:var(--dim); line-height:1.6; font-style:italic; }
+
+/* ── Big Number Display ── */
+.big-number { font-size:140px; font-weight:900; color:var(--accent); opacity:.15; line-height:1; text-align:center; margin:0; }
+.big-number-overlay { position:relative; display:flex; flex-direction:column; align-items:center; margin:20px 0; }
+.big-number-caption { font-size:16px; color:var(--dim); margin-top:-20px; }
+
+/* ── Temperature Slider ── */
+.temp-bar { height:32px; border-radius:16px; background:linear-gradient(to left,#3b82f6,#60a5fa,#fbbf24,#f97316,#ef4444); margin:24px 0 8px; position:relative; }
+.temp-labels { display:flex; justify-content:space-between; font-size:11px; color:var(--dim); }
+.temp-labels .temp-lo { color:#3b82f6; }
+.temp-labels .temp-hi { color:#ef4444; }
+.temp-zones { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:20px 0; }
+.temp-zone { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:20px; }
+.temp-zone.cool { border-color:rgba(59,130,246,.25); }
+.temp-zone.hot { border-color:rgba(239,68,68,.25); }
+.temp-zone-label { font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.12em; margin-bottom:8px; }
+.temp-zone.cool .temp-zone-label { color:#3b82f6; }
+.temp-zone.hot .temp-zone-label { color:#ef4444; }
+.temp-zone-desc { font-size:13px; color:var(--dim); line-height:1.6; }
+.temp-zone-use { font-size:12px; color:var(--white); font-weight:600; margin-top:8px; }
+
+/* ── Venn Diagram ── */
+.venn-wrap { display:flex; justify-content:center; align-items:center; margin:28px 0; position:relative; min-height:200px; }
+.venn-circle { width:180px; height:180px; border-radius:50%; position:absolute; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:600; }
+.venn-left { background:rgba(74,222,128,.12); border:2px solid rgba(74,222,128,.4); right:55%; }
+.venn-right { background:rgba(248,113,113,.12); border:2px solid rgba(248,113,113,.4); right:35%; }
+.venn-overlap { position:absolute; font-family:'Space Mono',monospace; font-size:11px; color:var(--accent); font-weight:700; z-index:2; }
+.venn-outer { position:absolute; bottom:-10px; width:100%; text-align:center; }
+.venn-outer-label { display:inline-block; background:var(--card); border:1px dashed var(--accent); border-radius:100px; padding:6px 18px; font-size:12px; color:var(--accent); }
+
+/* ── Equation Display ── */
+.biz-equation { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:20px 24px; margin:20px 0; font-family:'Space Mono',monospace; font-size:15px; text-align:center; direction:ltr; line-height:2; }
+.biz-equation .eq-op { color:var(--accent); font-weight:700; }
+.biz-equation .eq-strike { text-decoration:line-through; opacity:.5; }
+
+/* ── Tradeoff Axes ── */
+.tradeoff-list { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:20px 0; }
+.tradeoff-item { display:flex; align-items:center; gap:12px; background:var(--card); border:1px solid var(--border); border-radius:8px; padding:14px 18px; }
+.tradeoff-left, .tradeoff-right { font-size:13px; font-weight:600; min-width:90px; }
+.tradeoff-bar { flex:1; height:4px; background:linear-gradient(to left,var(--accent),var(--orange)); border-radius:2px; position:relative; }
+.tradeoff-icon { font-size:14px; color:var(--dim); }
+
+/* ── Vertical Flow ── */
+.flow-v { display:flex; flex-direction:column; align-items:center; gap:0; margin:20px 0; }
+.flow-v-step { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:14px 24px; text-align:center; min-width:280px; }
+.flow-v-step.accent { border-color:var(--accent); background:rgba(217,119,6,.06); }
+.flow-v-step .flow-v-title { font-weight:700; font-size:14px; }
+.flow-v-step .flow-v-sub { font-size:12px; color:var(--dim); margin-top:4px; }
+.flow-v-arrow { font-size:18px; color:var(--dim); padding:4px 0; }
+
+/* ── Agent Pipeline ── */
+.agent-pipeline { display:flex; flex-direction:column; gap:12px; margin:20px 0; counter-reset:agent-step; }
+.agent-step { display:flex; align-items:flex-start; gap:16px; background:var(--card); border:1px solid var(--border); border-radius:8px; padding:16px 20px; }
+.agent-step-num { font-family:'Space Mono',monospace; font-size:20px; font-weight:700; color:var(--accent); min-width:28px; }
+.agent-step-content { flex:1; }
+.agent-step-title { font-size:15px; font-weight:700; margin-bottom:4px; }
+.agent-step-desc { font-size:13px; color:var(--dim); line-height:1.5; }
+
+/* ── Cost / Economics Card ── */
+.cost-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:20px 0; }
+.cost-item { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:16px; }
+.cost-item-label { font-family:'Space Mono',monospace; font-size:10px; color:var(--accent); letter-spacing:.12em; text-transform:uppercase; margin-bottom:6px; }
+.cost-item-desc { font-size:13px; color:var(--dim); line-height:1.5; }
+
+/* ── Control Layer Architecture ── */
+.control-arch { display:flex; flex-direction:column; align-items:center; gap:0; margin:20px 0; }
+.control-zone { width:100%; max-width:500px; text-align:center; padding:14px; border-radius:8px; position:relative; }
+.control-zone.external { background:rgba(248,113,113,.06); border:1px dashed rgba(248,113,113,.3); }
+.control-zone.shield { background:rgba(217,119,6,.08); border:2px solid var(--accent); font-weight:700; color:var(--accent); }
+.control-zone.internal { background:rgba(74,222,128,.06); border:1px dashed rgba(74,222,128,.3); }
+.control-zone-title { font-size:14px; font-weight:700; }
+.control-zone-sub { font-size:12px; color:var(--dim); margin-top:4px; }
+.control-arrow { font-size:16px; color:var(--dim); padding:4px 0; }
+
+/* ── Guard Layers ── */
+.guard-stack { display:flex; flex-direction:column; gap:12px; margin:20px 0; }
+.guard-layer { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:18px 20px; border-right:3px solid var(--accent); }
+.guard-layer-num { font-family:'Space Mono',monospace; font-size:10px; color:var(--accent); letter-spacing:.12em; margin-bottom:6px; }
+.guard-layer-title { font-size:16px; font-weight:700; margin-bottom:6px; }
+.guard-layer-desc { font-size:13px; color:var(--dim); line-height:1.6; }
+
+/* ── Lifecycle Steps ── */
+.lifecycle-flow { display:flex; flex-direction:column; gap:0; margin:20px 0; position:relative; }
+.lifecycle-flow::before { content:''; position:absolute; right:20px; top:0; bottom:0; width:2px; background:var(--border); }
+.lifecycle-step { display:flex; align-items:flex-start; gap:20px; padding:12px 0; position:relative; }
+.lifecycle-dot { width:12px; height:12px; border-radius:50%; background:var(--accent); flex-shrink:0; margin-top:4px; z-index:1; }
+.lifecycle-content { flex:1; }
+.lifecycle-title { font-size:15px; font-weight:700; margin-bottom:4px; }
+.lifecycle-desc { font-size:13px; color:var(--dim); line-height:1.5; }
+
+/* ── Eval Metrics ── */
+.eval-section-title { font-family:'Space Mono',monospace; font-size:11px; color:var(--accent); letter-spacing:.14em; text-transform:uppercase; margin:20px 0 10px; }
+
+/* ── ROI ── */
+.roi-formula { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:24px; margin:20px 0; text-align:center; }
+.roi-formula-text { font-family:'Space Mono',monospace; font-size:14px; line-height:2; direction:ltr; }
+.roi-params { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin:20px 0; }
+.roi-param { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:14px; }
+.roi-param-title { font-size:13px; font-weight:700; margin-bottom:4px; }
+.roi-param-desc { font-size:12px; color:var(--dim); line-height:1.5; }
+
+/* ── Org Chart ── */
+.org-chart { display:flex; flex-direction:column; align-items:center; gap:0; margin:24px 0; }
+.org-node { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:10px 28px; font-size:14px; font-weight:600; text-align:center; }
+.org-node.ceo { border-color:var(--accent); color:var(--accent); }
+.org-node.ai { background:rgba(217,119,6,.08); border-color:var(--accent); }
+.org-connector { width:2px; height:16px; background:var(--border); }
+
+/* ── Resource Grid ── */
+.resource-sections { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin:20px 0; }
+.resource-section { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:20px; }
+.resource-section-title { font-family:'Space Mono',monospace; font-size:10px; color:var(--accent); letter-spacing:.12em; text-transform:uppercase; margin-bottom:12px; }
+.resource-list { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:6px; }
+.resource-list li { font-size:12px; color:var(--dim); line-height:1.5; padding-right:12px; position:relative; }
+.resource-list li::before { content:'→'; position:absolute; right:0; color:var(--accent); }
+
+/* ── Closing Quote ── */
+.closing-big-quote { font-size:22px; font-weight:700; line-height:1.4; text-align:center; max-width:700px; margin:28px auto; padding:24px 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+.closing-big-quote em { color:var(--accent); font-style:normal; }
+
+/* ── Cognition Flow ── */
+.cognition-flow { display:flex; align-items:center; justify-content:center; gap:12px; margin:24px 0; flex-wrap:wrap; }
+.cognition-node { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:14px 22px; font-size:14px; font-weight:600; text-align:center; }
+.cognition-node.highlight { border-color:var(--accent); color:var(--accent); }
+.cognition-arrow { color:var(--dim); font-size:20px; }
+
+/* ── Inference Timeline ── */
+.inference-visual { display:flex; flex-direction:column; gap:12px; margin:20px 0; }
+.inference-bar-row { display:flex; align-items:center; gap:12px; }
+.inference-label { font-size:12px; min-width:120px; text-align:left; }
+.inference-track { flex:1; height:24px; background:var(--card); border:1px solid var(--border); border-radius:4px; overflow:hidden; }
+.inference-fill { height:100%; border-radius:3px; background:var(--accent); }
+.inference-fill.deep { background:linear-gradient(to left,var(--accent),var(--orange)); }
+
 /* ── Responsive ── */
 @media (max-width: 1200px) {
-  .pro-con-grid {
-    grid-template-columns: 1fr;
-  }
+  .pro-con-grid, .biz-split, .biz-prompt-compare, .temp-zones, .tradeoff-list, .cost-grid { grid-template-columns:1fr; }
+  .resource-sections, .roi-params { grid-template-columns:1fr; }
 }
