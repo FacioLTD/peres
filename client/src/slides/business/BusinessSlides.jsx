@@ -453,23 +453,53 @@ function TokenEconomicsSlide({ slideNum }) {
 }
 
 function ControlLayerSlide({ slideNum }) {
+  const shieldPills = ['הרשאות', 'ניטור', 'Audit', 'מדיניות', 'בקרת עלויות', 'ניתוב'];
+  const coreItems = ['CRM', 'ERP', 'Database', 'Claims', 'Billing', 'HR'];
+  const rows = [
+    ['ניהול הרשאות', 'למנוע גישה למידע רגיש', 'עובד שירות לא יכול לראות משכורות'],
+    ['ניטור (Observability)', 'להבין מה המודל עשה', 'מי שאל מה? איזה מידע נשלף?'],
+    ['Audit Logs', 'רגולציה ותיעוד', 'ביטוח / בנק / בריאות'],
+    ['Rate Limiting', 'למנוע עומסים ועלויות', 'Agent ששלח 100K requests בטעות'],
+    ['Policy Enforcement', 'לחסום פעולות מסוכנות', 'מניעת דליפת PII ל-GPT'],
+    ['Routing', 'לבחור מודל מתאים', 'GPT לשפה, מודל קטן לסיווג'],
+  ];
   return (
     <div className="slide fade-up">
-      <div className="slide-eyebrow mono">חלק 3 — שקף {slideNum} — Control Layer</div>
+      <div className="slide-eyebrow mono">חלק 3 — שקף {slideNum} — שכבת בקרה</div>
       <h2>שכבת <em>הבקרה</em> הארגונית.</h2>
-      <p className="slide-sub">ארגון מיוצב לעולם לא מחבר מודל AI ישירות למערכות הליבה ללא שכבת הגנה.</p>
+      <p className="slide-sub">למה ארגונים לא מחברים AI ישירות לליבת החברה?</p>
       <div className="control-arch">
-        <div className="control-zone external"><div className="control-zone-title">🌐 External AI Models</div><div className="control-zone-sub">GPT · Claude · Gemini · Open Source</div></div>
+        <div className="control-zone external">
+          <div className="control-zone-title">🤖 מודלי AI חיצוניים</div>
+          <div className="control-zone-sub">GPT · Claude · Gemini · מודלים פתוחים</div>
+        </div>
         <div className="control-arrow">↓</div>
-        <div className="control-zone shield"><div className="control-zone-title">🛡️ Enterprise Control Layer</div><div className="control-zone-sub">Gateway · Observability · Permissions · Audit</div></div>
+        <div className="control-zone shield">
+          <div className="control-zone-title" style={{color:'var(--accent)'}}>🛡️ שכבת בקרה ארגונית</div>
+          <div className="shield-pills">
+            {shieldPills.map(p => <span key={p} className="shield-pill">{p}</span>)}
+          </div>
+        </div>
         <div className="control-arrow">↓</div>
-        <div className="control-zone internal"><div className="control-zone-title">🏢 Core Enterprise Systems</div><div className="control-zone-sub">CRM · ERP · DB · Internal APIs</div></div>
+        <div className="control-zone internal">
+          <div className="control-zone-title">🏢 מערכות הליבה של הארגון</div>
+          <div className="core-items">
+            {coreItems.map(c => <span key={c} className="core-item">{c}</span>)}
+          </div>
+        </div>
       </div>
-      <div className="card-grid cols2">
-        <ConceptCard en="AI Gateways" he="ניתוב ובקרה" def="Rate Limiting, API key management, routing." />
-        <ConceptCard en="Audit Logs" he="תיעוד מלא" def="תיעוד כל זרימת מידע ופעולה לצרכי רגולציה." accent />
+      <div className="biz-code-label">מה שכבת הבקרה עושה בפועל?</div>
+      <table className="biz-table">
+        <thead><tr><th>רכיב</th><th>למה זה קיים?</th><th>דוגמה אמיתית</th></tr></thead>
+        <tbody>{rows.map(([r, w, e]) => <tr key={r}><td>{r}</td><td>{w}</td><td>{e}</td></tr>)}</tbody>
+      </table>
+      <div className="warning-box">
+        <div className="warning-box-title">⚠️ בלי שכבת בקרה:</div>
+        <ul className="warning-box-list">
+          <li>דליפות מידע</li><li>הזיות ללא בקרה</li><li>פעולות מסוכנות</li><li>עלויות לא נשלטות</li><li>בעיות רגולציה</li>
+        </ul>
       </div>
-      <div className="biz-punchline"><em>Enterprise AI is mostly governance architecture.</em></div>
+      <Highlight>הבעיה הקשה בארגון אינה לגרום למודל לענות. הבעיה הקשה היא <em>לשלוט במה מותר לו לדעת, לעשות ולזכור</em>.</Highlight>
     </div>
   );
 }
