@@ -293,7 +293,7 @@ function HallucinationSlide({ slideNum }) {
           <div className="biz-split-desc">הפלט מוגבל על ידי מסמכי מקור אמיתיים. ההסתברות להזיה יורדת. המערכת פחות "ממציאה".</div>
         </div>
       </div>
-      <div className="biz-equation">
+      <div className="biz-equation" dir="ltr">
         <span className="eq-strike">Enterprise AI = Model</span><br />
         Enterprise AI <span className="eq-op">=</span> Model <span className="eq-op">+</span> Grounding <span className="eq-op">+</span> Guardrails
       </div>
@@ -539,7 +539,7 @@ function TokenEconomicsSlide({ slideNum }) {
         <div className="cost-item"><div className="cost-item-label">CACHING</div><div className="cost-item-desc">שמירת קונטקסט סטטי בזיכרון מהיר. חיתוך עד 90%.</div></div>
         <div className="cost-item"><div className="cost-item-label">LATENCY VS COST</div><div className="cost-item-desc">הפשרה המתמדת בין מהירות המודל לעלות שלו.</div></div>
       </div>
-      <div className="biz-equation">1M Users × 20 Requests × Avg Tokens <span className="eq-op">=</span> Monthly Compute Burn</div>
+      <div className="biz-equation" dir="ltr">1M Users × 20 Requests × Avg Tokens <span className="eq-op">=</span> Monthly Compute Burn</div>
       <Highlight><em>AI architecture is financial architecture.</em></Highlight>
     </div>
   );
@@ -783,7 +783,7 @@ function ROISlide({ slideNum }) {
       <h2>ROI <em>קוגניטיבי</em>.</h2>
       <p className="slide-sub">פרויקט AI הוא החלטה פיננסית של הקצאת הון. נוסחת ה-ROI חייבת להציג רווח ברור.</p>
       <div className="roi-formula">
-        <div className="roi-formula-text">Current Labor Cost <span className="eq-op">−</span> (AI Infra <span className="eq-op">+</span> Inference <span className="eq-op">+</span> Human Review) <span className="eq-op">=</span> AI ROI</div>
+        <div className="roi-formula-text" dir="ltr">Current Labor Cost <span className="eq-op">−</span> (AI Infra <span className="eq-op">+</span> Inference <span className="eq-op">+</span> Human Review) <span className="eq-op">=</span> AI ROI</div>
       </div>
       <div className="roi-params">
         <div className="roi-param"><div className="roi-param-title">עלות עבודה שנחסכה</div><div className="roi-param-desc">שעות ניבוי וחילוץ סטנדרטיות שהאוטומציה מחליפה.</div></div>
