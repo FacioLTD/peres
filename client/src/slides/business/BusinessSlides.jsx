@@ -7,30 +7,32 @@ export const SLIDE_LIST = [
   { id: 1, title: 'שער — AI בארגונים' },
   { id: 2, title: 'הכל זה Prediction', navNum: 'א' },
   { id: 3, title: 'כהנמן צדק' },
-  { id: 4, title: 'Deep Thought' },
-  { id: 5, title: 'Temperature' },
-  { id: 6, title: 'הזיות' },
-  { id: 7, title: 'מנוע הפשרות' },
-  { id: 8, title: '3 סוגי בעיות' },
-  { id: 9, title: 'בחירת כלי', navNum: 'ב' },
-  { id: 10, title: 'LLM כמהנדס' },
-  { id: 11, title: 'Embeddings' },
-  { id: 12, title: 'RAG vs Fine-Tuning' },
-  { id: 13, title: 'Inference Scaling' },
-  { id: 14, title: 'סוכנים' },
-  { id: 15, title: 'כלכלת טוקנים' },
-  { id: 16, title: 'שכבת בקרה' },
-  { id: 17, title: 'למה AI נכשל?', navNum: 'ג' },
-  { id: 18, title: 'בעיה אופרציונלית' },
-  { id: 19, title: 'מה AI צריך?' },
-  { id: 20, title: 'מפתח ה-AI' },
-  { id: 21, title: 'מחזור חיי פרויקט' },
-  { id: 22, title: 'הערכה ומדידה' },
-  { id: 23, title: 'Guardrails' },
-  { id: 24, title: 'ROI קוגניטיבי' },
-  { id: 25, title: 'הארגון העתידי' },
-  { id: 26, title: 'משאבים' },
-  { id: 27, title: 'סיכום הקורס' },
+  { id: 4, title: 'איך מודל חושב?' },
+  { id: 5, title: 'מה זה Token?' },
+  { id: 6, title: 'Deep Thought' },
+  { id: 7, title: 'Temperature' },
+  { id: 8, title: 'הזיות' },
+  { id: 9, title: 'מנוע הפשרות' },
+  { id: 10, title: '3 סוגי בעיות' },
+  { id: 11, title: 'בחירת כלי', navNum: 'ב' },
+  { id: 12, title: 'LLM כמהנדס' },
+  { id: 13, title: 'Embeddings' },
+  { id: 14, title: 'RAG vs Fine-Tuning' },
+  { id: 15, title: 'Inference Scaling' },
+  { id: 16, title: 'סוכנים' },
+  { id: 17, title: 'כלכלת טוקנים' },
+  { id: 18, title: 'שכבת בקרה' },
+  { id: 19, title: 'למה AI נכשל?', navNum: 'ג' },
+  { id: 20, title: 'בעיה אופרציונלית' },
+  { id: 21, title: 'מה AI צריך?' },
+  { id: 22, title: 'מפתח ה-AI' },
+  { id: 23, title: 'מחזור חיי פרויקט' },
+  { id: 24, title: 'הערכה ומדידה' },
+  { id: 25, title: 'Guardrails' },
+  { id: 26, title: 'ROI קוגניטיבי' },
+  { id: 27, title: 'הארגון העתידי' },
+  { id: 28, title: 'משאבים' },
+  { id: 29, title: 'סיכום הקורס' },
 ];
 
 // ═══════════════════════════════════════════════════════════════
@@ -96,27 +98,116 @@ function KahnemanSlide({ slideNum }) {
   );
 }
 
+function HowModelThinksSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">חלק 3 — שקף {slideNum} — Model Thinking</div>
+      <h2>איך מודל AI באמת <em>"חושב"</em>?</h2>
+      <p className="slide-sub">מודלים שונים לא רק נותנים תשובות שונות — הם משתמשים בכמויות שונות של "חשיבה".</p>
+      <div className="model-split">
+        <div className="model-col fast">
+          <div className="model-col-tag">⚡ מודל מהיר (Fast)</div>
+          <div className="model-col-input">"כמה זה 17×24?"</div>
+          <div className="model-col-arrow">↓</div>
+          <div className="model-col-process">
+            <div className="model-col-process-title">תהליך פנימי</div>
+            <p style={{fontSize:12,color:'var(--dim)',margin:0}}>תגובה מיידית על בסיס Pattern Matching</p>
+          </div>
+          <div className="model-col-arrow">↓</div>
+          <div className="model-col-output">408</div>
+          <div className="model-traits">
+            <span className="model-trait">מהיר</span>
+            <span className="model-trait">זול</span>
+            <span className="model-trait">Latency נמוך</span>
+            <span className="model-trait">משימות פשוטות</span>
+          </div>
+        </div>
+        <div className="model-col reason">
+          <div className="model-col-tag">🧠 מודל חשיבה (Reasoning)</div>
+          <div className="model-col-input">"איך נקטין Fraud בתביעות ביטוח?"</div>
+          <div className="model-col-arrow">↓</div>
+          <div className="model-col-process">
+            <div className="model-col-process-title">תהליך פנימי</div>
+            <ul>
+              <li>פירוק הבעיה</li>
+              <li>זיהוי גורמי סיכון</li>
+              <li>השוואת חלופות</li>
+              <li>תכנון פתרון</li>
+              <li>הערכת tradeoffs</li>
+            </ul>
+          </div>
+          <div className="model-col-arrow">↓</div>
+          <div className="model-col-output">תשובה רב-שלבית עם reasoning</div>
+          <div className="model-traits">
+            <span className="model-trait">איטי יותר</span>
+            <span className="model-trait">יקר יותר</span>
+            <span className="model-trait">יותר tokens</span>
+            <span className="model-trait">בעיות מורכבות</span>
+          </div>
+        </div>
+      </div>
+      <Highlight>מודלים כבר לא רק <em>מייצרים תשובות</em>. הם מייצרים <em>שלבי חשיבה ביניים</em> לפני שעונים.</Highlight>
+    </div>
+  );
+}
+
+function TokenSlide({ slideNum }) {
+  const tokens = ['Insurance', ' cl', 'aim', ' doc', 'ument'];
+  const examples = [
+    ['"Hello"', '1 token'],
+    ['"Insurance claim"', '2–3 tokens'],
+    ['פסקה ארוכה', 'עשרות tokens'],
+    ['שרשרת reasoning', 'אלפי tokens'],
+  ];
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">חלק 3 — שקף {slideNum} — Tokens</div>
+      <h2>מה זה <em>Token</em>?</h2>
+      <p className="slide-sub">מודלי שפה לא עובדים על מילים, משפטים או רעיונות. הם עובדים על Tokens.</p>
+      <div className="token-demo">
+        <div className="token-demo-text">"Insurance claim document"</div>
+        <div className="token-boxes">
+          {tokens.map((t, i) => <span key={i} className="token-box" style={{animationDelay:`${0.1+i*0.1}s`}}>{t}</span>)}
+        </div>
+      </div>
+      <table className="biz-table">
+        <thead><tr><th>טקסט</th><th>Tokens משוערים</th></tr></thead>
+        <tbody>{examples.map(([t, n]) => <tr key={t}><td>{t}</td><td>{n}</td></tr>)}</tbody>
+      </table>
+      <div className="token-cost-tags">
+        <span className="token-cost-tag">כל token <em>עולה כסף</em></span>
+        <span className="token-cost-tag">כל token <em>צורך compute</em></span>
+        <span className="token-cost-tag">כל token <em>מוסיף latency</em></span>
+      </div>
+      <Highlight>מודלי Reasoning יקרים כי הם מייצרים <em>אלפי טוקני חשיבה פנימיים</em> לפני שעונים.</Highlight>
+    </div>
+  );
+}
+
 function DeepThoughtSlide({ slideNum }) {
   return (
     <div className="slide fade-up">
       <div className="slide-eyebrow mono">חלק 3 — שקף {slideNum} — Prompt Engineering</div>
       <h2>Deep Thought <em>והטרגדיה</em> של האנושות.</h2>
-      <p className="slide-sub">במדריך הטרמפיסט לגלקסיה — הושקעו מיליוני שנות חישוב. התשובה חזרה. הבעיה הייתה שהאנושות לא ידעה להגדיר את השאלה.</p>
+      <p className="slide-sub">במדריך הטרמפיסט לגלקסיה — הושקעו מיליוני שנות חישוב. התשובה חזרה. הבעיה: האנושות לא ידעה להגדיר את השאלה.</p>
       <div className="big-number-overlay">
         <div className="big-number">42</div>
         <div className="big-number-caption">התשובה הייתה נכונה. השאלה לא הוגדרה.</div>
       </div>
-      <div className="biz-prompt-compare">
-        <div className="biz-prompt-box bad">
-          <div className="biz-prompt-tag">❌ פרומפט עמום</div>
-          <div className="biz-prompt-text">"Improve customer service"</div>
+      <div className="biz-code-label">הבעיה הגדולה ביותר ב-AI: המודל לא יודע מה באמת ניסיתם לפתור.</div>
+      <div className="compare-rows">
+        <div className="compare-row">
+          <div className="compare-bad">❌ "Improve customer service"</div>
+          <div className="compare-arrow">→</div>
+          <div className="compare-good">✓ "Extract urgency score from complaint emails"</div>
         </div>
-        <div className="biz-prompt-box good">
-          <div className="biz-prompt-tag">✓ פרומפט אופרציונלי</div>
-          <div className="biz-prompt-text">"Extract urgency score from complaint emails"</div>
+        <div className="compare-row">
+          <div className="compare-bad">❌ "Make our data useful"</div>
+          <div className="compare-arrow">→</div>
+          <div className="compare-good">✓ "Predict churn probability for customers inactive 30+ days"</div>
         </div>
       </div>
-      <Highlight><em>Prompt Engineering is reality definition.</em> סוג המודל שתבחרו פחות חשוב מהיכולת שלכם לפרק ולהגדיר את הבעיה.</Highlight>
+      <Highlight><em>Prompt Engineering is the process of operationalizing reality.</em> סוג המודל שתבחרו פחות חשוב מהיכולת שלכם לפרק ולהגדיר את הבעיה.</Highlight>
     </div>
   );
 }
@@ -781,6 +872,8 @@ export const SLIDE_COMPONENTS = [
   // ACT 1
   PredictionSlide,
   KahnemanSlide,
+  HowModelThinksSlide,
+  TokenSlide,
   DeepThoughtSlide,
   TemperatureSlide,
   HallucinationSlide,
