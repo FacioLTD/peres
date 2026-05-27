@@ -22,17 +22,26 @@ export const SLIDE_LIST = [
   { id: 16, title: 'סוכנים' },
   { id: 17, title: 'כלכלת טוקנים' },
   { id: 18, title: 'שכבת בקרה' },
-  { id: 19, title: 'למה AI נכשל?', navNum: 'ג' },
-  { id: 20, title: 'בעיה אופרציונלית' },
-  { id: 21, title: 'מה AI צריך?' },
-  { id: 22, title: 'מפתח ה-AI' },
-  { id: 23, title: 'מחזור חיי פרויקט' },
-  { id: 24, title: 'הערכה ומדידה' },
-  { id: 25, title: 'Guardrails' },
-  { id: 26, title: 'ROI קוגניטיבי' },
-  { id: 27, title: 'הארגון העתידי' },
-  { id: 28, title: 'משאבים' },
-  { id: 29, title: 'סיכום הקורס' },
+  { id: 19, title: 'מטרת השיעור', navNum: 'ג' },
+  { id: 20, title: 'למה AI מסוכן לארגונים?' },
+  { id: 21, title: 'Emerging Tech: סיכונים א-ד' },
+  { id: 22, title: 'Emerging Tech: סיכונים ה-ז' },
+  { id: 23, title: 'עקרון Fail Fast' },
+  { id: 24, title: 'AI POC: שלב 1-2' },
+  { id: 25, title: 'AI POC: שלב 3-4' },
+  { id: 26, title: 'AI POC: שלב 5' },
+  { id: 27, title: 'ולידציה: 3 רמות' },
+  { id: 28, title: 'מדדי איכות: מודל קלאסי' },
+  { id: 29, title: 'מדדי איכות: LLM' },
+  { id: 30, title: 'ההבדל: קלאסי מול LLM' },
+  { id: 31, title: 'תרגיל POC כיתתי' },
+  { id: 32, title: 'דוגמה מלאה: סיכום שיחות' },
+  { id: 33, title: 'שכבת ה-Guardrails' },
+  { id: 34, title: 'ROI קוגניטיבי' },
+  { id: 35, title: 'סיכום סיכונים' },
+  { id: 36, title: 'הארגון העתידי' },
+  { id: 37, title: 'משאבים' },
+  { id: 38, title: 'סיכום הקורס' },
 ];
 
 // ═══════════════════════════════════════════════════════════════
@@ -303,7 +312,6 @@ function HallucinationSlide({ slideNum }) {
 }
 
 function TradeoffMatrixSlide({ slideNum }) {
-  const L = (c, t) => <td className={c}>{t}</td>;
   const dims = ['Reliability','Creativity','Cost Sens.','Capability','Latency','Reasoning','Determinism','Flexibility','Explain.'];
   const rows = [
     ['חיזוי ביקושים ותפעול',  'high','low','high','med','high','low','high','low','high'],
@@ -601,153 +609,817 @@ function ControlLayerSlide({ slideNum }) {
 // ACT 3 — יישום והוצאה לפועל
 // ═══════════════════════════════════════════════════════════════
 
+function AILessonIntroSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">חלק 3 — שקף {slideNum} — מבוא לשיעור</div>
+      <h2>הטמעת AI בארגון — <em>סיכונים, ניסויים ו־Fail Fast</em></h2>
+      <p className="slide-sub">מטרת השיעור: להבין ש־AI בארגון הוא לא רק ״איזה מודל לבחור״, אלא מערכת החלטות תחת אי־ודאות.</p>
+      
+      <div className="editorial-quote">
+        הסיכון הכי גדול ב־AI הוא לא שהמודל יטעה. הסיכון הכי גדול הוא שהארגון ישקיע שנה בפרויקט שאף אחד לא באמת צריך, עם טכנולוגיה שכבר התיישנה עד שהפרויקט עלה לאוויר.
+      </div>
+      
+      <div className="card-grid cols3" style={{marginTop:16}}>
+        <ConceptCard en="Risk Management" he="זיהוי סיכוני Emerging Tech" def="איך מזהים ומדרגים את 7 קטגוריות הסיכון של טכנולוגיות AI מתפרצות." accent />
+        <ConceptCard en="Fail Fast" he="ניסויים קטנים ומהירים" def="איך בונים POC מהיר וזול וקובעים קריטריונים להמשך או להריגה." />
+        <ConceptCard en="Evaluation & Metrics" he="ולידציה ומדידה" def="איך מודדים הצלחה ואיך ההערכה משתנה בין מודל קלאסי לבין LLM." accent />
+      </div>
+
+      <div className="biz-prompt-box good" style={{marginTop:16, borderRightWidth: 4, direction: 'rtl'}}>
+        <div className="biz-prompt-tag" style={{color: 'var(--accent)'}}>🎤 פתיחה אפשרית לשיעור (נוסח דיבור)</div>
+        <div className="biz-prompt-text" style={{color: 'var(--white)', fontSize: 13}}>
+          ״בשיעור הקודם דיברנו על עלויות. היום אנחנו מדברים על משהו יותר מסוכן מעלות: אי־ודאות. כשארגון מטמיע AI, הוא לא רק קונה תוכנה. הוא מקבל החלטה בתוך שוק שמשתנה כל שבוע. המודל משתנה, המחיר משתנה, הרגולציה משתנה, היכולות משתנות... לכן השאלה היא לא ׳איך בוחרים את הכלי הנכון?׳ אלא ׳איך בונים ארגון שיודע ללמוד מהר מספיק כדי לא לבחור לא נכון לאורך זמן?׳״
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function WhyAIFailsSlide({ slideNum }) {
-  const fails = ['בעיה עמומה', 'מטרה לא מדידה', 'חוסר הגדרה עסקית', 'ROI לא ברור'];
   return (
     <div className="slide fade-up">
-      <div className="slide-eyebrow mono">חלק 3 — שקף {slideNum} — למה AI נכשל?</div>
-      <h2>למה רוב פרויקטי ה-AI <em>נכשלים</em>?</h2>
-      <div className="dramatic-stat">
-        <div className="dramatic-stat-num">85%</div>
-        <div className="dramatic-stat-label">מפרויקטי ה-AI הארגוניים נכשלים.</div>
-        <div className="dramatic-stat-sub">לא בגלל שהמודל "לא מספיק חכם". אלא בגלל:</div>
-      </div>
-      <div className="fail-reasons">
-        {fails.map((f, i) => <span key={f} className="fail-tag" style={{animationDelay:`${0.3+i*0.15}s`}}>{f}</span>)}
-      </div>
-      <div className="wrong-example">
-        <div className="wrong-example-tag">❌ הטעות הכי נפוצה</div>
-        <div className="wrong-example-text">"אנחנו רוצים להשתמש ב-AI כדי לשפר את השירות"</div>
-        <div className="wrong-example-verdict">זו לא בעיית AI. זו כוונה עסקית כללית.</div>
-      </div>
-    </div>
-  );
-}
+      <div className="slide-eyebrow mono">חלק 3 — שקף {slideNum} — פער קצב השוק</div>
+      <h2>למה AI <em>מסוכן</em> לארגונים?</h2>
+      <p className="slide-sub">טכנולוגיות מתפרצות (Emerging Technologies) יוצרות פער מובנה וקריטי בין קצב השוק לקצב הארגון.</p>
 
-function OperationalProblemSlide({ slideNum }) {
-  const ioRows = [
-    ['מייל תלונה', 'ציון דחיפות 1–5', 'ניתוב להסלמה'],
-    ['ביקורת מלון', 'קטגוריית תקלה', 'פתיחת קריאת שירות'],
-    ['תביעת ביטוח', 'Fraud Score', 'שליחה לבדיקה'],
-    ['נתוני מכירות', 'תחזית ביקוש', 'הזמנת מלאי'],
-  ];
-  const compares = [
-    ['"לשפר שירות לקוחות"', '"לחלץ רמת דחיפות ממיילים"'],
-    ['"לייעל מלאי"', '"לחזות ביקוש 14 יום קדימה"'],
-    ['"לזהות הונאות"', '"לחשב Fraud Probability"'],
-    ['"לנתח ביקורות"', '"לסווג תלונות ל-5 קטגוריות"'],
-  ];
-  return (
-    <div className="slide fade-up">
-      <div className="slide-eyebrow mono">חלק 3 — שקף {slideNum} — בעיה אופרציונלית</div>
-      <h2>מה זו בעיית AI <em>אמיתית</em>?</h2>
-      <p className="slide-sub">בעיה אופרציונלית = Input ברור → Output מדיד → Action עסקי.</p>
-      <table className="io-table">
-        <thead><tr><th>Input</th><th>Output</th><th>Action</th></tr></thead>
-        <tbody>{ioRows.map(([i, o, a]) => (
-          <tr key={i}><td className="io-input">{i}</td><td className="io-output">{o}</td><td className="io-action">{a}</td></tr>
-        ))}</tbody>
-      </table>
-      <div className="biz-code-label">המעבר הקריטי</div>
-      <div className="compare-rows">
-        {compares.map(([bad, good], i) => (
-          <div key={i} className="compare-row">
-            <div className="compare-bad">❌ {bad}</div>
-            <div className="compare-arrow">→</div>
-            <div className="compare-good">✓ {good}</div>
+      <div className="pace-container">
+        <div className="pace-row org">
+          <div className="pace-title-lbl">קצב הארגון המסורתי (חודשים עד שנים)</div>
+          <div className="pace-flow">
+            <span className="pace-node">אפיון 📝</span> <span className="pace-arrow">➔</span>
+            <span className="pace-node">תקציב 💰</span> <span className="pace-arrow">➔</span>
+            <span className="pace-node">ועדה 👥</span> <span className="pace-arrow">➔</span>
+            <span className="pace-node">ספק 🤝</span> <span className="pace-arrow">➔</span>
+            <span className="pace-node">אינטגרציה ⚙️</span> <span className="pace-arrow">➔</span>
+            <span className="pace-node">פיילוט 🧪</span> <span className="pace-arrow">➔</span>
+            <span className="pace-node">השקה 🚀</span>
           </div>
-        ))}
-      </div>
-    </div>
-  );
-}
+        </div>
 
-function WhatAINeedsSlide({ slideNum }) {
-  const reqs = [
-    ['Input ברור', 'Complaint Email'],
-    ['Output מדיד', 'Urgency Score 1–5'],
-    ['Metric', 'Accuracy / F1-Score'],
-    ['Action עסקי', 'Escalation Queue'],
-    ['ROI ברור', 'קיצור זמן תגובה ב-60%'],
-  ];
-  return (
-    <div className="slide fade-up">
-      <div className="slide-eyebrow mono">חלק 3 — שקף {slideNum} — מה AI צריך?</div>
-      <h2>כל פרויקט AI חייב <em>להגדיר</em>:</h2>
-      <table className="biz-table">
-        <thead><tr><th>רכיב</th><th>דוגמה</th></tr></thead>
-        <tbody>{reqs.map(([r, e]) => <tr key={r}><td>{r}</td><td>{e}</td></tr>)}</tbody>
+        <div className="pace-row market">
+          <div className="pace-title-lbl">קצב התפתחות ה-AI בשוק (ימים עד שבועות)</div>
+          <div className="pace-flow">
+            <span className="pace-node">מודל חדש 🧠</span> <span className="pace-arrow">➔</span>
+            <span className="pace-node">כלי חדש 🛠️</span> <span className="pace-arrow">➔</span>
+            <span className="pace-node">ירידת מחיר 📉</span> <span className="pace-arrow">➔</span>
+            <span className="pace-node">רגולציה חדשה 📜</span> <span className="pace-arrow">➔</span>
+            <span className="pace-node">Best Practice חדש 🏆</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="biz-code-label">ההבדל בין עולם יציב לעולם מתפרץ</div>
+      <table className="pace-table">
+        <thead>
+          <tr>
+            <th>פרמטר</th>
+            <th>עולם מסורתי</th>
+            <th>עולם Emerging Tech</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>יציבות הסביבה</td>
+            <td>יציבות יחסית וחיזוי לטווח ארוך</td>
+            <td>שינוי תמידי ומהיר בקצב שבועי</td>
+          </tr>
+          <tr>
+            <td>אופי הדרישות</td>
+            <td>דרישות ברורות ומאופיינות מראש</td>
+            <td>דרישות מתגלות ונלמדות תוך כדי תנועה</td>
+          </tr>
+          <tr>
+            <td>בחירת ספקים</td>
+            <td>בחירה בספק ״הנכון״ לטווח ארוך</td>
+            <td>בחירה בהשערה/רעיון ספציפי לבדיקה מהירה</td>
+          </tr>
+          <tr>
+            <td>משך פרויקט</td>
+            <td>פרויקט רב־שנתי מובנה ומסודר</td>
+            <td>ניסויים וסבבי פיתוח קצרים וממוקדים</td>
+          </tr>
+          <tr>
+            <td>הגדרת הצלחה</td>
+            <td>הצלחה = עמידה בתוכנית המקורית</td>
+            <td>הצלחה = למידה מהירה וצמצום אי-ודאות</td>
+          </tr>
+        </tbody>
       </table>
-      <div className="biz-punchline">AI לא פותר עמימות. <em>AI פותר בעיות שמוגדרות היטב.</em></div>
-      <Highlight>אם אי אפשר <em>למדוד את הפלט</em> — עדיין אין לכם פרויקט AI.</Highlight>
-    </div>
-  );
-}
 
-function AIDeveloperSlide({ slideNum }) {
-  return (
-    <div className="slide fade-up">
-      <div className="slide-eyebrow mono">חלק 3 — שקף {slideNum} — AI Developer</div>
-      <h2>ה-LLM כ<em>שכבת פיתוח</em>.</h2>
-      <p className="slide-sub">ה-LLM אינו רק מנוע הרצה. הוא שכבת פיתוח מלאה המאפשרת למנהלים להקים פרויקטים מורכבים.</p>
-      <div className="card-grid cols2">
-        <ConceptCard en="Data Cleaning" he="ניקוי דאטה" def="כתיבת קוד אוטומטי לניקוי וסינון מאגרי מידע." />
-        <ConceptCard en="Feature Engineering" he="חילוץ פיצ׳רים" def="זיהוי ויצירת משתנים חדשים מתוך הדאטה הגולמי." />
-        <ConceptCard en="Model Training" he="אימון מודלים" def="כתיבה והרצה של סקריפטים לאימון מודלים (XGBoost)." accent />
-        <ConceptCard en="Evaluation" he="הערכת ביצועים" def="הפקת מדדי איכות, גרפים ומטריצות להערכה." />
+      <div className="biz-prompt-compare" style={{marginTop:10}}>
+        <div className="biz-prompt-box bad" style={{padding:'8px 12px', direction: 'rtl', margin: 0}}>
+          <div className="biz-prompt-tag" style={{fontSize:9}}>📜 תקן NIST AI RMF</div>
+          <div className="biz-prompt-text" style={{fontSize:11}}>
+            תקן NIST מתייחס לניהול סיכוני AI כתהליך מתמשך ומחזורי של <strong>זיהוי, מדידה, ניהול וממשול</strong>, ומדגיש סיכונים ייחודיים של Generative AI כמו אמינות, פרטיות, אבטחה והטיות.
+          </div>
+        </div>
+        <div className="biz-prompt-box good" style={{padding:'8px 12px', direction: 'rtl', margin: 0}}>
+          <div className="biz-prompt-tag" style={{fontSize:9, color:'#22c55e'}}>📊 מעקב OECD.AI</div>
+          <div className="biz-prompt-text" style={{fontSize:11}}>
+            ה-OECD מפעיל מעקב שוטף אחר אירועי AI ותקלות בעולם האמיתי (Incidents Monitor) כדי ללמוד דפוסי סיכון אמיתיים של פרטיות, אפליה, קיטוב, אבטחה ובטיחות.
+          </div>
+        </div>
       </div>
-      <div className="biz-punchline">The LLM <em>compresses the engineering layer</em>.</div>
     </div>
   );
 }
 
-function LifecycleSlide({ slideNum }) {
-  const phases = [
-    ['Discovery & Problem Definition', 'איתור הכאב העסקי, אופרציונליזציה, ווידוא דאטה רלוונטי.'],
-    ['Data Prep & Engineering', 'איסוף, ניקוי, סינון והפיכת מידע לפיצ׳רים או וקטורים.'],
-    ['PoC Development', 'בניית אב-טיפוס מהיר וזול לבדיקת היתכנות ראשונית.'],
-    ['Rigorous Evaluation', 'הרצת מבחנים מתמטיים ואיכותיים על דאטה-סט קבוע.'],
-    ['Production & Monitoring', 'פריסה מאובטחת תחת שכבת בקרה ומעקב צמוד.'],
-  ];
+function RiskCategoriesSlide({ slideNum }) {
   return (
     <div className="slide fade-up">
-      <div className="slide-eyebrow mono">חלק 3 — שקף {slideNum} — Lifecycle</div>
-      <h2>מחזור חיי <em>פרויקט AI</em>.</h2>
-      <p className="slide-sub">פרויקט AI אינו פרויקט תוכנה. הוא מחקר אמפירי מבוסס הסתברויות.</p>
-      <div className="lifecycle-flow">
-        {phases.map(([t, d], i) => (
-          <div key={t} className="lifecycle-step">
-            <div className="lifecycle-dot" />
-            <div className="lifecycle-content">
-              <div className="lifecycle-title">{i + 1}. {t}</div>
-              <div className="lifecycle-desc">{d}</div>
+      <div className="slide-eyebrow mono">חלק 3 — שקף {slideNum} — קטגוריות סיכון (1-4)</div>
+      <h2>Emerging Technologies: <em>קטגוריות הסיכון (א-ד)</em></h2>
+      <p className="slide-sub">כדי לנהל סיכון, צריך קודם כל למפות אותו. להלן 4 קטגוריות הסיכון הראשונות:</p>
+
+      <div className="risks-container">
+        <div className="risk-card-premium accent-risk">
+          <div className="risk-card-header">
+            <span className="risk-card-num">1</span>
+            <span className="risk-card-title">סיכון טכנולוגי (Technology Risk)</span>
+          </div>
+          <div className="risk-card-body">
+            <strong>האם זה באמת עובד מחוץ לדמו?</strong>
+            <ul style={{paddingRight:16, margin:'4px 0 0', listStyleType:'disc', fontSize:12}}>
+              <li>המודל נראה מדהים בדמו קטן אך נכשל על דאטה אמיתי ומורכב.</li>
+              <li>בעיית הזיות (Hallucinations) וקושי בשחזור תשובות עקביות.</li>
+              <li>תמיכה פחות טובה בעברית/ערבית ובשפות מעורבות מול אנגלית.</li>
+              <li>זמני תגובה (Latency) גבוהים מדי או עלויות Inference יקרות מדי.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="risk-card-premium">
+          <div className="risk-card-header">
+            <span className="risk-card-num">2</span>
+            <span className="risk-card-title">סיכון התאמה עסקית (Business Fit Risk)</span>
+          </div>
+          <div className="risk-card-body">
+            <strong>האם אנחנו פותרים בעיה אמיתית וכואבת מספיק?</strong>
+            <p style={{margin:'4px 0 0', fontSize:12}}>פרויקטים רבים נכשלים לא בגלל מודל גרוע, אלא כי פיתחו פתרון מתוחכם לבעיה קלה.</p>
+            <div className="warning-box" style={{margin:'6px 0 0', padding: 8, fontSize:11}}>
+              <strong>❓ שאלה למחשבה:</strong> מה יותר מסוכן בארגון — מודל עם 85% דיוק לבעיה קריטית, או מודל עם 99% דיוק לבעיה שאף אחד לא צריך?<br />
+              <strong style={{color:'var(--accent)'}}>תשובה ניהולית:</strong> השני מסוכן יותר, כי הוא מבזבז קשב ניהולי ומשאבים ארגוניים יקרים.
             </div>
           </div>
-        ))}
+        </div>
+
+        <div className="risk-card-premium">
+          <div className="risk-card-header">
+            <span className="risk-card-num">3</span>
+            <span className="risk-card-title">סיכון דאטה (Data Risk)</span>
+          </div>
+          <div className="risk-card-body">
+            <strong>AI לא מתחיל במודל — הוא מתחיל ונגמר בדאטה!</strong>
+            <ul style={{paddingRight:16, margin:'4px 0 0', listStyleType:'disc', fontSize:12}}>
+              <li>דאטה חסר, מלוכלך, מוטה או לא מייצג את המציאות העתידית.</li>
+              <li>מידע מפוזר בין עשרות מערכות ליבה ללא אינטגרציה.</li>
+              <li>דליפת מידע אישי רגיש (PII) ופגיעה בפרטיות המשתמשים.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="risk-card-premium accent-risk">
+          <div className="risk-card-header">
+            <span className="risk-card-num">4</span>
+            <span className="risk-card-title">סיכון רגולטורי ומשפטי (Regulatory Risk)</span>
+          </div>
+          <div className="risk-card-body">
+            <strong>אי אפשר להתעלם מהחוק והרגולציה ב־AI.</strong>
+            <p style={{margin:'4px 0 0', fontSize:12}}>חוק ה־AI האירופי (EU AI Act) שנכנס לתוקף באוגוסט 2024 מגדיר גישה מבוססת סיכון לשימושים ב-AI.</p>
+            <div className="biz-punchline" style={{margin:'6px 0 0', padding: '6px 10px', fontSize:11, fontStyle:'normal'}}>
+              <strong>💡 כלל אצבע:</strong> ככל שהחלטת ה־AI משפיעה יותר על זכויות אדם, כסף, בריאות, אשראי, תעסוקה או נגישות לשירותים — כך רמת הסיכון והפיקוח הרגולטורי עולים בהתאם.
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
 }
 
-function EvaluationSlide({ slideNum }) {
+function RiskCategoriesPart2Slide({ slideNum }) {
   return (
     <div className="slide fade-up">
-      <div className="slide-eyebrow mono">חלק 3 — שקף {slideNum} — Evaluation</div>
-      <h2>מה שלא נמדד <em>לא קיים</em>.</h2>
-      <p className="slide-sub">לא פורסים מערכת AI לפני שיש מערכת מדדים מתמטית קבועה.</p>
-      <div className="eval-section-title">מדדי ML קלאסיים</div>
-      <div className="card-grid cols3">
-        <ConceptCard en="Precision" he="דיוק" def="מתוך החיוביים שחזה — כמה באמת חיוביים?" />
-        <ConceptCard en="Recall" he="רגישות" def="מתוך החיוביים האמיתיים — כמה תפס?" />
-        <ConceptCard en="F1-Score" he="ממוצע הרמוני" def="האיזון בין Precision ו-Recall." accent />
+      <div className="slide-eyebrow mono">חלק 3 — שקף {slideNum} — קטגוריות סיכון (5-7)</div>
+      <h2>Emerging Technologies: <em>קטגוריות הסיכון (ה-ז)</em></h2>
+      <p className="slide-sub">שלושת הסיכונים הנוספים שחייבים לנטר, בשילוב עם תובנות שוק עדכניות:</p>
+
+      <div className="risks-container">
+        <div className="risk-card-premium accent-risk">
+          <div className="risk-card-header">
+            <span className="risk-card-num">5</span>
+            <span className="risk-card-title">סיכון אבטחתי (Security Risk)</span>
+          </div>
+          <div className="risk-card-body">
+            <strong>מודלי LLM מייצרים משטחי תקיפה חדשים:</strong>
+            <ul style={{paddingRight:16, margin:'4px 0 0', listStyleType:'disc', fontSize:12}}>
+              <li>Prompt Injection: הזרקת מניפולציות זדוניות שקוקפות את המודל.</li>
+              <li>Data Leakage: דליפת סודות מסחריים ומידע פנימי למודלים ציבוריים.</li>
+              <li>Jailbreaks: עקיפת מנגנוני הבטיחות המובנים במודל.</li>
+              <li>הסתמכות עיוורת על סוכנים (Agents) הפועלים ללא אימות אנושי.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="risk-card-premium">
+          <div className="risk-card-header">
+            <span className="risk-card-num">6</span>
+            <span className="risk-card-title">סיכון ארגוני (Organizational Risk)</span>
+          </div>
+          <div className="risk-card-body">
+            <strong>גם המודל הטוב ביותר ייכשל אם הארגון יתנגד לו.</strong>
+            <ul style={{paddingRight:16, margin:'4px 0 0', listStyleType:'disc', fontSize:12}}>
+              <li>התנגדות עובדים מחשש לאובדן משרות או חוסר נוחות.</li>
+              <li>אין ״בעלים״ עסקי (Owner) לפרויקט, והוא נשאר יתום ב־IT.</li>
+              <li>מחלקה משפטית (Legal) או אבטחת מידע חוסמת את הפרויקט מאוחר מדי.</li>
+              <li>אין תהליך הטמעה, הדרכה, ומדידה שוטפת של הערך לאחר ההשקה.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="risk-card-premium accent-risk" style={{gridColumn:'span 2'}}>
+          <div className="risk-card-header">
+            <span className="risk-card-num">7</span>
+            <span className="risk-card-title">סיכון כלכלי (Economic Risk)</span>
+          </div>
+          <div className="risk-card-body" style={{display:'grid', gridTemplateColumns:'1.2fr 1fr', gap:16}}>
+            <div>
+              <strong>זול בדמו — יקר להחריד בפרודקשן!</strong>
+              <p style={{margin:'4px 0 0', fontSize:12}}>עלויות ה־Inference של מודלי ענק, תשתיות ענן, אינטגרציה, אבטחה, וניטור שוטף עלולות להפוך use case מצוין להפסד כספי כבד.</p>
+              <div style={{fontSize:11, color:'var(--dim)', marginTop:6}}>* יש לקחת בחשבון עלויות Human Review קבועות ועלויות מעבר ספק (Vendor Lock-in).</div>
+            </div>
+            <div className="biz-prompt-box good" style={{margin:0, direction:'rtl', borderColor:'rgba(217,119,6,0.3)', padding: 10}}>
+              <div className="biz-prompt-tag" style={{color:'var(--orange)', fontSize:9}}>📈 תובנות McKinsey State of AI 2025</div>
+              <div className="biz-prompt-text" style={{fontSize:11, color:'var(--white)', lineHeight: 1.4}}>
+                מחקרי שוק עדכניים מראים כי ארגונים רבים כבר מטמיעים כלי AI וסוכנים (Agentic AI) באופן רחב, אך **המעבר מפיילוטים מוצלחים לערך עסקי רחב (Scaling)** נשאר האתגר המרכזי והמורכב ביותר של המנהלים כיום.
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div className="eval-section-title">מדדי LLM / Generative</div>
-      <div className="card-grid cols3">
-        <ConceptCard en="Faithfulness" he="נאמנות למקור" def="האם התשובה מבוססת רק על הדאטה שהוזרק?" />
-        <ConceptCard en="Relevance" he="רלוונטיות" def="רמת הדיוק מול כוונת השאלה המקורית." />
-        <ConceptCard en="LLM-as-a-Judge" he="שופט אוטומטי" def="מודל חיצוני מריץ ציוני איכות על הפלט." accent />
+    </div>
+  );
+}
+
+function FailFastPrincipleSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">חלק 3 — שקף {slideNum} — עקרון Fail Fast</div>
+      <h2>עקרון <em>Fail Fast</em> בארגון גדול</h2>
+      <p className="slide-sub">Fail Fast אינו אומר להיכשל ברשלנות. הוא אומר לבנות מנגנון שמגלה מהר מה לא עובד — לפני ששורפים תקציבי ענק וזמן ניהולי יקר.</p>
+
+      <div className="failfast-grid">
+        <div className="failfast-card startup">
+          <div className="failfast-header">איך סטארטאפ חושב</div>
+          <div className="failfast-q">״מה ההשערה הכי מסוכנת שלנו, ואיך נבדוק אותה הכי מהר ובזול?״</div>
+          <p className="failfast-body" style={{marginTop:8}}>
+            סטארטאפים לא מחפשים לבנות מערכת מושלמת מהיום הראשון. הם ממוקדים בפירוק הבעיה ואיסוף ראיות אמפיריות מהירות מהשטח כדי לצמצם את אי-הוודאות.
+          </p>
+        </div>
+
+        <div className="failfast-card corp">
+          <div className="failfast-header">איך ארגון גדול בדרך כלל חושב</div>
+          <div className="failfast-q">״איך נוודא שהפרויקט מאושר, מתוקצב, מאובטח, ממופה ומנוהל בכל הוועדות?״</div>
+          <p className="failfast-body" style={{marginTop:8}}>
+            זה קריטי לשמירה על יציבות, אך אם עושים זאת מוקדם מדי (לפני הוכחת היתכנות ראשונית) — הורגים לחלוטין את היכולת ללמוד ולגלות מה המשתמשים באמת צריכים.
+          </p>
+        </div>
       </div>
-      <Highlight><em>What cannot be evaluated cannot be deployed.</em></Highlight>
+
+      <div className="biz-punchline" style={{textAlign:'center', fontSize: 18, padding: '16px 20px', margin: '16px 0'}}>
+        ההגדרה הניהולית המדויקת של Fail Fast בארגון:<br />
+        <strong style={{color:'var(--accent)', fontSize:22, fontFamily:'monospace', display:'block', margin: '4px 0'}}>Fail Fast = לקצר את הזמן בין רעיון לבין ראיה אמפירית.</strong>
+        <div style={{fontSize:13, color:'var(--dim)', fontStyle:'normal'}}>
+          לא בין רעיון למצגת הנהלה. לא בין רעיון לדיון תקציבי. <strong>בין רעיון לראיה אמיתית בשטח!</strong>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AIPocFrameworkSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">חלק 3 — שקף {slideNum} — מתודולוגיית POC: שלב 1 ו־2</div>
+      <h2>מתודולוגיית AI POC: <em>שלבים 1 ו־2</em></h2>
+      <p className="slide-sub">איך מיישמים את עקרונות הניסוי המהיר בפועל? מתחילים בניסוח מדויק וזיהוי ההשערה המסוכנת ביותר.</p>
+
+      <div className="biz-split" style={{margin: '14px 0'}}>
+        <div className="biz-split-side accent-side" style={{padding: 16}}>
+          <div className="biz-split-label" style={{marginBottom: 8}}>שלב 1 — ניסוח ה־Use Case באמצעות תבנית</div>
+          <div className="biz-code" style={{fontSize:11, whiteSpace:'pre-wrap', direction:'rtl', textAlign:'right', margin: '8px 0', padding: 12}}>
+            אנחנו רוצים לעזור ל־<strong>[משתמש]</strong><br />
+            לבצע את <strong>[משימה]</strong><br />
+            כדי לשפר את <strong>[מדד עסקי]</strong><br />
+            באמצעות <strong>[יכולת AI]</strong><br />
+            תחת מגבלות של <strong>[סיכון / רגולציה / דאטה / עלות]</strong>
+          </div>
+          <div style={{fontSize:12, marginTop:6}}>
+            <strong>📌 דוגמה קונקרטית:</strong> אנחנו רוצים לעזור ל<u>נציג שירות</u> לסכם <u>שיחות לקוח</u> כדי <u>לקצר זמן טיפול ב-30%</u> באמצעות <u>LLM שמייצר סיכום מובנה</u> תחת מגבלה ש<u>כל סיכום חייב לעבור אישור אנושי</u>.
+          </div>
+        </div>
+
+        <div className="biz-split-side" style={{padding: 16}}>
+          <div className="biz-split-label" style={{marginBottom: 8}}>שלב 2 — זיהוי ההשערה המסוכנת ביותר (Riskiest Assumption)</div>
+          <p style={{fontSize:12, margin:'0 0 6px'}}>בכל פרויקט יש כמה סוגי השערות, אך ה-POC חייב לבדוק קודם את ההשערה הכי מסוכנת להצלחה:</p>
+          <table className="io-table" style={{fontSize:10, margin:0}}>
+            <thead>
+              <tr>
+                <th>סוג השערה</th>
+                <th>השאלה שצריך לבדוק</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style={{color:'var(--accent)'}}>עסקית (Business)</td>
+                <td>האם למישהו אכפת מזה? האם יש לזה ערך אמיתי?</td>
+              </tr>
+              <tr>
+                <td>טכנולוגית (Tech)</td>
+                <td>האם המודל מסוגל לבצע את המשימה הזו בדיוק מספק?</td>
+              </tr>
+              <tr>
+                <td>דאטה (Data)</td>
+                <td>האם יש לנו דאטה תקין, נגיש ומייצג כדי להזין את המודל?</td>
+              </tr>
+              <tr>
+                <td>תפעולית (Ops)</td>
+                <td>האם זה ישתלב בצורה נוחה בתהליך העבודה של העובדים?</td>
+              </tr>
+              <tr>
+                <td>כלכלית / רגולטורית</td>
+                <td>האם העלויות כלכליות? האם מותר לנו חוקית לעשות זאת?</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <Highlight>POC מוצלח מתחיל במיקוד ובהגדרת <em>גבולות ברורים</em> לבעיה.</Highlight>
+    </div>
+  );
+}
+
+function AIPocFrameworkPart2Slide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">חלק 3 — שקף {slideNum} — מתודולוגיית POC: שלב 3 ו־4</div>
+      <h2>מתודולוגיית AI POC: <em>שלבים 3 ו־4</em></h2>
+      <p className="slide-sub">בניית POC מהיר ואיסוף מדדים אמיתיים של שילוב אדם במערכת (Human-in-the-loop).</p>
+
+      <div className="biz-code-label" style={{marginBottom: 4}}>שלב 3 — בניית POC סופר-מהיר (לדוגמה באמצעות n8n workflow)</div>
+      
+      <div className="n8n-container">
+        <div className="n8n-node">
+          <div className="n8n-node-icon">📝</div>
+          <div className="n8n-node-title">Input Form</div>
+          <div className="n8n-node-sub">טופס קלט פנייה</div>
+        </div>
+        <div className="n8n-arrow">➔</div>
+        <div className="n8n-node accent">
+          <div className="n8n-node-icon">⚙️</div>
+          <div className="n8n-node-title">n8n Workflow</div>
+          <div className="n8n-node-sub">ניתוב ואורקסטרציה</div>
+        </div>
+        <div className="n8n-arrow">➔</div>
+        <div className="n8n-node accent">
+          <div className="n8n-node-icon">🤖</div>
+          <div className="n8n-node-title">LLM API Call</div>
+          <div className="n8n-node-sub">סיכום וסיווג פלט</div>
+        </div>
+        <div className="n8n-arrow">➔</div>
+        <div className="n8n-node">
+          <div className="n8n-node-icon">📊</div>
+          <div className="n8n-node-title">Google Sheets</div>
+          <div className="n8n-node-sub">שליחת פלט לגיליון</div>
+        </div>
+        <div className="n8n-arrow">➔</div>
+        <div className="n8n-node">
+          <div className="n8n-node-icon">👥</div>
+          <div className="n8n-node-title">Slack / User</div>
+          <div className="n8n-node-sub">בדיקת צוות בזמן אמת</div>
+        </div>
+      </div>
+
+      <div className="biz-punchline" style={{margin:'0 0 12px', padding:'8px 14px', fontSize:13, fontStyle:'normal'}}>
+        💡 <strong>הפואנטה של המרצה:</strong> לא צריך פרויקט אינטגרציה של שלושה חודשים כדי לבדוק אם הרעיון שווה משהו. באמצעות כלי No-Code/Low-Code ומודלים קיימים, לפעמים צריך רק שלוש שעות!
+      </div>
+
+      <div className="biz-code-label" style={{marginBottom: 4}}>שלב 4 — מדדי Human-in-the-loop (האם האדם משתפר?)</div>
+      <p style={{fontSize:12, margin:'0 0 4px'}}>ב־POC רציני אנחנו לא שואלים רק ״האם המודל צדק עובדתית?״, אלא איך הוא משפיע על העובד המשתמש בו:</p>
+      <div className="metrics-card-grid" style={{margin: '8px 0'}}>
+        <div className="usecase-detail-block" style={{padding: 10}}>
+          <div className="metric-card-lbl">יעילות וזמן</div>
+          <div className="usecase-detail-title" style={{fontSize: 13}}>זמן טיפול (Handling Time)</div>
+          <div className="usecase-detail-desc" style={{fontSize: 11}}>האם זמן העבודה הכולל של הנציג התקצר ובכמה אחוזים?</div>
+        </div>
+        <div className="usecase-detail-block" style={{padding: 10}}>
+          <div className="metric-card-lbl">איכות תפעולית</div>
+          <div className="usecase-detail-title" style={{fontSize: 13}}>שיעור תיקונים (Correction Rate)</div>
+          <div className="usecase-detail-desc" style={{fontSize: 11}}>כמה פעמים המשתמש נדרש לתקן ידנית את פלט ה-AI או ערך אותו כבד?</div>
+        </div>
+        <div className="usecase-detail-block" style={{padding: 10}}>
+          <div className="metric-card-lbl">אמון ואימוץ</div>
+          <div className="usecase-detail-title" style={{fontSize: 13}}>שיעור התעלמות (Ignore Rate)</div>
+          <div className="usecase-detail-desc" style={{fontSize: 11}}>כמה פעמים המשתמש פשוט התעלם מהמלצת ה-AI כי לא סמך עליה?</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AIPocFrameworkPart3Slide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">חלק 3 — שקף {slideNum} — מתודולוגיית POC: שלב 5</div>
+      <h2>מתודולוגיית AI POC: <em>שלב 5 — קבלת החלטה</em></h2>
+      <p className="slide-sub">בסוף תקופת ה-POC חייבים להגיע להחלטה אסטרטגית וברורה על בסיס נתונים אמפיריים.</p>
+
+      <table className="pace-table" style={{margin: '12px 0'}}>
+        <thead>
+          <tr>
+            <th style={{width:'15%'}}>החלטה</th>
+            <th style={{width:'30%'}}>מה זה אומר בפועל?</th>
+            <th>דוגמה תפעולית</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style={{background:'rgba(239,68,68,0.04)'}}>
+            <td style={{color:'#ef4444', fontWeight:'bold'}}>Kill ❌</td>
+            <td style={{color: 'var(--white)'}}>עוצרים את הפרויקט מיד.</td>
+            <td>הבעיה לא מספיק כואבת, ה-ROI לא כלכלי, או המודל סובל מהזיות מסוכנות בתחום קריטי.</td>
+          </tr>
+          <tr style={{background:'rgba(217,119,6,0.04)'}}>
+            <td style={{color:'var(--accent)', fontWeight:'bold'}}>Pivot 🔄</td>
+            <td style={{color: 'var(--white)'}}>משנים כיוון ומבצעים סבב POC נוסף.</td>
+            <td>מחליפים את ה-Use Case, משנים מודל, מוסיפים RAG ל-Grounding, או משנים את זרימת העבודה.</td>
+          </tr>
+          <tr style={{background:'rgba(22,163,74,0.04)'}}>
+            <td style={{color:'#16a34a', fontWeight:'bold'}}>Scale 🚀</td>
+            <td style={{color: 'var(--white)'}}>עוברים לפיילוט רחב ופרודקשן.</td>
+            <td>הוכחנו ערך מצוין! בונים שכבת בקרה (Control Layer), אבטחת מידע, אינטגרציית IT וניטור.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div className="biz-punchline" style={{borderColor:'#ef4444', textAlign:'center', marginTop:24, padding: '14px 20px'}}>
+        ⚠️ <strong>המסר החשוב ביותר לניהול:</strong><br />
+        <span style={{fontSize:20, color:'#ef4444', fontWeight:'bold'}}>״POC בלי קריטריוני הריגה (Kill Criteria) מוגדרים מראש הוא לא ניסוי — הוא תחביב.״</span>
+        <p style={{fontSize:13, color:'var(--dim)', fontStyle:'normal', margin:'6px 0 0'}}>
+          אתם חייבים להגדיר מראש מה ייחשב לכישלון שיגרום לכם לעצור, כדי לא ליפול למלכודת ״ההוצאה השקועה״ (Sunk Cost Fallacy).
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function ValidationLevelsSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">חלק 3 — שקף {slideNum} — 3 רמות ולידציה</div>
+      <h2>ולידציה: <em>איך בודקים אם מוצר AI עובד?</em></h2>
+      <p className="slide-sub">לארגונים יש נטייה לבדוק רק אם המודל ״חכם״. ולידציה מלאה דורשת שלוש רמות של בקרה:</p>
+
+      <div className="metrics-card-grid" style={{marginTop:16}}>
+        <div className="failfast-card startup" style={{borderTopColor:'var(--accent)', padding: 16}}>
+          <div className="failfast-header" style={{color:'var(--accent)', marginBottom: 8}}>1. ולידציה טכנולוגית (Tech)</div>
+          <div className="failfast-q" style={{fontSize:14}}>האם המודל מסוגל לבצע את המשימה הטכנית?</div>
+          <ul style={{paddingRight:14, margin:'8px 0 0', fontSize:12, color:'var(--dim)', listStyleType:'disc'}}>
+            <li>מדידת דיוק, Recall, Precision ו-F1.</li>
+            <li>מדידת אחוז הזיות (Hallucination Rate).</li>
+            <li>בדיקת עמידות במקרי קצה (Robustness).</li>
+            <li>זמן תגובה (Latency) ועקביות פלט.</li>
+          </ul>
+        </div>
+
+        <div className="failfast-card startup" style={{borderTopColor:'var(--orange)', padding: 16}}>
+          <div className="failfast-header" style={{color:'var(--orange)', marginBottom: 8}}>2. ולידציה עסקית (Business)</div>
+          <div className="failfast-q" style={{fontSize:14}}>האם הפרויקט מייצר ערך כלכלי ועסקי מדיד?</div>
+          <ul style={{paddingRight:14, margin:'8px 0 0', fontSize:12, color:'var(--dim)', listStyleType:'disc'}}>
+            <li>חיסכון ישיר בשעות עבודה ועלויות תפעול.</li>
+            <li>עלייה באחוזי המרה (Conversion) או במכירות.</li>
+            <li>שיפור מדדי שביעות רצון לקוחות (NPS/CSAT).</li>
+            <li>שיפור בבקרה ומניעת קנסות רגולטוריים.</li>
+          </ul>
+        </div>
+
+        <div className="failfast-card startup" style={{borderTopColor:'var(--dim)', padding: 16}}>
+          <div className="failfast-header" style={{color:'var(--dim)', marginBottom: 8}}>3. ולידציה ארגונית (Org)</div>
+          <div className="failfast-q" style={{fontSize:14}}>האם הארגון מסוגל להטמיע ולתחזק את זה?</div>
+          <ul style={{paddingRight:14, margin:'8px 0 0', fontSize:12, color:'var(--dim)', listStyleType:'disc'}}>
+            <li>שיעור אימוץ עובדים בפועל (Adoption Rate).</li>
+            <li>מידת האמון של המנהלים בתשובות המודל.</li>
+            <li>אישור סופי של מחלקות Legal וסייבר.</li>
+            <li>יכולת תחזוקה, ניטור (Monitoring) והסבר שגיאות.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function EvaluationClassicalSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">חלק 3 — שקף {slideNum} — ולידציה של מודל קלאסי</div>
+      <h2>מדדי איכות: <em>מודל קלאסי</em></h2>
+      <p className="slide-sub">מודל קלאסי (כמו XGBoost לחיזוי סיכון או רגרסיה) מחזיר חיזוי מוגדר וקל יחסית למדידה סטטיסטית מדויקת.</p>
+
+      <div className="biz-split" style={{margin: '12px 0'}}>
+        <div className="biz-split-side accent-side" style={{padding: 16}}>
+          <div className="biz-split-label" style={{marginBottom: 8}}>מדדי איכות מובילים</div>
+          <table className="io-table" style={{fontSize:11, margin:0}}>
+            <thead>
+              <tr>
+                <th>מדד</th>
+                <th>למה הוא משמש?</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style={{color:'var(--accent)'}}>Accuracy (דיוק כולל)</td>
+                <td>כמה תחזיות היו נכונות מתוך סך התחזיות שבוצעו.</td>
+              </tr>
+              <tr>
+                <td>Precision (דיוק חיובי)</td>
+                <td>מתוך המקרים שסומנו כחיוביים (למשל הונאה), כמה באמת היו חיוביים?</td>
+              </tr>
+              <tr>
+                <td>Recall (רגישות)</td>
+                <td>מתוך כל החיוביים האמיתיים שהיו בדאטה, כמה הצלחנו לתפוס?</td>
+              </tr>
+              <tr>
+                <td>F1-Score</td>
+                <td>ממוצע הרמוני המאזן בצורה אופטימלית בין Precision ל-Recall.</td>
+              </tr>
+              <tr>
+                <td>ROC-AUC / RMSE</td>
+                <td>יכולת ההפרדה של המודל בין מחלקות או גודל טעות החיזוי במספרים.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div className="biz-split-side" style={{padding: 16}}>
+          <div className="biz-split-label" style={{marginBottom: 6}}>דוגמה קריטית: זיהוי הונאה בביטוח</div>
+          <p style={{fontSize:12, margin:'0 0 6px'}}><strong>סכנת ה-Accuracy:</strong> אם רק 2% מהתביעות הן הונאה, מודל שינבא תמיד ״אין הונאה״ יקבל 98% accuracy — אך הוא חסר ערך לחלוטין!</p>
+          <div className="biz-code-label" style={{marginBottom: 4}}>הבנת סוגי הטעויות (Confusion Matrix)</div>
+          <table className="io-table" style={{fontSize:11, margin:0}}>
+            <thead>
+              <tr>
+                <th>סוג טעות</th>
+                <th>משמעות עסקית</th>
+                <th>מה זה גורר?</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style={{color:'#ef4444'}}>False Positive (חשד שווא)</td>
+                <td>חשדנו בלקוח ישר ללא הצדקה.</td>
+                <td>פגיעה בחוויית השירות ובאמון הלקוח.</td>
+              </tr>
+              <tr>
+                <td style={{color:'var(--orange)'}}>False Negative (פספוס)</td>
+                <td>אישרנו תביעת הונאה ללא זיהוי.</td>
+                <td>הפסד כספי ישיר ויקר לחברה.</td>
+              </tr>
+            </tbody>
+          </table>
+          <div style={{fontSize:11, color:'var(--dim)', marginTop:6, direction:'rtl'}}>
+            👉 <strong>החלטה ניהולית:</strong> לקבוע מה יותר יקר לנו (False Positive או False Negative) היא החלטה עסקית, משפטית ומוסרית — לא טכנולוגית!
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function EvaluationLlmSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">חלק 3 — שקף {slideNum} — ולידציה של מודל LLM</div>
+      <h2>מדדי איכות: <em>מודל LLM</em></h2>
+      <p className="slide-sub">LLM לא מחזיר רק מספר או ״כן/לא״ אלא פלט טקסטואלי, המלצה או פעולה. לכן קשה בהרבה למדוד אותו ונדרשת רובריקה (Rubric).</p>
+
+      <table className="pace-table" style={{fontSize:12, margin: '14px 0'}}>
+        <thead>
+          <tr>
+            <th style={{width:'25%'}}>מדד איכות (Rubric)</th>
+            <th style={{width:'35%'}}>השאלה שהמדד בוחן</th>
+            <th>איך מודדים את זה בפועל?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style={{color:'var(--accent)', fontWeight:'bold'}}>Factuality (נכונות)</td>
+            <td>האם התשובה שיוצרה נכונה עובדתית ומבוססת מציאות?</td>
+            <td rowSpan="3" style={{verticalAlign:'middle', background:'rgba(217,119,6,0.01)', padding: 12}}>
+              <strong>שיטות מדידה מודרניות:</strong><br />
+              <ul style={{paddingRight:14, margin:'4px 0 0', listStyleType:'disc', fontSize:11, color:'var(--dim)'}}>
+                <li><strong>Human Evaluation:</strong> בדיקה ידנית של מדגם אקראי על ידי מומחה תוכן (יקר אך אמין).</li>
+                <li><strong>LLM-as-a-Judge:</strong> מודל LLM חזק וחיצוני (כמו GPT-4o) שסורק את התשובות ונותן להן ציון 1-5 על בסיס קריטריונים נוקשים.</li>
+                <li><strong>Eval Sets:</strong> יצירת מאגר קבוע של 100+ תרחישים קשים ובחינת השינויים בין גרסאות מודל (LangSmith).</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td style={{color:'var(--accent)', fontWeight:'bold'}}>Faithfulness (נאמנות)</td>
+            <td>האם התשובה נאמנה למסמכי המקור שהוזרקו לו (ללא המצאות RAG)?</td>
+          </tr>
+          <tr>
+            <td style={{color:'var(--accent)', fontWeight:'bold'}}>Completeness (שלמות)</td>
+            <td>האם הסיכום/הפלט כולל את כל המידע הקריטי וההתחייבויות?</td>
+          </tr>
+          <tr>
+            <td style={{fontWeight:'bold', color: 'var(--white)'}}>Relevance & Safety</td>
+            <td>האם הפלט ענה בדיוק על השאלה ונמנע מתוכן מסוכן/PII?</td>
+            <td>חוסמי קלט/פלט (Guardrails) ומסננים אוטומטיים.</td>
+          </tr>
+          <tr>
+            <td style={{fontWeight:'bold', color: 'var(--white)'}}>Cost & Latency</td>
+            <td>האם עלות הטוקנים וזמן המענה כלכליים ותחרותיים?</td>
+            <td>חישוב עלות ממוצעת לשיחה ומעקב זמנים.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function EvaluationComparisonSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">חלק 3 — שקף {slideNum} — מודל קלאסי מול LLM</div>
+      <h2>ההבדל המרכזי: <em>קלאסי מול LLM</em></h2>
+      <p className="slide-sub">השוואה מסכמת שמבהירה מדוע הטמעת מודלים גנרטיביים דורשת שינוי תפיסה ניהולי מוחלט:</p>
+
+      <table className="pace-table" style={{margin: '16px 0'}}>
+        <thead>
+          <tr>
+            <th>פרמטר</th>
+            <th>מודל קלאסי (ML)</th>
+            <th>מודל LLM / Generative AI</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>הגדרת הבעיה</td>
+            <td>בעיה סגורה ומוגדרת היטב סטטיסטית</td>
+            <td>בעיה פתוחה, יצירתית או מבוססת שיחה</td>
+          </tr>
+          <tr>
+            <td>אופי הפלט</td>
+            <td>פלט מובנה (מספר, הסתברות, קטגוריה)</td>
+            <td>פלט טקסטואלי חופשי, קוד, סיכום או רצף פעולות</td>
+          </tr>
+          <tr>
+            <td>אופן המדידה</td>
+            <td>מדידה סטטיסטית ישירה וברורה (F1, Accuracy)</td>
+            <td>מדידה איכותית מורכבת (Evaluation Rubrics, Judge)</td>
+          </tr>
+          <tr>
+            <td>גמישות היישום</td>
+            <td>פחות גמיש, פותר משימה אחת ספציפית</td>
+            <td>גמיש מאוד, יכול לפתור מגוון משימות במקביל</td>
+          </tr>
+          <tr>
+            <td>הסבר עסקית</td>
+            <td>קל יחסית לתיעוד והסבר דרך פיצ׳רים</td>
+            <td>קשה מאוד לשליטה מלאה והסבר של כל פלט בודד</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div className="biz-punchline" style={{textAlign:'center', fontSize: 18, marginTop: 20, padding: '14px 20px'}}>
+        💡 <strong>משפט מפתח לסיכום המעבר:</strong><br />
+        <span style={{fontSize:20, color:'var(--accent)'}}>״במודל קלאסי אנחנו מודדים אם התחזית נכונה.<br />ב־LLM אנחנו מודדים אם ההתנהגות שלו מספיק טובה, בטוחה ושימושית בתוך ההקשר העסקי.״</span>
+      </div>
+    </div>
+  );
+}
+
+function ClassExerciseSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">חלק 3 — שקף {slideNum} — תרגיל כיתה</div>
+      <h2>תרגיל: <em>בנו POC ל־AI בארגון</em></h2>
+      <p className="slide-sub">התחלקו לקבוצות. כל קבוצה בוחרת מחלקה בארגון (שירות לקוחות, HR, שיווק, משפטי, ביטוח/בנקאות, תפעול, מכירות) וממלאת את הטבלה הבאה:</p>
+
+      <table className="pace-table" style={{fontSize:11, margin: '12px 0'}}>
+        <thead>
+          <tr>
+            <th style={{width:'30%'}}>השאלה לתכנון הניסוי</th>
+            <th>התשובה של הקבוצה שלכם</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1. מה הבעיה העסקית ומי המשתמש?</strong></td>
+            <td style={{color:'var(--dim)', fontStyle:'italic'}}>למשל: נציגי HR מבזבזים שעות על סיווג קורות חיים למשרות פתוחות.</td>
+          </tr>
+          <tr>
+            <td><strong>2. מה ה־AI עושה בפועל (Input → Output)?</strong></td>
+            <td style={{color:'var(--dim)', fontStyle:'italic'}}>קובץ PDF של קו״ח ← חילוץ 5 כישורים מובילים ודירוג התאמה 1-10 למשרה.</td>
+          </tr>
+          <tr>
+            <td><strong>3. מהו הסיכון המרכזי וההשערה הכי מסוכנת?</strong></td>
+            <td style={{color:'var(--dim)', fontStyle:'italic'}}>ההשערה: המודל יפלה מועמדים או יפספס מועמדים מעולים בגלל ניסוח פחות סטנדרטי.</td>
+          </tr>
+          <tr>
+            <td><strong>4. איך נבנה POC פשוט ומהיר תוך יום?</strong></td>
+            <td style={{color:'var(--dim)', fontStyle:'italic'}}>העלאת 20 קו״ח ידנית לטופס, שליחה ל-LLM, השוואה לדירוג ידני של מנהל הגיוס.</td>
+          </tr>
+          <tr>
+            <td><strong>5. מהם מדדי ההצלחה והכישלון הברורים לניסוי?</strong></td>
+            <td style={{color:'var(--dim)', fontStyle:'italic'}}>הצלחה: מעל 90% התאמה לדירוג המנהל. כישלון: המודל מפספס מועמדים רלוונטיים.</td>
+          </tr>
+          <tr>
+            <td><strong>6. מהו קריטריון ההריגה (Kill Criteria) לפרויקט?</strong></td>
+            <td style={{color:'var(--dim)', fontStyle:'italic'}}>אם המודל מציג הטיות מגדריות/גיליות מובהקות, או שהדירוג שלו דורש תיקון ב-40% מהמקרים.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div className="biz-punchline" style={{textAlign:'center', padding:10, margin:'10px 0 0', fontSize:15}}>
+        📢 <strong>כלל הזהב להצגת התרגיל:</strong> ״אני לא מחפש רעיון יפה או מורכב טכנולוגית. אני מחפש ניסוי טוב!״
+      </div>
+    </div>
+  );
+}
+
+function FullUseCaseSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">חלק 3 — שקף {slideNum} — דוגמה מלאה לשימוש</div>
+      <h2>Use Case מלא: <em>סיכום שיחות שירות לקוחות</em></h2>
+      <p className="slide-sub">ניתוח מקרה בוחן אמיתי שמחבר את כל שלבי הלימוד וסיכוני ה־AI בפרויקט ארגוני אחד:</p>
+
+      <div className="usecase-details-grid" style={{margin: '10px 0'}}>
+        <div className="usecase-detail-block" style={{padding: 10}}>
+          <div className="usecase-detail-title" style={{fontSize: 13}}>🔴 הבעיה העסקית והכาב</div>
+          <div className="usecase-detail-desc" style={{fontSize: 11, lineHeight: 1.4}}>
+            נציגי שירות הלקוחות מבזבזים 3-5 דקות יקרות בסיום כל שיחה על הקלדת סיכום ידני לתוך מערכת ה-CRM. הדבר מאריך את זמן ההמתנה בתור ויוצר סיכומים חלקיים או לא עקביים.
+          </div>
+        </div>
+
+        <div className="usecase-detail-block" style={{padding: 10}}>
+          <div className="usecase-detail-title" style={{fontSize: 13}}>🟢 הפתרון הטכנולוגי (The Solution)</div>
+          <div className="usecase-detail-desc" style={{fontSize: 11, lineHeight: 1.4}}>
+            מודל LLM המקבל את תמליל השיחה ומסכם אותו לתבנית CRM מובנית: סיבת פנייה, פעולות שבוצעו, התחייבויות ללקוח, רמת דחיפות, ופעולה באחריות מי.
+          </div>
+        </div>
+
+        <div className="usecase-detail-block" style={{padding: 10}}>
+          <div className="usecase-detail-title" style={{fontSize: 13}}>⚠️ סיכונים מרכזיים שמופו מראש</div>
+          <div className="usecase-detail-desc" style={{fontSize: 11, lineHeight: 1.4}}>
+            המודל ממציא התחייבויות שלא נאמרו (הזיות), משמיט הבטחות קריטיות שניתנו ללקוח, מידע פיננסי או אישי רגיש (PII) דולף החוצה, או שהנציג סומך עליו עיוורת ולא קורא את הסיכום.
+          </div>
+        </div>
+
+        <div className="usecase-detail-block" style={{padding: 10}}>
+          <div className="usecase-detail-title" style={{fontSize: 13}}>🧪 הניסוי המהיר (The POC)</div>
+          <div className="usecase-detail-desc" style={{fontSize: 11, lineHeight: 1.4}}>
+            לקיחת 30 שיחות מוקלטות ישנות, הרצתן דרך המודל, השוואת הסיכומים הגנרטיביים מול סיכומי הנציגים המקוריים, ומתן ציון איכות 1-5 על ידי מנהלי השירות על פי רובריקה.
+          </div>
+        </div>
+      </div>
+
+      <div className="biz-code-label" style={{marginBottom: 2}}>מדדי ההצלחה וההחלטה הסופית</div>
+      <table className="io-table" style={{fontSize:11, margin:0}}>
+        <thead>
+          <tr>
+            <th>מדד הצלחה</th>
+            <th>יעד מוגדר ל-POC</th>
+            <th>תוצאות הניסוי בפועל</th>
+            <th>ההחלטה התפעולית</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style={{color: 'var(--white)', fontWeight: 'bold'}}>זמן סיכום ממוצע</td>
+            <td style={{color:'#16a34a'}}>ירידה של 50%+ בזמן הטיפול פוסט-שיחה</td>
+            <td>זמן הסיכום ירד ב-70% (מ-4 דקות ל-70 שניות)</td>
+            <td rowSpan="4" style={{verticalAlign:'middle', background:'rgba(22,163,74,0.02)', fontWeight:'bold', color:'#16a34a', textAlign:'center'}}>
+              🟢 SCALE לכלל המוקד!<br />
+              <span style={{fontWeight:'normal', fontSize:10, color:'var(--dim)', display: 'block', marginTop: 4}}>אפס הזיות קריטיות והחיסכון בזמן הוכח כאדיר. מעלים לפיילוט עם אישור אנושי חובה (Human Approval).</span>
+            </td>
+          </tr>
+          <tr>
+            <td style={{color: 'var(--white)', fontWeight: 'bold'}}>דיוק עובדתי (Factuality)</td>
+            <td style={{color:'#16a34a'}}>95% ומעלה ללא המצאת פרטים</td>
+            <td>97.5% מהסיכומים היו מדויקים לחלוטין עובדתית</td>
+          </tr>
+          <tr>
+            <td style={{color: 'var(--white)', fontWeight: 'bold'}}>שיעור תיקונים כבדים</td>
+            <td style={{color:'#16a34a'}}>פחות מ-10% מהסיכומים דורשים שכתוב</td>
+            <td>רק 6% מהסיכומים הצריכו תיקון ידני של הנציג</td>
+          </tr>
+          <tr>
+            <td style={{color: 'var(--white)', fontWeight: 'bold'}}>הזיות קריטיות</td>
+            <td style={{color:'#ef4444'}}>חובה: 0% (קריטריון הריגה נוקשה)</td>
+            <td>לא נרשמה אף הזיה קריטית של התחייבות פיננסית שווא</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 }
@@ -791,6 +1463,59 @@ function ROISlide({ slideNum }) {
         <div className="roi-param"><div className="roi-param-title">Human Review</div><div className="roi-param-desc">עלות שעות בקרה של עובדים על פלטי המערכת.</div></div>
       </div>
       <Highlight color="#ea580c">רוב פרויקטי ה-AI נכשלים בגלל <em>economics</em> — לא בגלל model quality.</Highlight>
+    </div>
+  );
+}
+
+function SummaryRiskFrameworkSlide({ slideNum }) {
+  return (
+    <div className="slide fade-up">
+      <div className="slide-eyebrow mono">חלק 3 — שקף {slideNum} — מודל ניהול סיכונים מסכם</div>
+      <h2>שקף מסכם: <em>AI Implementation Risk Framework</em></h2>
+      <p className="slide-sub">מנהל אחראי בוחן כל פרויקט AI בארגון דרך 7 עדשות סיכון קריטיות אלו לפני ההשקה:</p>
+
+      <div className="risks-container" style={{gridTemplateColumns:'repeat(4, 1fr)', gap:8, marginTop:16}}>
+        <div className="risk-card-premium accent-risk" style={{padding:12}}>
+          <div style={{fontSize:20, marginBottom:4, fontWeight: 'bold'}}>1</div>
+          <div style={{fontWeight:700, fontSize:13, color:'var(--white)'}}>Problem Risk</div>
+          <div style={{fontSize:11, color:'var(--dim)', marginTop:4}}>האם זו בעיה אמיתית וכואבת, או רק באזז ושיגעון חולף?</div>
+        </div>
+        <div className="risk-card-premium" style={{padding:12}}>
+          <div style={{fontSize:20, marginBottom:4, fontWeight: 'bold'}}>2</div>
+          <div style={{fontWeight:700, fontSize:13, color:'var(--white)'}}>Model Risk</div>
+          <div style={{fontSize:11, color:'var(--dim)', marginTop:4}}>האם המודל הנבחר מסוגל לעמוד בדרישות הדיוק והעקביות?</div>
+        </div>
+        <div className="risk-card-premium accent-risk" style={{padding:12}}>
+          <div style={{fontSize:20, marginBottom:4, fontWeight: 'bold'}}>3</div>
+          <div style={{fontWeight:700, fontSize:13, color:'var(--white)'}}>Data Risk</div>
+          <div style={{fontSize:11, color:'var(--dim)', marginTop:4}}>האם יש לנו מידע תקין, נגיש, חוקי ומאובטח ללא PII?</div>
+        </div>
+        <div className="risk-card-premium" style={{padding:12}}>
+          <div style={{fontSize:20, marginBottom:4, fontWeight: 'bold'}}>4</div>
+          <div style={{fontWeight:700, fontSize:13, color:'var(--white)'}}>Workflow Risk</div>
+          <div style={{fontSize:11, color:'var(--dim)', marginTop:4}}>האם הפתרון משתלב בצורה חלקה ונוחה בעבודה היומית?</div>
+        </div>
+        <div className="risk-card-premium accent-risk" style={{padding:12}}>
+          <div style={{fontSize:20, marginBottom:4, fontWeight: 'bold'}}>5</div>
+          <div style={{fontWeight:700, fontSize:13, color:'var(--white)'}}>Governance Risk</div>
+          <div style={{fontSize:11, color:'var(--dim)', marginTop:4}}>האם יש בקרה, אבטחה (Guardrails) וניטור מלאים?</div>
+        </div>
+        <div className="risk-card-premium" style={{padding:12}}>
+          <div style={{fontSize:20, marginBottom:4, fontWeight: 'bold'}}>6</div>
+          <div style={{fontWeight:700, fontSize:13, color:'var(--white)'}}>Economic Risk</div>
+          <div style={{fontSize:11, color:'var(--dim)', marginTop:4}}>האם זה משתלם ורווחי גם אחרי עלויות אינפרנס וריצה?</div>
+        </div>
+        <div className="risk-card-premium accent-risk" style={{padding:12, gridColumn:'span 2'}}>
+          <div style={{fontSize:20, marginBottom:4, fontWeight: 'bold'}}>7</div>
+          <div style={{fontWeight:700, fontSize:13, color:'var(--white)'}}>Adoption Risk</div>
+          <div style={{fontSize:11, color:'var(--dim)', marginTop:4}}>האם העובדים באמת משתמשים בזה ומאמצים את השינוי בעידוד המנהלים?</div>
+        </div>
+      </div>
+
+      <div className="closing-big-quote" style={{fontSize:18, margin:'16px auto', padding:'12px 0'}}>
+        ״AI מוצלח בארגון הוא לא המודל הכי מתקדם בשוק.<br />
+        הוא <strong>המערכת שמצליחה להפוך יכולת טכנולוגית לערך עסקי מדיד</strong> — בלי לאבד שליטה על הסיכון.״
+      </div>
     </div>
   );
 }
@@ -850,7 +1575,6 @@ function ResourcesSlide({ slideNum }) {
   );
 }
 
-// ═══════════════════════════════════════════════════════════════
 function CourseSummarySlide({ slideNum }) {
   return (
     <div className="slide fade-up">
@@ -889,14 +1613,23 @@ export const SLIDE_COMPONENTS = [
   TokenEconomicsSlide,
   ControlLayerSlide,
   // ACT 3
+  AILessonIntroSlide,
   WhyAIFailsSlide,
-  OperationalProblemSlide,
-  WhatAINeedsSlide,
-  AIDeveloperSlide,
-  LifecycleSlide,
-  EvaluationSlide,
+  RiskCategoriesSlide,
+  RiskCategoriesPart2Slide,
+  FailFastPrincipleSlide,
+  AIPocFrameworkSlide,
+  AIPocFrameworkPart2Slide,
+  AIPocFrameworkPart3Slide,
+  ValidationLevelsSlide,
+  EvaluationClassicalSlide,
+  EvaluationLlmSlide,
+  EvaluationComparisonSlide,
+  ClassExerciseSlide,
+  FullUseCaseSlide,
   GuardrailsSlide,
   ROISlide,
+  SummaryRiskFrameworkSlide,
   FutureOrgSlide,
   ResourcesSlide,
   CourseSummarySlide,
